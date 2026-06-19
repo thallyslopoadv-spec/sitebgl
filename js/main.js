@@ -72,6 +72,11 @@
   }
 
   /* --- Scroll reveal + stagger --- */
+  // Hero stagger/reveal elements are already in view on load — mark them immediately.
+  document.querySelectorAll(".hero .reveal, .hero [data-stagger]").forEach(function (el) {
+    el.classList.add("is-visible");
+  });
+
   var revealEls = document.querySelectorAll(".reveal, [data-stagger]");
   if (revealEls.length) {
     if (prefersReduced || !("IntersectionObserver" in window)) {
