@@ -835,6 +835,16 @@ html.js.is-loaded .hero [data-enter="5"] { transition-delay: .67s; }
 .hero .stats { border-top-color: rgba(244,239,230,.2); }
 .hero .stat__num { color: var(--cream); }
 .hero .stat__label { color: rgba(244,239,230,.72); }
+/* As stats do hero já estão na tela ao carregar: revela via CSS (is-loaded),
+   sem depender do IntersectionObserver — funciona no desktop e no mobile. */
+html.js .hero [data-stagger] > * {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+html.js.is-loaded .hero [data-stagger] > * { opacity: 1; transform: none; }
+html.js.is-loaded .hero [data-stagger] > *:nth-child(1) { transition-delay: .15s; }
+html.js.is-loaded .hero [data-stagger] > *:nth-child(2) { transition-delay: .25s; }
+html.js.is-loaded .hero [data-stagger] > *:nth-child(3) { transition-delay: .35s; }
 
 /* ==========================================================================
    Banda de citação com foto (parallax sutil)
@@ -912,6 +922,7 @@ html.js.is-loaded .hero [data-enter="5"] { transition-delay: .67s; }
   .about__grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .contact__grid { grid-template-columns: 1fr; }
   .member { grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); }
+  .member:nth-of-type(even) { grid-template-columns: minmax(0, 1.4fr) minmax(0, .9fr); }
 }
 
 @media (max-width: 860px) {
@@ -967,7 +978,7 @@ html.js.is-loaded .hero [data-enter="5"] { transition-delay: .67s; }
 @media (max-width: 620px) {
   body { font-size: 1rem; }
   .container, .container--narrow { width: 100%; padding-inline: 1.25rem; }
-  .member { grid-template-columns: 1fr; gap: 1.5rem; }
+  .member, .member:nth-of-type(even) { grid-template-columns: 1fr; gap: 1.5rem; }
   .member:nth-of-type(even) .member__photo { order: 0; }
   .member__photo { max-width: 380px; margin-inline: auto; width: 100%; }
   .hero { min-height: auto; }
