@@ -835,16 +835,8 @@ html.js.is-loaded .hero [data-enter="5"] { transition-delay: .67s; }
 .hero .stats { border-top-color: rgba(244,239,230,.2); }
 .hero .stat__num { color: var(--cream); }
 .hero .stat__label { color: rgba(244,239,230,.72); }
-/* As stats do hero já estão na tela ao carregar: revela via CSS (is-loaded),
-   sem depender do IntersectionObserver — funciona no desktop e no mobile. */
-html.js .hero [data-stagger] > * {
-  opacity: 0; transform: translateY(14px);
-  transition: opacity .7s var(--ease), transform .7s var(--ease);
-}
-html.js.is-loaded .hero [data-stagger] > * { opacity: 1; transform: none; }
-html.js.is-loaded .hero [data-stagger] > *:nth-child(1) { transition-delay: .15s; }
-html.js.is-loaded .hero [data-stagger] > *:nth-child(2) { transition-delay: .25s; }
-html.js.is-loaded .hero [data-stagger] > *:nth-child(3) { transition-delay: .35s; }
+/* Stats ficam na tela ao carregar: força visibilidade sem depender do observer */
+html.js .stats[data-stagger] > * { opacity: 1 !important; transform: none !important; }
 
 /* ==========================================================================
    Banda de citação com foto (parallax sutil)
