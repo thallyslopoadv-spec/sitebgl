@@ -212,6 +212,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
   transition: gap .3s var(--ease), color .3s var(--ease);
 }
 .band-navy .link-arrow, .band-navy-deep .link-arrow { color: var(--silver-light); }
+.hero .link-arrow { color: var(--cream); }
 .link-arrow svg { transition: transform .3s var(--ease); }
 .link-arrow:hover { gap: .85rem; }
 .link-arrow:hover svg { transform: translateX(3px); }
@@ -831,6 +832,9 @@ html.js.is-loaded .hero [data-enter="5"] { transition-delay: .67s; }
 .stat__num--text { font-size: clamp(1.05rem, 1.9vw, 1.3rem); line-height: 1.15; }
 .stat__num small { font-size: .55em; }
 .stat__label { font-size: .85rem; color: var(--ink-soft); margin-top: .45rem; line-height: 1.35; }
+.hero .stats { border-top-color: rgba(244,239,230,.2); }
+.hero .stat__num { color: var(--cream); }
+.hero .stat__label { color: rgba(244,239,230,.72); }
 
 /* ==========================================================================
    Banda de citação com foto (parallax sutil)
