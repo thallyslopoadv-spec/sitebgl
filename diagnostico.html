@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Diagnóstico Jurídico Empresarial — BGL Advogados</title>
-  <meta name="description" content="Diagnóstico inicial de segurança jurídica empresarial. Responda em 8 minutos e descubra os principais riscos que a sua empresa pode não estar enxergando.">
+  <title>Diagnóstico Inicial Bello Pane</title>
+  <meta name="description" content="Diagnóstico Inicial Bello Pane: responda em 8 minutos e ajude a BGL Advogados a preparar uma análise personalizada dos riscos jurídicos da sua empresa.">
   <meta name="robots" content="noindex, nofollow">
 
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
@@ -20,7 +20,7 @@
 
   <style>
     /* ==========================================================================
-       Diagnóstico — estilos próprios da ferramenta (namespace .diag-)
+       Diagnóstico Inicial Bello Pane - estilos próprios da ferramenta (namespace .diag-)
        ========================================================================== */
     body.diag-body { background: var(--cream); }
 
@@ -116,45 +116,9 @@
     .diag-error { color: #8a3a2b; font-size: .85rem; margin-top: .6rem; display: none; }
     .diag-error.is-visible { display: block; }
 
-    /* --- Resultado --- */
+    /* --- Tela final (agradecimento, sem revelar o diagnóstico) --- */
     .diag-result-head { text-align: center; margin-bottom: 2.2rem; }
-    .diag-gauge {
-      width: 200px; height: 200px; border-radius: 50%; margin: 0 auto 1.4rem;
-      background: conic-gradient(var(--gauge-color, var(--navy)) calc(var(--p, 0) * 1%), var(--cream-dim) 0);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 1s var(--ease-soft);
-    }
-    .diag-gauge__inner {
-      width: 162px; height: 162px; border-radius: 50%; background: var(--cream-bright);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: inset 0 1px 3px rgba(8,16,30,.06);
-    }
-    .diag-gauge__score { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 700; color: var(--ink); line-height: 1; }
-    .diag-gauge__max { font-size: .8rem; color: var(--ink-soft); margin-top: .15rem; }
-    .diag-band {
-      display: inline-block; font-family: var(--font-sans); font-weight: 600; font-size: .85rem;
-      letter-spacing: .04em; text-transform: uppercase; padding: .4rem 1rem; border-radius: 999px;
-      color: #fff; background: var(--gauge-color, var(--navy));
-    }
-    .diag-band-desc { max-width: 48ch; margin: 1rem auto 0; color: var(--ink-soft); font-size: 1rem; }
-
-    .diag-risks { list-style: none; padding: 0; margin: 0 0 2rem; display: grid; gap: .75rem; }
-    .diag-risks li {
-      display: flex; gap: .8rem; align-items: flex-start;
-      background: var(--cream-bright); border: 1.5px solid var(--cream-dim); border-radius: var(--radius);
-      padding: .9rem 1.05rem; font-size: .95rem; line-height: 1.55;
-    }
-    .diag-risks li.is-high { border-left: 3px solid #8a3a2b; }
-    .diag-risks li.is-mid { border-left: 3px solid #a67c2e; }
-    .diag-risks .diag-risk-icon { flex-shrink: 0; margin-top: 2px; }
-    .diag-risks li.is-high .diag-risk-icon { color: #8a3a2b; }
-    .diag-risks li.is-mid .diag-risk-icon { color: #a67c2e; }
-
-    .diag-closing {
-      background: var(--navy); color: var(--cream); border-radius: var(--radius);
-      padding: 1.8rem 1.9rem; margin: 2rem 0; font-size: 1.02rem; line-height: 1.65;
-    }
-    .diag-closing p:last-child { margin-bottom: 0; }
+    .diag-band-desc { max-width: 48ch; margin: 1rem auto 0; color: var(--ink-soft); font-size: 1.05rem; }
 
     .diag-cta { text-align: center; margin-top: 2rem; }
     .diag-cta .btn { width: 100%; padding: 1.15rem; font-size: 1.02rem; }
@@ -174,10 +138,10 @@
 
   <header class="diag-topbar">
     <div class="diag-topbar__inner">
-      <a class="diag-logo" href="index.html#inicio" aria-label="BGL Advogados — início">
+      <a class="diag-logo" href="index.html#inicio" aria-label="Ir para o início do site da BGL Advogados">
         <img src="assets/logo-mark.png" alt="BGL Advogados" width="40" height="25">
       </a>
-      <span class="diag-topbar__meta" id="diag-step-label">Diagnóstico Jurídico</span>
+      <span class="diag-topbar__meta" id="diag-step-label">Bello Pane</span>
     </div>
     <div class="diag-progress-track"><div class="diag-progress-bar" id="diag-progress-bar"></div></div>
   </header>
@@ -185,21 +149,33 @@
   <main class="diag-main">
     <form id="diagForm" novalidate>
 
+      <!--
+        COMO EDITAR AS PERGUNTAS
+        Cada etapa do formulário é um bloco <section class="diag-step" data-step="N">.
+        O texto da pergunta fica dentro de um <h2>, e cada opção de resposta é um
+        <label class="diag-option"> com um <input> dentro. Para alterar o texto de
+        qualquer pergunta ou opção, edite só o texto entre as tags: não é preciso
+        mexer em mais nada. Para adicionar ou remover uma opção de resposta, copie
+        ou apague uma linha <label class="diag-option">...</label> inteira dentro
+        do mesmo grupo. Se quiser que eu faça a alteração para você, é só me
+        avisar qual pergunta e qual o novo texto.
+      -->
+
       <!-- Hidden fields enviados junto com as respostas -->
-      <input type="hidden" name="_subject" value="Novo Diagnóstico Jurídico — BGL Advogados">
+      <input type="hidden" name="_subject" value="Novo envio - Diagnóstico Inicial Bello Pane">
       <input type="hidden" name="pontuacao_risco" id="hf-score">
       <input type="hidden" name="nivel_exposicao" id="hf-band">
       <input type="hidden" name="resumo_riscos" id="hf-risks">
 
-      <!-- ================= STEP 0 — Capa ================= -->
+      <!-- ================= STEP 0 - Capa ================= -->
       <section class="diag-step is-active" data-step="0">
         <p class="diag-kicker">Diagnóstico gratuito · ~8 minutos</p>
-        <h1>Diagnóstico Inicial de Segurança Jurídica Empresarial</h1>
-        <p class="diag-lead">Antes da nossa conversa, responda a algumas perguntas rápidas sobre a gestão da sua empresa. A partir delas, preparamos um diagnóstico personalizado dos principais riscos jurídicos — inclusive os que você talvez ainda não tenha percebido.</p>
+        <h1>Diagnóstico Inicial Bello Pane</h1>
+        <p class="diag-lead">Antes da nossa conversa, responda a algumas perguntas rápidas sobre a gestão da sua empresa. A partir delas, preparamos uma análise personalizada dos principais riscos jurídicos, incluindo pontos que você talvez ainda não tenha percebido.</p>
         <ul class="diag-intro-notes">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg> Perguntas de gestão, sem jurisdiquês.</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg> Informações confidenciais, usadas só para o seu diagnóstico.</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg> Ao final, você já vê o resultado na tela.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg> Leva cerca de 8 minutos para responder.</li>
         </ul>
         <div class="diag-nav">
           <span class="diag-nav__spacer"></span>
@@ -207,7 +183,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 1 — Dados da empresa ================= -->
+      <!-- ================= STEP 1 - Dados da empresa ================= -->
       <section class="diag-step" data-step="1">
         <p class="diag-kicker">1. Dados da empresa</p>
         <h2>Antes de tudo, conte sobre a empresa</h2>
@@ -280,7 +256,7 @@
         <p class="diag-error">Preencha os campos obrigatórios (*) antes de continuar.</p>
       </section>
 
-      <!-- ================= STEP 2 — Situação atual ================= -->
+      <!-- ================= STEP 2 - Situação atual ================= -->
       <section class="diag-step" data-step="2">
         <p class="diag-kicker">2. Situação atual</p>
         <h2>A empresa possui advogado ou assessoria jurídica recorrente?</h2>
@@ -302,7 +278,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 3 — Quando procuram advogado ================= -->
+      <!-- ================= STEP 3 - Quando procuram advogado ================= -->
       <section class="diag-step" data-step="3">
         <p class="diag-kicker">2. Situação atual</p>
         <h2>Hoje vocês procuram um advogado principalmente quando:</h2>
@@ -331,7 +307,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 4 — Contratos ================= -->
+      <!-- ================= STEP 4 - Contratos ================= -->
       <section class="diag-step" data-step="4">
         <p class="diag-kicker">3. Contratos</p>
         <h2>Os contratos utilizados foram revisados por advogado nos últimos 12 meses?</h2>
@@ -361,7 +337,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 5 — Trabalhista ================= -->
+      <!-- ================= STEP 5 - Trabalhista ================= -->
       <section class="diag-step" data-step="5">
         <p class="diag-kicker">4. Trabalhista</p>
         <h2>Todos os colaboradores possuem contrato de trabalho atualizado?</h2>
@@ -397,7 +373,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 6 — Relação com clientes ================= -->
+      <!-- ================= STEP 6 - Relação com clientes ================= -->
       <section class="diag-step" data-step="6">
         <p class="diag-kicker">5. Relação com clientes</p>
         <h2>A empresa possui contratos ou termos assinados por todos os clientes?</h2>
@@ -425,7 +401,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 7 — Gestão documental ================= -->
+      <!-- ================= STEP 7 - Gestão documental ================= -->
       <section class="diag-step" data-step="7">
         <p class="diag-kicker">6. Gestão documental</p>
         <h2>Os documentos importantes ficam organizados em local seguro?</h2>
@@ -453,7 +429,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 8 — Proteção da empresa ================= -->
+      <!-- ================= STEP 8 - Proteção da empresa ================= -->
       <section class="diag-step" data-step="8">
         <p class="diag-kicker">7. Proteção da empresa</p>
         <h2>A empresa possui:</h2>
@@ -474,7 +450,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 9 — Principais preocupações ================= -->
+      <!-- ================= STEP 9 - Principais preocupações ================= -->
       <section class="diag-step" data-step="9">
         <p class="diag-kicker">8. Principais preocupações</p>
         <div class="diag-field">
@@ -497,7 +473,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 10 — Expectativas ================= -->
+      <!-- ================= STEP 10 - Expectativas ================= -->
       <section class="diag-step" data-step="10">
         <p class="diag-kicker">9. Expectativas</p>
         <h2>O que você espera de uma assessoria jurídica?</h2>
@@ -523,7 +499,7 @@
         </div>
       </section>
 
-      <!-- ================= STEP 11 — Autoavaliação ================= -->
+      <!-- ================= STEP 11 - Autoavaliação ================= -->
       <section class="diag-step" data-step="11">
         <p class="diag-kicker">10. Autoavaliação</p>
         <h2>Quão protegida juridicamente você considera sua empresa?</h2>
@@ -556,37 +532,23 @@
         <div class="diag-nav">
           <button type="button" class="diag-btn-back diag-back"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Voltar</button>
           <span class="diag-nav__spacer"></span>
-          <button type="button" class="btn btn--primary" id="diag-finish">Ver meu diagnóstico</button>
+          <button type="button" class="btn btn--primary" id="diag-finish">Enviar respostas</button>
         </div>
-        <p class="diag-error" id="consent-error">Marque a autorização acima para ver o seu diagnóstico.</p>
+        <p class="diag-error" id="consent-error">Marque a autorização acima para enviar suas respostas.</p>
         <p class="diag-submit-note" id="diag-submit-note">Enviando respostas com segurança…</p>
       </section>
 
-      <!-- ================= STEP 12 — Resultado ================= -->
+      <!-- ================= STEP 12 - Agradecimento (o diagnóstico não é exibido ao cliente) ================= -->
       <section class="diag-step" data-step="12">
         <div class="diag-result-head">
-          <p class="diag-kicker" style="justify-content:center;">Resultado do diagnóstico</p>
-          <div class="diag-gauge" id="diag-gauge">
-            <div class="diag-gauge__inner">
-              <span class="diag-gauge__score" id="diag-score">0</span>
-              <span class="diag-gauge__max">de 100</span>
-            </div>
-          </div>
-          <span class="diag-band" id="diag-band-label">—</span>
-          <p class="diag-band-desc" id="diag-band-desc"></p>
-        </div>
-
-        <h2>Riscos identificados na sua gestão</h2>
-        <ul class="diag-risks" id="diag-risks-list"></ul>
-
-        <div class="diag-closing">
-          <p>Com base nesse diagnóstico, ficou claro que o problema não é apenas um caso pontual. Existem pontos estruturais que podem gerar novos passivos.</p>
-          <p>A nossa assessoria atua exatamente para corrigir essas vulnerabilidades antes que elas se transformem em processos — dando suporte contínuo à empresa, em vez de atuar apenas quando o problema já aconteceu.</p>
+          <p class="diag-kicker" style="justify-content:center;">Diagnóstico enviado</p>
+          <h2>Obrigado! Suas respostas foram registradas.</h2>
+          <p class="diag-band-desc">Nossa equipe já está analisando as informações. Em breve entraremos em contato para agendar uma conversa e apresentar o diagnóstico completo da sua empresa.</p>
         </div>
 
         <div class="diag-cta">
           <a class="btn btn--primary" id="diag-whatsapp-btn" href="#" target="_blank" rel="noopener">Falar com um advogado agora</a>
-          <p class="diag-cta__note">Leve este diagnóstico para a conversa — ele já está registrado com o nosso time.</p>
+          <p class="diag-cta__note">Se preferir, já pode adiantar a conversa pelo WhatsApp.</p>
         </div>
       </section>
 
@@ -598,8 +560,7 @@
     "use strict";
 
     /* =====================================================================
-       CONFIGURAÇÃO — substitua pelo endpoint da sua conta Formspree
-       (ver instruções enviadas junto com este arquivo)
+       CONFIGURAÇÃO: endpoint da conta Formspree que recebe as respostas
        ===================================================================== */
     var FORMSPREE_ENDPOINT = "https://formspree.io/f/maqrekke";
     var WHATSAPP_NUMBER = "5562992509988";
@@ -609,17 +570,17 @@
     var current = 0;
     var progressBar = document.getElementById("diag-progress-bar");
     var stepLabel = document.getElementById("diag-step-label");
-    var QUESTION_STEPS = steps.length - 2; // exclui capa e resultado
+    var QUESTION_STEPS = steps.length - 2; // exclui capa e agradecimento
 
     function showStep(i) {
       steps.forEach(function (s, idx) { s.classList.toggle("is-active", idx === i); });
       current = i;
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (i === 0) {
-        stepLabel.textContent = "Diagnóstico Jurídico";
+        stepLabel.textContent = "Bello Pane";
         progressBar.style.width = "0%";
       } else if (i >= steps.length - 1) {
-        stepLabel.textContent = "Resultado";
+        stepLabel.textContent = "Concluído";
         progressBar.style.width = "100%";
       } else {
         stepLabel.textContent = "Etapa " + i + " de " + QUESTION_STEPS;
@@ -699,6 +660,8 @@
 
     /* =====================================================================
        PONTUAÇÃO DE RISCO
+       O resultado nunca é mostrado na tela do cliente: fica só nos campos
+       ocultos enviados ao Formspree, para uso da equipe da BGL Advogados.
        ===================================================================== */
     function val(fd, name) { return (fd.get(name) || "").toString(); }
     function all(fd, name) { return fd.getAll(name).map(String); }
@@ -707,62 +670,62 @@
       var checkpoints = [];
 
       if (val(fd, "possui_assessoria") === "Não") {
-        checkpoints.push({ w: 3, sev: "high", text: "A empresa não conta com assessoria jurídica recorrente — decisões importantes provavelmente estão sendo tomadas sem respaldo jurídico prévio." });
+        checkpoints.push({ w: 3, text: "A empresa não conta com assessoria jurídica recorrente. Decisões importantes provavelmente estão sendo tomadas sem respaldo jurídico prévio." });
       }
       var qp = val(fd, "quando_procura");
       if (qp && qp !== "Sempre antes de tomar decisões importantes") {
-        checkpoints.push({ w: 2, sev: "mid", text: "O contato com um advogado só acontece depois que o problema já apareceu — a empresa está sempre reagindo, nunca prevenindo." });
+        checkpoints.push({ w: 2, text: "O contato com um advogado só acontece depois que o problema já apareceu. A empresa está sempre reagindo, nunca prevenindo." });
       }
       var incidentPesos = { "Reclamação trabalhista": 2, "Cobrança judicial": 2, "Problemas com fornecedores": 1, "Problemas com clientes": 1, "Multas administrativas": 2, "Questões societárias": 2 };
       all(fd, "incidentes_24m[]").forEach(function (v) {
-        if (incidentPesos[v]) checkpoints.push({ w: incidentPesos[v], sev: "high", text: "Nos últimos 24 meses a empresa já enfrentou: " + v.toLowerCase() + " — isso mostra que o risco não é hipotético, já se materializou." });
+        if (incidentPesos[v]) checkpoints.push({ w: incidentPesos[v], text: "Nos últimos 24 meses a empresa já enfrentou: " + v.toLowerCase() + ". Isso mostra que o risco não é hipotético, já se materializou." });
       });
       if (val(fd, "contratos_revisados") === "Não") {
-        checkpoints.push({ w: 2, sev: "mid", text: "Os contratos usados pela empresa não passam por revisão jurídica há mais de 12 meses — cláusulas desatualizadas são uma das causas mais comuns de disputa." });
+        checkpoints.push({ w: 2, text: "Os contratos usados pela empresa não passam por revisão jurídica há mais de 12 meses. Cláusulas desatualizadas são uma das causas mais comuns de disputa." });
       }
       var tc = val(fd, "tipo_contrato");
       if (tc === "Não utilizamos contratos escritos") {
-        checkpoints.push({ w: 3, sev: "high", text: "A empresa não utiliza contratos escritos em suas relações — sem um documento formal, é praticamente impossível comprovar o que foi combinado em uma disputa." });
+        checkpoints.push({ w: 3, text: "A empresa não utiliza contratos escritos em suas relações. Sem um documento formal, é praticamente impossível comprovar o que foi combinado em uma disputa." });
       } else if (tc === "Adaptados da internet" || tc === "Modelos antigos") {
-        checkpoints.push({ w: 2, sev: "mid", text: "Os contratos utilizados são " + tc.toLowerCase() + " — modelos genéricos costumam deixar de fora exatamente as cláusulas que protegeriam a empresa no seu caso específico." });
+        checkpoints.push({ w: 2, text: "Os contratos utilizados são " + tc.toLowerCase() + ". Modelos genéricos costumam deixar de fora exatamente as cláusulas que protegeriam a empresa no seu caso específico." });
       }
       if (val(fd, "assinatura_eletronica") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Não há procedimento formal de assinatura e armazenamento dos contratos, o que dificulta comprovar o que foi acordado em caso de disputa." });
+        checkpoints.push({ w: 1, text: "Não há procedimento formal de assinatura e armazenamento dos contratos, o que dificulta comprovar o que foi acordado em caso de disputa." });
       }
       if (val(fd, "contrato_trabalho_atualizado") !== "Sim" && val(fd, "contrato_trabalho_atualizado")) {
-        checkpoints.push({ w: 2, sev: "high", text: "Nem todos os colaboradores possuem contrato de trabalho atualizado — uma das brechas mais exploradas em reclamações trabalhistas." });
+        checkpoints.push({ w: 2, text: "Nem todos os colaboradores possuem contrato de trabalho atualizado, uma das brechas mais exploradas em reclamações trabalhistas." });
       }
       if (val(fd, "funcao_diferente") && val(fd, "funcao_diferente") !== "Não") {
-        checkpoints.push({ w: 2, sev: "high", text: "Existem colaboradores exercendo função diferente da registrada — situação que costuma motivar pedidos de reconhecimento de desvio de função e diferenças salariais." });
+        checkpoints.push({ w: 2, text: "Existem colaboradores exercendo função diferente da registrada, situação que costuma motivar pedidos de reconhecimento de desvio de função e diferenças salariais." });
       }
       if (val(fd, "advertencias_formalizadas") === "Não") {
-        checkpoints.push({ w: 2, sev: "mid", text: "A empresa não formaliza advertências e suspensões — sem esse histórico, fica muito mais difícil justificar uma demissão por justa causa." });
+        checkpoints.push({ w: 2, text: "A empresa não formaliza advertências e suspensões. Sem esse histórico, fica muito mais difícil justificar uma demissão por justa causa." });
       }
       if (val(fd, "procedimento_admissao_desligamento") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Não existe um procedimento padronizado para admissões e desligamentos — foi justamente esse tipo de situação que motiva boa parte dos processos trabalhistas." });
+        checkpoints.push({ w: 1, text: "Não existe um procedimento padronizado para admissões e desligamentos. Esse tipo de situação motiva boa parte dos processos trabalhistas." });
       }
       if (val(fd, "contrato_clientes") === "Não") {
-        checkpoints.push({ w: 2, sev: "high", text: "Nem todos os clientes assinam contrato ou termo de prestação de serviço — isso enfraquece a posição da empresa em qualquer discussão sobre escopo ou cobrança." });
+        checkpoints.push({ w: 2, text: "Nem todos os clientes assinam contrato ou termo de prestação de serviço. Isso enfraquece a posição da empresa em qualquer discussão sobre escopo ou cobrança." });
       }
       if (val(fd, "procedimento_cobranca") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Não há um procedimento estruturado para cobrança de inadimplentes, o que costuma prolongar prejuízos que poderiam ser resolvidos rapidamente." });
+        checkpoints.push({ w: 1, text: "Não há um procedimento estruturado para cobrança de inadimplentes, o que costuma prolongar prejuízos que poderiam ser resolvidos rapidamente." });
       }
       if (val(fd, "cliente_alegou_diferente") === "Sim") {
-        checkpoints.push({ w: 2, sev: "high", text: "Já houve cliente alegando ter recebido serviço diferente do contratado — um risco que já se materializou pelo menos uma vez." });
+        checkpoints.push({ w: 2, text: "Já houve cliente alegando ter recebido serviço diferente do contratado, um risco que já se materializou pelo menos uma vez." });
       }
       if (val(fd, "documentos_organizados") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Os documentos importantes não ficam organizados em local seguro — dificulta reunir provas rapidamente quando surge uma disputa." });
+        checkpoints.push({ w: 1, text: "Os documentos importantes não ficam organizados em local seguro. Isso dificulta reunir provas rapidamente quando surge uma disputa." });
       }
       if (val(fd, "controle_vencimento") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Não existe controle de vencimento de contratos — renovações automáticas indesejadas e prazos perdidos costumam passar despercebidos." });
+        checkpoints.push({ w: 1, text: "Não existe controle de vencimento de contratos. Renovações automáticas indesejadas e prazos perdidos costumam passar despercebidos." });
       }
       if (val(fd, "politica_armazenamento") === "Não") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Não existe política de armazenamento de documentos, o que aumenta o risco de perda de informações e problemas relacionados à LGPD." });
+        checkpoints.push({ w: 1, text: "Não existe política de armazenamento de documentos, o que aumenta o risco de perda de informações e problemas relacionados à LGPD." });
       }
       var protecaoItens = ["Acordo de Sócios", "Contrato Social atualizado", "Política Interna", "Regulamento Interno", "LGPD implementada", "Procurações atualizadas"];
       var protecaoTextos = {
-        "Acordo de Sócios": "A empresa não possui Acordo de Sócios — a principal ferramenta para prevenir e resolver conflitos entre sócios antes que virem litígio.",
-        "Contrato Social atualizado": "O Contrato Social não está atualizado — decisões societárias tomadas sobre uma base desatualizada podem ser questionadas.",
+        "Acordo de Sócios": "A empresa não possui Acordo de Sócios, a principal ferramenta para prevenir e resolver conflitos entre sócios antes que virem litígio.",
+        "Contrato Social atualizado": "O Contrato Social não está atualizado. Decisões societárias tomadas sobre uma base desatualizada podem ser questionadas.",
         "Política Interna": "A empresa não possui Política Interna formalizada para orientar a conduta da equipe.",
         "Regulamento Interno": "A empresa não possui Regulamento Interno, o que enfraquece a aplicação de normas disciplinares.",
         "LGPD implementada": "A empresa ainda não implementou a LGPD, o que representa risco de sanções e de danos à reputação em caso de incidente com dados.",
@@ -772,24 +735,24 @@
       var nenhumaProtecao = protecaoMarcada.indexOf("Nenhum dos itens") !== -1;
       protecaoItens.forEach(function (item) {
         if (nenhumaProtecao || protecaoMarcada.indexOf(item) === -1) {
-          checkpoints.push({ w: 1, sev: "mid", text: protecaoTextos[item] });
+          checkpoints.push({ w: 1, text: protecaoTextos[item] });
         }
       });
       var nota = parseInt(val(fd, "nota_protecao"), 10);
       if (!isNaN(nota)) {
         if (nota <= 4) {
-          checkpoints.push({ w: 3, sev: "high", text: "Você mesmo avaliou a proteção jurídica da empresa com nota " + nota + " — isso costuma refletir uma percepção real de vulnerabilidade, não apenas uma impressão." });
+          checkpoints.push({ w: 3, text: "O próprio respondente avaliou a proteção jurídica da empresa com nota " + nota + ". Isso costuma refletir uma percepção real de vulnerabilidade, não apenas uma impressão." });
         } else if (nota <= 6) {
-          checkpoints.push({ w: 1, sev: "mid", text: "Você avaliou a proteção jurídica da empresa com nota " + nota + " — ainda há espaço relevante para reduzir a exposição." });
+          checkpoints.push({ w: 1, text: "O próprio respondente avaliou a proteção jurídica da empresa com nota " + nota + ". Ainda há espaço relevante para reduzir a exposição." });
         }
       }
       var impacto = val(fd, "impacto_financeiro");
       if (impacto === "Poderia comprometer seriamente o negócio") {
-        checkpoints.push({ w: 3, sev: "high", text: "Você mesmo reconhece que um processo inesperado poderia comprometer seriamente o negócio — o custo de não agir preventivamente é alto." });
+        checkpoints.push({ w: 3, text: "O próprio respondente reconhece que um processo inesperado poderia comprometer seriamente o negócio. O custo de não agir preventivamente é alto." });
       } else if (impacto === "Muito") {
-        checkpoints.push({ w: 2, sev: "high", text: "Um processo trabalhista ou contratual inesperado teria um impacto financeiro muito relevante para a empresa." });
+        checkpoints.push({ w: 2, text: "Um processo trabalhista ou contratual inesperado teria um impacto financeiro muito relevante para a empresa." });
       } else if (impacto === "Moderadamente") {
-        checkpoints.push({ w: 1, sev: "mid", text: "Mesmo um impacto financeiro 'moderado' de um processo inesperado pode desorganizar o caixa da empresa por meses." });
+        checkpoints.push({ w: 1, text: "Mesmo um impacto financeiro moderado de um processo inesperado pode desorganizar o caixa da empresa por meses." });
       }
 
       // Peso total possível (fixo, calculado a partir de todas as regras acima)
@@ -801,67 +764,29 @@
     }
 
     function bandFor(score) {
-      if (score < 25) return { key: "Exposição Baixa", color: "#4b7a53", desc: "Sua empresa está em uma posição relativamente segura, mas alguns pontos merecem atenção contínua para não virarem brechas no futuro." };
-      if (score < 50) return { key: "Exposição Moderada", color: "#a67c2e", desc: "Existem lacunas relevantes na proteção jurídica da empresa. Isoladamente parecem pequenas, mas juntas aumentam consideravelmente o risco de passivos." };
-      if (score < 75) return { key: "Exposição Alta", color: "#b25a2b", desc: "A empresa está operando com um nível de exposição jurídica preocupante. Vários processos internos que deveriam protegê-la simplesmente não existem." };
-      return { key: "Exposição Crítica", color: "#8a2b2b", desc: "O nível de exposição identificado é crítico. Praticamente não há estrutura de prevenção — qualquer evento trabalhista, contratual ou societário pode gerar um passivo capaz de comprometer o negócio." };
+      if (score < 25) return { key: "Exposição Baixa", desc: "A empresa está em uma posição relativamente segura, mas alguns pontos merecem atenção contínua para não virarem brechas no futuro." };
+      if (score < 50) return { key: "Exposição Moderada", desc: "Existem lacunas relevantes na proteção jurídica da empresa. Isoladamente parecem pequenas, mas juntas aumentam consideravelmente o risco de passivos." };
+      if (score < 75) return { key: "Exposição Alta", desc: "A empresa está operando com um nível de exposição jurídica preocupante. Vários processos internos que deveriam protegê-la simplesmente não existem." };
+      return { key: "Exposição Crítica", desc: "O nível de exposição identificado é crítico. Praticamente não há estrutura de prevenção, e qualquer evento trabalhista, contratual ou societário pode gerar um passivo capaz de comprometer o negócio." };
     }
 
-    function animateScore(score, color) {
-      var scoreEl = document.getElementById("diag-score");
-      var gauge = document.getElementById("diag-gauge");
-      gauge.style.setProperty("--gauge-color", color);
-      var start = null, dur = 1100;
-      function tick(t) {
-        if (!start) start = t;
-        var p = Math.min((t - start) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 3);
-        var current = Math.round(score * eased);
-        scoreEl.textContent = current;
-        gauge.style.setProperty("--p", current);
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    function buildWhatsappMessage(fd, result, band) {
-      var nome = val(fd, "responsavel") || "—";
-      var empresa = val(fd, "nome_fantasia") || val(fd, "razao_social") || "—";
-      var msg = "Olá! Sou " + nome + ", da empresa " + empresa + ". Acabei de preencher o Diagnóstico Jurídico da BGL Advogados e minha exposição foi classificada como \"" + band.key + "\" (" + result.score + "/100). Gostaria de agendar uma conversa.";
+    function buildWhatsappMessage(fd) {
+      var nome = val(fd, "responsavel");
+      var empresa = val(fd, "nome_fantasia") || val(fd, "razao_social");
+      var msg = "Olá! Sou " + (nome || "um empresário") + (empresa ? ", da empresa " + empresa : "") + ". Acabei de preencher o Diagnóstico Inicial Bello Pane e gostaria de agendar uma conversa.";
       return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     }
 
-    function renderResults(fd) {
+    function prepareSubmission(fd) {
       var result = computeRisks(fd);
       var band = bandFor(result.score);
-
-      document.getElementById("diag-band-label").textContent = band.key;
-      document.getElementById("diag-band-label").style.background = band.color;
-      document.getElementById("diag-band-desc").textContent = band.desc;
-
-      var list = document.getElementById("diag-risks-list");
-      list.innerHTML = "";
-      if (result.checkpoints.length === 0) {
-        var li = document.createElement("li");
-        li.textContent = "Nenhum risco relevante identificado nas respostas — parabéns pela organização jurídica da empresa.";
-        list.appendChild(li);
-      } else {
-        result.checkpoints.slice(0, 12).forEach(function (c) {
-          var li = document.createElement("li");
-          li.className = c.sev === "high" ? "is-high" : "is-mid";
-          li.innerHTML = '<span class="diag-risk-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 4.2 2.6 17.5A1.8 1.8 0 0 0 4.2 20h15.6a1.8 1.8 0 0 0 1.6-2.5L13.7 4.2a1.8 1.8 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span></span>';
-          li.querySelector("span:last-child").textContent = c.text;
-          list.appendChild(li);
-        });
-      }
+      var detalhes = result.checkpoints.map(function (c) { return "- " + c.text; }).join("\n");
 
       document.getElementById("hf-score").value = result.score;
       document.getElementById("hf-band").value = band.key;
-      document.getElementById("hf-risks").value = result.checkpoints.map(function (c) { return "- " + c.text; }).join("\n");
+      document.getElementById("hf-risks").value = band.desc + (detalhes ? "\n\n" + detalhes : "");
 
-      document.getElementById("diag-whatsapp-btn").href = buildWhatsappMessage(fd, result, band);
-
-      animateScore(result.score, band.color);
+      document.getElementById("diag-whatsapp-btn").href = buildWhatsappMessage(fd);
     }
 
     function submitToFormspree() {
@@ -887,7 +812,7 @@
       consentError.classList.remove("is-visible");
 
       var fd = new FormData(form);
-      renderResults(fd);
+      prepareSubmission(fd);
       submitToFormspree();
       showStep(steps.length - 1);
     });
