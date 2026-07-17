@@ -484,7 +484,7 @@
           <label class="diag-option"><input type="checkbox" name="expectativas[]" value="Elaboração de contratos"> Elaboração de contratos</label>
           <label class="diag-option"><input type="checkbox" name="expectativas[]" value="Atendimento rápido"> Atendimento rápido</label>
           <label class="diag-option"><input type="checkbox" name="expectativas[]" value="Treinamento da equipe"> Treinamento da equipe</label>
-          <label class="diag-option"><input type="checkbox" id="expectativa-outro-check" value="Outro"> Outro</label>
+          <label class="diag-option"><input type="checkbox" id="expectativa-outro-check" name="expectativa_outro_check" value="Outro"> Outro</label>
         </div>
         <div class="diag-conditional" id="cond-expectativa-outro">
           <div class="diag-field">
@@ -525,7 +525,7 @@
         </div>
 
         <div class="diag-consent">
-          <input type="checkbox" id="consentimento" required>
+          <input type="checkbox" id="consentimento" name="consentimento" value="Autorizado" required>
           <label for="consentimento" style="font-weight:400;margin:0;">Autorizo o uso destas informações, de forma confidencial, exclusivamente para a elaboração do diagnóstico e para contato da BGL Advogados.</label>
         </div>
 
@@ -802,7 +802,10 @@
     }
 
     document.getElementById("diag-finish").addEventListener("click", function () {
-      var consent = document.getElementById("consentimento");
+      if (!form.reportValidity()) {
+        return;
+      }
+var consent = document.getElementById("consentimento");
       var consentError = document.getElementById("consent-error");
       if (!consent.checked) {
         consentError.classList.add("is-visible");
@@ -812,6 +815,8 @@
       consentError.classList.remove("is-visible");
 
       var fd = new FormData(form);
+      console.log("Email enviado:", fd.get("email"));
+      for (const [k,v] of fd.entries()) console.log(k,"=",v);
       prepareSubmission(fd);
       submitToFormspree();
       showStep(steps.length - 1);
