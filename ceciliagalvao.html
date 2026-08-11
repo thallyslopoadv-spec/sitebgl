@@ -265,6 +265,15 @@
   }
 
 </style>
+
+<!-- Google Analytics 4 (propriedade BGL Advogados, ID do fluxo 15415223181) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-92B1N6DHGM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-92B1N6DHGM');
+</script>
 </head>
 <body>
 
@@ -328,5 +337,42 @@
 
 </div>
 
+
+<!-- GA4: evento whatsapp_click.
+     Esta landing page não carrega js/main.js (design próprio), por isso o
+     listener vive aqui. Mesma regra: um listener delegado, um evento por
+     clique, e nenhum dado pessoal enviado (o telefone é removido da URL). -->
+<script>
+(function () {
+  if (window.__bglWaTracker) return;
+  window.__bglWaTracker = true;
+  var WA_HOST = /(^|\.)wa\.me$|(^|\.)whatsapp\.com$/i;
+  var ultimo = { el: null, t: 0 };
+  document.addEventListener("click", function (e) {
+    var alvo = e.target;
+    if (!alvo || typeof alvo.closest !== "function") return;
+    var link = alvo.closest("a[href]");
+    if (!link) return;
+    var url;
+    try { url = new URL(link.href, window.location.href); } catch (err) { return; }
+    if (!WA_HOST.test(url.hostname)) return;
+    var agora = Date.now();
+    if (link === ultimo.el && agora - ultimo.t < 350) return;
+    ultimo = { el: link, t: agora };
+    if (typeof window.gtag !== "function") return;
+    var t = (link.textContent || "").replace(/\s+/g, " ").trim();
+    if ((t.match(/\d/g) || []).length >= 6) t = "";
+    var params = {
+      link_url: url.protocol + "//" + url.hostname + "/",
+      link_domain: url.hostname,
+      link_position: link.closest(".link-card") ? "link_bio" : "conteudo",
+      page_location: window.location.href,
+      page_title: document.title
+    };
+    if (t) params.link_text = t.slice(0, 100);
+    window.gtag("event", "whatsapp_click", params);
+  }, false);
+})();
+</script>
 </body>
 </html>

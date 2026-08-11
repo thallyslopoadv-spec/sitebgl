@@ -165,24 +165,81 @@
   }
 
   /* ======================================================================
-     RASTREAMENTO DE CONVERSÃO — WhatsApp
+     GA4 — evento whatsapp_click
      ----------------------------------------------------------------------
-     Replica a lógica das landing pages: ao clicar em qualquer link de
-     WhatsApp dispara o evento de conversão do Google Ads.
-     >>> Aguardando confirmação do ID de conversão (rótulo) pelo usuário. <<<
-     Para ativar: descomente o bloco abaixo e substitua
-     'AW-18117456860/XXXXXXXXXXXXXXXXX' pelo par CONTA/RÓTULO de conversão.
+     UM único listener delegado no documento cobre todos os links de
+     WhatsApp da página, inclusive o botão flutuante e o menu mobile.
+     Como o site não tem roteamento client-side nem re-renderização, um
+     clique produz exatamente um evento. A guarda __bglWaTracker impede
+     duplo registro caso o arquivo seja incluído duas vezes.
+
+     PRIVACIDADE: nenhum dado pessoal é enviado. O número de telefone é
+     removido tanto da URL quanto do texto do link antes do envio.
      ====================================================================== */
-  document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]').forEach(function (link) {
-    link.addEventListener("click", function () {
-      // if (typeof gtag === "function") {
-      //   gtag("event", "conversion", {
-      //     "send_to": "AW-18117456860/XXXXXXXXXXXXXXXXX",
-      //     "event_callback": function () {}
-      //   });
-      // }
-    });
-  });
+  if (!window.__bglWaTracker) {
+    window.__bglWaTracker = true;
+
+    var WA_HOST = /(^|\.)wa\.me$|(^|\.)whatsapp\.com$/i;
+    /* Guarda contra duplo disparo do MESMO elemento (toque que gera click
+       sintético no mobile). Compara o elemento, nunca a URL: todos os CTAs
+       do site apontam para o mesmo número, e comparar href faria um clique
+       no hero ser descartado logo após um clique no header. */
+    var ultimoClique = { el: null, t: 0 };
+
+    function posicaoDoLink(el) {
+      if (el.closest(".wa-float")) return "botao_flutuante";
+      if (el.closest("header.nav")) return "header";
+      if (el.closest(".hero, .pillar-hero, .article-hero")) return "hero";
+      if (el.closest(".cta-band")) return "cta_final";
+      if (el.closest(".section-actions")) return "cta_secao";
+      if (el.closest("#contato")) return "contato";
+      if (el.closest(".article-body")) return "artigo";
+      if (el.closest("footer")) return "footer";
+      return "conteudo";
+    }
+
+    /* Descarta qualquer texto que pareça telefone (o CTA da seção de
+       contato usa o próprio número como rótulo visível). */
+    function textoSeguro(el) {
+      var t = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if ((t.match(/\d/g) || []).length >= 6) t = "";
+      if (!t) t = (el.getAttribute("aria-label") || "").trim();
+      if ((t.match(/\d/g) || []).length >= 6) t = "";
+      return t.slice(0, 100);
+    }
+
+    document.addEventListener("click", function (e) {
+      var alvo = e.target;
+      if (!alvo || typeof alvo.closest !== "function") return;
+      var link = alvo.closest("a[href]");
+      if (!link) return;
+
+      var url;
+      try { url = new URL(link.href, window.location.href); } catch (err) { return; }
+      if (!WA_HOST.test(url.hostname)) return;
+
+      var agora = Date.now();
+      if (link === ultimoClique.el && agora - ultimoClique.t < 350) return;
+      ultimoClique = { el: link, t: agora };
+
+      if (typeof window.gtag !== "function") return;
+
+      var params = {
+        link_url: url.protocol + "//" + url.hostname + "/", // sem o telefone
+        link_domain: url.hostname,
+        link_position: posicaoDoLink(link),
+        page_location: window.location.href,
+        page_title: document.title
+      };
+      var texto = textoSeguro(link);
+      if (texto) params.link_text = texto;
+
+      window.gtag("event", "whatsapp_click", params);
+
+      /* Conversão do Google Ads: ativar quando o rótulo for confirmado.
+         window.gtag("event", "conversion", { send_to: "AW-18117456860/RÓTULO" }); */
+    }, false);
+  }
 
   /* --- Ano dinâmico no rodapé (se houver placeholder) --- */
   var y = document.querySelector("[data-year]");
