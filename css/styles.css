@@ -1211,3 +1211,182 @@ html.js .review-card__stars svg { opacity: 0; }
   .review-card__stars svg, html.js .review-card__stars svg { opacity: 1 !important; }
   .review-card__stars svg path { animation: none !important; }
 }
+
+/* ==========================================================================
+   Páginas de área de atuação (páginas-pilar)
+   Adições isoladas: reaproveitam os tokens, as bandas e os componentes já
+   existentes. Nenhuma regra anterior foi alterada.
+   ========================================================================== */
+
+/* Breadcrumb visível */
+.crumbs { margin-bottom: 1.5rem; }
+.crumbs ol {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+  font-size: .84rem; letter-spacing: .01em;
+}
+.crumbs li { display: flex; align-items: center; gap: .5rem; }
+.crumbs li + li::before { content: "/"; color: var(--silver-dark); }
+.crumbs a { color: var(--silver-light); opacity: .9; transition: opacity .3s var(--ease); }
+.crumbs a:hover { opacity: 1; }
+.crumbs [aria-current="page"] { color: var(--silver-dark); }
+
+/* Hero da página-pilar — mesma base do hero de artigo, com espaço para CTA */
+.pillar-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color: var(--cream);
+  padding: calc(var(--nav-h) + 3.5rem) 0 clamp(3rem, 6vw, 4.5rem);
+}
+.pillar-hero__watermark {
+  position: absolute; right: -7%; bottom: -34%;
+  width: min(48vw, 560px); opacity: .055; z-index: 0;
+  pointer-events: none; user-select: none;
+  filter: grayscale(1) brightness(2.2);
+}
+.pillar-hero .container { position: relative; z-index: 1; }
+.pillar-hero__inner { max-width: 62ch; }
+.pillar-hero h1 {
+  font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+  line-height: 1.06; max-width: 20ch; margin-bottom: 1.4rem;
+}
+.pillar-hero h1 em { font-style: italic; font-weight: 500; color: var(--silver-light); }
+.pillar-hero__lead {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.15rem, 2.3vw, 1.5rem);
+  color: var(--silver-light); max-width: 46ch; margin-bottom: 1.3rem;
+}
+.pillar-hero__support {
+  font-size: 1.08rem; color: rgba(244, 239, 230, .85);
+  max-width: 58ch; margin-bottom: 2.2rem;
+}
+
+/* Ajustes de contraste dentro do hero escuro da página-pilar */
+.pillar-hero .eyebrow { color: var(--silver-light); }
+.pillar-hero .link-arrow { color: var(--cream); }
+.pillar-hero .link-arrow:hover { color: var(--silver-light); }
+
+/* Link de entrada para a página de área, dentro do painel da home */
+.areas__panel .link-arrow { margin-top: 1.7rem; }
+
+/* Grade de blocos: situações, frentes de atuação e riscos */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.3rem; }
+/* Variante com blocos mais largos (frentes de atuação): 2 colunas equilibradas */
+.tiles--wide { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
+.tile {
+  background: var(--cream-bright);
+  border: 1px solid var(--cream-dim);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.6rem;
+  transition: transform .45s var(--ease-soft), box-shadow .45s var(--ease-soft), border-color .45s var(--ease-soft);
+}
+.tile:hover { transform: translateY(-5px); box-shadow: var(--shadow-card); border-color: var(--silver); }
+.band-navy .tile, .band-navy-deep .tile { background: var(--navy-soft); border-color: var(--navy-line); }
+.tile__ico { width: 26px; height: 26px; color: var(--silver-dark); margin-bottom: 1rem; }
+.band-navy .tile__ico, .band-navy-deep .tile__ico { color: var(--silver-light); }
+.tile h3 { font-size: 1.22rem; line-height: 1.25; color: var(--navy); margin-bottom: .7rem; }
+.band-navy .tile h3, .band-navy-deep .tile h3 { color: var(--cream); }
+.tile p { font-size: 1rem; color: var(--ink-soft); margin: 0; }
+.band-navy .tile p, .band-navy-deep .tile p { color: rgba(244, 239, 230, .82); }
+.tile p + p { margin-top: .7rem; }
+.tile__index {
+  display: block; font-family: var(--font-serif); font-size: 2.3rem; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px var(--silver-dark); margin-bottom: .8rem;
+}
+.band-navy .tile__index, .band-navy-deep .tile__index { -webkit-text-stroke-color: var(--silver); }
+
+/* Passos numerados */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.9rem; counter-reset: step; max-width: 82ch; }
+.steps > li {
+  counter-increment: step;
+  display: grid; grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 1.3rem; align-items: start;
+}
+.steps > li::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-sans); font-size: .78rem; font-weight: 600; letter-spacing: .12em;
+  color: var(--silver-dark); padding-top: .45rem; border-top: 2px solid var(--silver);
+}
+.steps h3 { font-size: 1.2rem; color: var(--navy); margin-bottom: .5rem; }
+.steps p { margin: 0; color: var(--ink-soft); }
+.steps p + p { margin-top: .6rem; }
+
+/* Lista de frentes de risco */
+.risk-list {
+  list-style: none; margin: clamp(2.4rem, 5vw, 3.4rem) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 1.4rem 2.2rem;
+}
+.risk-list li { position: relative; padding-left: 1.5rem; opacity: .88; }
+.risk-list li::before {
+  content: ""; position: absolute; left: 0; top: .8em;
+  width: 10px; height: 1px; background: currentColor; opacity: .6;
+}
+.risk-list strong {
+  display: block; font-family: var(--font-serif); font-weight: 600;
+  font-size: 1.1rem; opacity: 1; margin-bottom: .2rem;
+}
+
+/* Prosa das páginas-pilar (com links contextuais visíveis) */
+.pillar-prose { max-width: 68ch; }
+.pillar-prose p { font-size: 1.1rem; color: var(--ink-soft); }
+.pillar-prose p:last-child { margin-bottom: 0; }
+.band-navy .pillar-prose p, .band-navy-deep .pillar-prose p { color: rgba(244, 239, 230, .85); }
+
+/* Links contextuais dentro de texto corrido (páginas-pilar e artigos) */
+.pillar-prose a, .article-body p a, .tile p a, .steps p a {
+  text-decoration: underline;
+  text-underline-offset: .18em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--silver);
+  transition: color .3s var(--ease), text-decoration-color .3s var(--ease);
+}
+.pillar-prose a:hover, .article-body p a:hover, .tile p a:hover, .steps p a:hover {
+  color: var(--navy); text-decoration-color: currentColor;
+}
+.band-navy .pillar-prose a:hover, .band-navy-deep .pillar-prose a:hover,
+.band-navy .tile p a:hover, .band-navy-deep .tile p a:hover { color: var(--cream); }
+
+/* FAQ em caixas (modificador — o .faq simples dos artigos permanece intacto) */
+.faq--boxed { display: grid; gap: .75rem; max-width: 92ch; }
+.faq--boxed details {
+  background: var(--cream-bright);
+  border: 1px solid var(--cream-dim);
+  border-radius: var(--radius);
+  transition: border-color .35s var(--ease), box-shadow .35s var(--ease);
+}
+.faq--boxed details[open] { border-color: var(--silver); box-shadow: var(--shadow-soft); }
+.faq--boxed summary {
+  cursor: pointer; list-style: none; position: relative;
+  padding: 1.15rem 3.2rem 1.15rem 1.45rem;
+  font-family: var(--font-serif); font-size: 1.12rem; line-height: 1.35; color: var(--navy);
+}
+.faq--boxed summary::-webkit-details-marker { display: none; }
+.faq--boxed summary::after {
+  content: ""; position: absolute; right: 1.5rem; top: 1.45rem;
+  width: 9px; height: 9px;
+  border-right: 1.6px solid var(--silver-dark); border-bottom: 1.6px solid var(--silver-dark);
+  transform: rotate(45deg); transition: transform .3s var(--ease);
+}
+.faq--boxed details[open] summary::after { transform: rotate(-135deg); }
+.faq--boxed details > p { margin: 0; padding: 0 1.45rem 1.35rem; color: var(--ink-soft); }
+.faq--boxed details > p + p { padding-top: 0; margin-top: -.55rem; }
+
+/* Nota de rodapé jurídica dentro de seção */
+.note-legal {
+  margin-top: 2.2rem; max-width: 80ch;
+  font-size: .86rem; line-height: 1.65; color: var(--silver-dark);
+}
+
+/* Ações agrupadas no fim de uma seção */
+.section-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem 1.8rem;
+  margin-top: clamp(2.2rem, 4vw, 3rem);
+}
+/* CTAs longos podem quebrar em duas linhas no mobile */
+.section-actions .btn { line-height: 1.3; text-align: center; }
+
+@media (max-width: 620px) {
+  .steps > li { grid-template-columns: 1fr; gap: .6rem; }
+  .steps > li::before { padding-top: 0; padding-bottom: .35rem; border-top: 0; border-bottom: 2px solid var(--silver); width: 2.4rem; }
+  .faq--boxed summary { padding-right: 2.8rem; }
+}
