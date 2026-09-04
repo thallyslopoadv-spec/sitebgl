@@ -1,2195 +1,560 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- =========================================================================
-     BGL ADVOGADOS - AVALIACAO IMOBILIARIA PRELIMINAR
-     Funil interativo de captacao e qualificacao de leads (imovel na planta,
-     atraso de obra, distrato/rescisao e retencao de valores).
+  <title>BGL Advogados — Advocacia Empresarial e Cível em Goiânia</title>
+  <meta name="description" content="Advocacia empresarial e cível em Goiânia: contratos, acordo de sócios, estrutura societária, contencioso cível, direito imobiliário e do consumidor. Atendimento conduzido pelos sócios.">
+  <meta name="keywords" content="advogado empresarial Goiânia, acordo de sócios, contratos empresariais, contencioso cível, direito imobiliário, direito do consumidor, proteção patrimonial">
+  <meta name="author" content="BGL Advogados">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://bgladvogados.com.br/">
 
-     ARQUIVO UNICO. Sem backend, sem banco de dados, sem framework.
-     Basta hospedar este index.html em uma pasta do site. Ex.:
-        /avaliacao-imobiliaria/index.html
+  <!-- SEO local (Goiânia) -->
+  <meta name="geo.region" content="BR-GO">
+  <meta name="geo.placename" content="Goiânia">
+  <meta name="geo.position" content="-16.695603;-49.291391">
+  <meta name="ICBM" content="-16.695603, -49.291391">
 
-     >>> TUDO O QUE PRECISA SER EDITADO ESTA NO OBJETO "CONFIG",
-         logo no inicio do <script>, ao final deste arquivo. <<<
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BGL Advogados">
+  <meta property="og:title" content="BGL Advogados">
+  <meta property="og:description" content="Estrutura jurídica que protege o que você construiu — patrimônio, sócios e relações comerciais.">
+  <meta property="og:url" content="https://bgladvogados.com.br/">
+  <meta property="og:image" content="https://bgladvogados.com.br/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BGL Advogados — Brito Galvão & Lopo Advogados">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BGL Advogados">
+  <meta name="twitter:description" content="Estrutura jurídica que protege o que você construiu — patrimônio, sócios e relações comerciais.">
+  <meta name="twitter:image" content="https://bgladvogados.com.br/assets/og-image.jpg">
 
-     Unica dependencia externa: Google Fonts (DM Sans), a mesma tipografia
-     ja usada nas paginas da BGL. Ha fallback completo (system-ui): se a
-     fonte nao carregar, a pagina continua correta.
-     ========================================================================= -->
+  <!-- Ícones -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#16243d">
 
-<title>Avaliação preliminar do seu caso imobiliário | BGL Advogados</title>
-<meta name="description" content="Responda algumas perguntas sobre o seu imóvel e sua relação com a construtora. Ao final, envie as informações para a equipe da BGL Advogados.">
-<meta name="author" content="BGL Advogados">
-<meta name="robots" content="noindex, follow">
-<meta name="theme-color" content="#0e1a2e">
+  <!-- Fontes (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 
-<style>
-/* =========================================================================
-   INDICE DO CSS
-   01. Tokens (tema escuro / tema claro)
-   02. Reset e base
-   03. Layout de tela cheia
-   04. Cabecalho e progresso
-   05. Tipografia
-   06. Perguntas, opcoes e campos
-   07. Botoes e navegacao
-   08. Resultado
-   09. Rodape
-   ========================================================================= */
+  <!-- =====================================================================
+       GOOGLE ANALYTICS 4  —  inserir o ID (G-XXXXXXXXXX) abaixo
+       =====================================================================
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+  ====================================================================== -->
 
-/* =========================================================================
-   01 · TOKENS
-   -------------------------------------------------------------------------
-   TEMA ESCURO (padrao) - navy da identidade BGL + champagne.
-   O logotipo oficial da BGL e prata em degrade, feito para fundo escuro.
-   Para usar o tema claro, troque CONFIG.TEMA para 'claro' no script.
-   ========================================================================= */
-:root,
-[data-tema="escuro"] {
-  --bg:            #0e1a2e;   /* navy profundo da identidade BGL */
-  --bg-soft:       #16243d;   /* superficie das opcoes e campos  */
-  --bg-soft-2:     #1b2c48;
-  --line:          #2b3f5e;
-  --line-strong:   #3d5477;
+  <!-- =====================================================================
+       GOOGLE ADS  —  tag global (gtag.js)
+       O escritório já utiliza a conta AW-18117456860 nas landing pages.
+       >>> Confirmar com o usuário se esta MESMA conta será reaproveitada
+           para o site institucional ou se será criada uma nova. <<<
+       =====================================================================
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18117456860"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18117456860');
+  </script>
+  ====================================================================== -->
 
-  --text:          #eef1f6;
-  --text-soft:     #a8b4c6;
-  --text-mute:     #7d8ba1;
-
-  --accent:        #cf9e4d;   /* champagne */
-  --accent-soft:   #e0bd85;
-  --accent-ink:    #10203a;   /* texto sobre o champagne */
-
-  --wa:            #1f8a5b;
-  --wa-hover:      #1a744c;
-  --erro:          #e0857d;
-  --erro-bg:       rgba(224,133,125,.10);
-
-  --sombra:        0 10px 30px -18px rgba(0,0,0,.9);
-}
-
-[data-tema="claro"] {
-  --bg:            #f6f3ee;
-  --bg-soft:       #ffffff;
-  --bg-soft-2:     #fbf9f5;
-  --line:          #e2dbcd;
-  --line-strong:   #cabfa9;
-
-  --text:          #16243d;
-  --text-soft:     #4a5466;
-  --text-mute:     #78829a;
-
-  --accent:        #a6844b;
-  --accent-soft:   #8e7040;
-  --accent-ink:    #ffffff;
-
-  --wa:            #1f7a52;
-  --wa-hover:      #196342;
-  --erro:          #a63d3d;
-  --erro-bg:       #fdf6f5;
-
-  --sombra:        0 10px 30px -22px rgba(14,26,46,.45);
-}
-
-:root {
-  --raio: 8px;
-  --alvo: 68px;                /* altura dos elementos tocaveis */
-  --col: 27rem;                /* largura maxima da coluna      */
-  --ease: cubic-bezier(.22,.61,.36,1);
-  --fonte: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto,
-           "Helvetica Neue", Arial, sans-serif;
-}
-
-/* =========================================================================
-   02 · RESET E BASE
-   ========================================================================= */
-*,*::before,*::after { box-sizing: border-box }
-html { -webkit-text-size-adjust: 100% }
-body {
-  margin: 0;
-  font-family: var(--fonte);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-h1,h2,h3 { margin: 0; font-weight: 600; line-height: 1.22; letter-spacing: -.015em }
-p { margin: 0 }
-button { font: inherit; color: inherit }
-input, select, textarea { font: inherit; color: inherit }
-a { color: var(--accent) }
-::selection { background: var(--accent); color: var(--accent-ink) }
-
-/* =========================================================================
-   03 · LAYOUT DE TELA CHEIA
-   Logotipo no topo, conteudo ao centro, navegacao embaixo.
-   ========================================================================= */
-.app {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(900px 420px at 50% -12%, rgba(207,158,77,.10), transparent 68%),
-    var(--bg);
-}
-.col { width: 100%; max-width: var(--col); margin: 0 auto; padding: 0 20px }
-
-/* =========================================================================
-   04 · CABECALHO E PROGRESSO
-   ========================================================================= */
-.head { padding: 26px 0 18px; text-align: center }
-.head__logo { height: 46px; width: auto; margin: 0 auto; display: block }
-.head__word {
-  font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--text); font-weight: 500;
-}
-.head__word small {
-  display: block; margin-top: 5px;
-  font-size: .58rem; letter-spacing: .26em; color: var(--text-mute); font-weight: 400;
-}
-
-.progress { padding-bottom: 22px }
-.progress[hidden] { display: none }
-.progress__track {
-  height: 3px; border-radius: 3px; background: var(--line);
-  position: relative; overflow: hidden;
-}
-.progress__bar {
-  position: absolute; inset: 0 auto 0 0; width: 0%; border-radius: 3px;
-  background: linear-gradient(90deg, var(--accent-soft), var(--accent));
-  transition: width .45s var(--ease);
-}
-.progress__meta {
-  margin-top: 8px; text-align: right;
-  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute);
-}
-
-/* =========================================================================
-   05 · TIPOGRAFIA
-   ========================================================================= */
-.stage { flex: 1 0 auto; padding-bottom: 6px }
-.view { animation: entra .34s var(--ease) both }
-.view.is-back { animation-name: entraVolta }
-@keyframes entra      { from { opacity:0; transform: translateY(9px) }  to { opacity:1; transform:none } }
-@keyframes entraVolta { from { opacity:0; transform: translateY(-7px) } to { opacity:1; transform:none } }
-@media (prefers-reduced-motion: reduce) {
-  .view, .view.is-back { animation: none }
-  * { transition-duration: .01ms !important }
-}
-
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;
-  font-size: .66rem; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--accent); font-weight: 500;
-}
-.eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--accent) }
-
-.title      { font-size: 1.42rem }
-.title--big { font-size: clamp(1.6rem, 6.2vw, 2rem) }
-.sub        { margin-top: 12px; color: var(--text-soft); font-size: .96rem }
-.hint       { margin-top: 8px; color: var(--text-mute); font-size: .84rem }
-
-/* =========================================================================
-   06 · PERGUNTAS, OPCOES E CAMPOS
-   ========================================================================= */
-.q { margin-top: 22px }
-.q:first-of-type { margin-top: 20px }
-.q__label { display: block; font-size: 1rem; font-weight: 500; line-height: 1.4 }
-.q__hint  { display: block; margin-top: 5px; font-size: .83rem; color: var(--text-mute) }
-.q__body  { margin-top: 12px }
-.q.is-revealed { animation: entra .3s var(--ease) both }
-
-/* --- Opcoes (escolha unica e multipla) --------------------------------- */
-.opts { display: grid; gap: 8px }
-.opts--two { grid-template-columns: 1fr 1fr }
-
-.opt {
-  display: flex; align-items: center; gap: 12px; width: 100%;
-  min-height: var(--alvo); padding: 12px 16px; text-align: left;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--raio);
-  cursor: pointer;
-  transition: background .18s var(--ease), border-color .18s var(--ease),
-              transform .18s var(--ease), color .18s var(--ease);
-  -webkit-tap-highlight-color: transparent;
-}
-.opt:hover { background: var(--bg-soft-2); border-color: var(--line-strong) }
-.opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
-.opt__mark {
-  flex: none; width: 20px; height: 20px; border-radius: 50%;
-  border: 1.5px solid var(--line-strong); position: relative;
-  transition: border-color .18s var(--ease), background .18s var(--ease);
-}
-.opt--multi .opt__mark { border-radius: 5px }
-.opt__mark::after {
-  content: ""; position: absolute; inset: 0; margin: auto;
-  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-ink);
-  transform: scale(0); transition: transform .2s var(--ease);
-}
-.opt--multi .opt__mark::after { border-radius: 2px }
-.opt__text { font-size: .97rem; line-height: 1.35 }
-
-.opt.is-on {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
-  font-weight: 500;
-}
-.opt.is-on .opt__mark { border-color: var(--accent-ink); background: transparent }
-.opt.is-on .opt__mark::after { transform: scale(1) }
-
-/* --- Campos digitaveis -------------------------------------------------- */
-.grid2 { display: grid; grid-template-columns: 1fr 108px; gap: 8px }
-.inp {
-  width: 100%; min-height: var(--alvo); padding: 14px 16px;
-  background: var(--bg-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--raio);
-  appearance: none; -webkit-appearance: none;
-  transition: border-color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
-}
-.inp::placeholder { color: var(--text-mute) }
-.inp:hover { border-color: var(--line-strong) }
-.inp:focus {
-  outline: none; border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(207,158,77,.16);
-}
-select.inp {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23a8b4c6' stroke-width='1.4'><path d='M1 1.5 6 6.5 11 1.5'/></svg>");
-  background-repeat: no-repeat; background-position: right 14px center;
-  background-size: 12px 8px; padding-right: 38px;
-}
-select.inp option { background: var(--bg-soft); color: var(--text) }
-textarea.inp { min-height: 116px; resize: vertical; line-height: 1.55; padding-top: 15px }
-.inp.is-error { border-color: var(--erro); background: var(--erro-bg) }
-
-.err { display: none; margin-top: 8px; font-size: .83rem; color: var(--erro) }
-.err.is-on { display: block }
-
-/* =========================================================================
-   07 · BOTOES E NAVEGACAO
-   ========================================================================= */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: var(--alvo); padding: 14px 24px;
-  border: 1px solid transparent; border-radius: var(--raio);
-  font-size: 1rem; font-weight: 600; letter-spacing: .01em;
-  cursor: pointer; text-decoration: none;
-  transition: background .18s var(--ease), color .18s var(--ease),
-              border-color .18s var(--ease), transform .18s var(--ease);
-}
-.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
-.btn--primary { background: var(--accent); color: var(--accent-ink) }
-.btn--primary:hover { background: var(--accent-soft); transform: translateY(-1px) }
-.btn--ghost {
-  min-height: 44px; padding: 8px 12px; font-weight: 400; font-size: .92rem;
-  background: none; color: var(--text-mute);
-}
-.btn--ghost:hover { color: var(--text) }
-.btn--wa { background: var(--wa); color: #fff }
-.btn--wa:hover { background: var(--wa-hover); transform: translateY(-1px) }
-.btn--wa svg { width: 21px; height: 21px; flex: none }
-.btn--block { width: 100% }
-
-.nav {
-  position: sticky; bottom: 0; z-index: 5;
-  padding: 16px 0 max(18px, env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, transparent 0%, var(--bg) 38%);
-}
-.nav__voltar { display: block; margin: 10px auto 0 }
-
-/* =========================================================================
-   08 · RESULTADO
-   ========================================================================= */
-.selo {
-  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
-  padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 100px;
-  font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-soft);
-}
-.selo span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent) }
-
-.painel {
-  margin-top: 20px; padding: 18px 20px;
-  background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--raio);
-}
-.painel__titulo {
-  margin-bottom: 10px;
-  font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-mute);
-}
-.painel ul { margin: 0; padding: 0; list-style: none }
-.painel li {
-  position: relative; padding-left: 18px; margin-bottom: 8px;
-  font-size: .92rem; line-height: 1.5; color: var(--text-soft);
-}
-.painel li:last-child { margin-bottom: 0 }
-.painel li::before {
-  content: ""; position: absolute; left: 0; top: .62em;
-  width: 7px; height: 1px; background: var(--accent);
-}
-
-.nota {
-  margin-top: 18px; padding-left: 14px; border-left: 2px solid var(--line-strong);
-  font-size: .88rem; line-height: 1.6; color: var(--text-mute);
-}
-
-.cta { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line) }
-.cta__texto { margin-top: 10px; color: var(--text-soft); font-size: .95rem }
-.cta__acoes { margin-top: 18px }
-.cta__ref { margin-top: 12px; font-size: .74rem; color: var(--text-mute) }
-
-.refazer {
-  display: block; margin: 14px auto 0; padding: 6px;
-  background: none; border: 0; cursor: pointer;
-  font-size: .84rem; color: var(--text-mute);
-  text-decoration: underline; text-underline-offset: 3px;
-}
-.refazer:hover { color: var(--text) }
-
-/* =========================================================================
-   09 · RODAPE
-   ========================================================================= */
-.consent {
-  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
-  font-size: .78rem; line-height: 1.55; color: var(--text-mute);
-}
-.consent a { color: var(--text-soft); text-underline-offset: 3px }
-.foot {
-  flex: none; padding: 18px 0 26px; text-align: center;
-  font-size: .72rem; line-height: 1.6; color: var(--text-mute);
-}
-.foot a { color: var(--text-mute) }
-</style>
+  <!-- Dados estruturados: LegalService -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "BGL Advogados — Brito Galvão & Lopo Advogados",
+    "description": "Advocacia empresarial e cível em Goiânia: contratos, relações comerciais, acordo de sócios, estrutura societária, contencioso cível, direito imobiliário e do consumidor.",
+    "url": "https://bgladvogados.com.br/",
+    "image": "https://bgladvogados.com.br/assets/og-image.jpg",
+    "logo": "https://bgladvogados.com.br/assets/logo-bgl.png",
+    "email": "contato@bgladvogados.com.br",
+    "telephone": "+55-62-99250-9988",
+    "areaServed": "Goiânia, Goiás, Brasil",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Edifício Terra Office, Avenida C4, Quadra 49, Lote 1 a 14, Sala 1301-A, Jardim América",
+      "addressLocality": "Goiânia",
+      "addressRegion": "GO",
+      "postalCode": "74265-040",
+      "addressCountry": "BR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -16.695603,
+      "longitude": -49.291391
+    },
+    "sameAs": [
+      "https://www.instagram.com/bgladvogados_/",
+      "https://www.instagram.com/ceciliagalvaob",
+      "https://www.instagram.com/thallyslopo/"
+    ],
+    "knowsAbout": [
+      "Contratos Empresariais",
+      "Acordo de Sócios",
+      "Estrutura Societária",
+      "Direito Trabalhista do Empregador",
+      "Contencioso Cível",
+      "Direito Imobiliário",
+      "Direito do Consumidor"
+    ]
+  }
+  </script>
 </head>
+
 <body>
+  <a class="skip-link" href="#inicio">Pular para o conteúdo</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
 
-<!-- =========================================================================
-     O conteudo das etapas e gerado pelo JavaScript dentro de #stage.
-     Aqui existem apenas os elementos fixos: marca, progresso, palco e rodape.
-     ========================================================================= -->
-<div class="app" id="app">
+  <!-- ====================== NAVEGAÇÃO ====================== -->
+  <header class="nav" id="topo">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#inicio" aria-label="BGL Advogados — início">
+        <img src="assets/logo-mark.png" alt="BGL Advogados" width="63" height="40">
+      </a>
 
-  <header class="head col">
-    <!-- Se CONFIG.LOGO_URL estiver preenchido e a imagem carregar, ela
-         substitui o lettering. Se falhar, o lettering permanece. -->
-    <img class="head__logo" id="brandLogo" alt="BGL Advogados" hidden>
-    <div class="head__word" id="brandWord">BGL<small>Advogados</small></div>
+      <nav class="nav__menu" id="menu-principal" aria-label="Navegação principal">
+        <ul class="nav__links">
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#areas">Áreas de Atuação</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#publicacoes">Publicações</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+        <div class="nav__cta">
+          <a class="btn btn--primary" href="https://wa.me/5562992509988" target="_blank" rel="noopener">Falar com um advogado</a>
+        </div>
+      </nav>
+
+      <button class="nav__toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span></span>
+      </button>
+    </div>
   </header>
 
-  <div class="col progress" id="progress" hidden>
-    <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progTrack">
-      <div class="progress__bar" id="progBar"></div>
-    </div>
-    <p class="progress__meta">Etapa <span id="progNow">1</span> de <span id="progTotal">10</span></p>
-  </div>
+  <main id="conteudo">
 
-  <main class="col stage" id="stage" aria-live="polite">
-    <noscript>
-      <h1 class="title">Ative o JavaScript para responder à avaliação</h1>
-      <p class="sub">Esta ferramenta funciona no próprio navegador, sem envio automático de dados.
-      Se preferir, entre em contato diretamente com a equipe da BGL Advogados.</p>
-    </noscript>
+    <!-- ====================== HERO ====================== -->
+    <section class="hero" id="inicio">
+      <img class="hero__watermark" src="assets/logo-mark.png" alt="" aria-hidden="true" data-parallax="0.06">
+      <div class="container">
+        <div class="hero__inner">
+          <span class="eyebrow" data-enter="1">Advocacia empresarial e cível em Goiânia</span>
+          <h1 data-enter="2">Estrutura jurídica que protege <em>o que você construiu.</em></h1>
+          <p class="hero__subtitle" data-enter="3">Da estrutura do seu negócio à defesa do seu patrimônio, com rigor técnico e atendimento próximo.</p>
+          <p class="hero__support" data-enter="4">BGL Advogados.</p>
+          <div class="hero__actions" data-enter="5">
+            <a class="btn btn--primary" href="https://wa.me/5562992509988" target="_blank" rel="noopener">Agendar uma conversa</a>
+            <a class="link-arrow" href="#areas">
+              Conheça nossas áreas de atuação
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <dl class="stats" data-stagger>
+            <div class="stat"><dt class="stat__num" data-count="5" data-suffix="+">5+</dt><dd class="stat__label">anos de atuação</dd></div>
+            <div class="stat"><dt class="stat__num stat__num--text">Empresarial<br>e cível</dt><dd class="stat__label">frentes de atuação</dd></div>
+            <div class="stat"><dt class="stat__num" data-count="2">2</dt><dd class="stat__label">sócios fundadores</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+    <!-- ====================== ÁREAS ====================== -->
+    <section class="section band-navy" id="areas">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Áreas de Atuação</span>
+          <h2>Soluções com escopo definido.</h2>
+          <p class="lead">Atuação preventiva para o seu negócio e contenciosa para a defesa do que é seu.</p>
+        </div>
+        <div class="areas reveal">
+          <ul class="areas__nav" role="tablist" aria-label="Áreas de atuação" data-stagger>
+            <li class="areas__group" role="presentation">Para a sua empresa</li>
+            <li><button class="areas__tab is-active" id="tab-0" role="tab" aria-selected="true" aria-controls="panel-0" data-area="0">
+              <span class="t-num">01</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5"/><path d="M14 3v5h5M9 13h6M9 17h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="t-label">Contratos Empresariais</span>
+            </button></li>
+            <li><button class="areas__tab" id="tab-1" role="tab" aria-selected="false" aria-controls="panel-1" data-area="1" tabindex="-1">
+              <span class="t-num">02</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.4 3 8.4 7 9.6 4-1.2 7-5.2 7-9.6V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span class="t-label">Relações Comerciais e Proteção do Negócio</span>
+            </button></li>
+            <li><button class="areas__tab" id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2" data-area="2" tabindex="-1">
+              <span class="t-num">03</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 20c0-3 2.2-5 5-5s5 2 5 5M14 15c2.6 0 5 1.9 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="t-label">Acordo de Sócios e Estrutura Societária</span>
+            </button></li>
+            <li><button class="areas__tab" id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3" data-area="3" tabindex="-1">
+              <span class="t-num">04</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span class="t-label">Trabalhista Pró-Empresário</span>
+            </button></li>
+            <li class="areas__group" role="presentation">Para você e seu patrimônio</li>
+            <li><button class="areas__tab" id="tab-4" role="tab" aria-selected="false" aria-controls="panel-4" data-area="4" tabindex="-1">
+              <span class="t-num">05</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v18M7 7l-4 7c0 1.7 1.6 3 3.5 3S10 19.7 10 18L7 7Zm10 0-4 7c0 1.7 1.6 3 3.5 3S21 19.7 21 18l-4-11ZM6 6h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="t-label">Contencioso Cível</span>
+            </button></li>
+            <li><button class="areas__tab" id="tab-5" role="tab" aria-selected="false" aria-controls="panel-5" data-area="5" tabindex="-1">
+              <span class="t-num">06</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11 12 4l8 7M6 10v9h12v-9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span class="t-label">Direito Imobiliário</span>
+            </button></li>
+            <li><button class="areas__tab" id="tab-6" role="tab" aria-selected="false" aria-controls="panel-6" data-area="6" tabindex="-1">
+              <span class="t-num">07</span>
+              <svg class="t-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Zm3 0a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="t-label">Direito do Consumidor</span>
+            </button></li>
+          </ul>
+          <div class="areas__panels">
+            <article class="areas__panel is-active" id="panel-0" role="tabpanel" aria-labelledby="tab-0" tabindex="0">
+              <span class="p-num" aria-hidden="true">01</span>
+              <h3>Contratos Empresariais</h3>
+              <p>Nenhuma relação comercial deveria começar sem um contrato adequado. Elaboramos e revisamos contratos de prestação de serviços, fornecimento, parceria, distribuição, representação comercial e investimento, documentos construídos para a realidade do seu negócio, não modelos genéricos baixados da internet. Um contrato bem estruturado define responsabilidades, fixa prazos e penalidades, protege o diferencial da empresa e evita disputas. É o tipo de documento cujo valor só fica evidente no dia em que algo dá errado. E nesse dia, ou ele existe, ou não existe.</p>
+              <a class="link-arrow" href="areas/contratos-empresariais.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">02</span>
+              <h3>Relações Comerciais e Proteção do Negócio</h3>
+              <p>Toda empresa troca informação, conhecimento e confiança com quem trabalha. Estruturamos os instrumentos que protegem esses ativos: acordos de confidencialidade (NDA), cláusulas de não concorrência, exclusividade e propriedade intelectual. São documentos que delimitam o que é sigiloso e estabelecem consequências reais em caso de violação. Para quem tem um método, uma carteira de clientes ou um diferencial competitivo, isso é a diferença entre proteger o que foi construído e assistir terceiros explorarem.</p>
+              <a class="link-arrow" href="areas/relacoes-comerciais.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">03</span>
+              <h3>Acordo de Sócios e Estrutura Societária</h3>
+              <p>A sociedade que funciona bem hoje pode se tornar um campo minado amanhã, quando surge divergência de visão, saída de sócio, entrada de herdeiros ou sucessão não planejada. O acordo de sócios organiza a governança antes do conflito: tomada de decisão, distribuição de lucros, regras de entrada e saída, não concorrência, planejamento sucessório e resolução de impasses. Para empresas que precisam organizar a casa antes de crescer, captar investimento ou admitir e desligar sócios, fazemos também a análise da estrutura societária, identificamos passivos ocultos e corrigimos o que precisa de correção, do contrato social desatualizado à distribuição informal de quotas. É um trabalho com início, escopo e fim, voltado a deixar a empresa juridicamente pronta para a decisão que vem pela frente.</p>
+              <a class="link-arrow" href="areas/acordo-de-socios.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">04</span>
+              <h3>Trabalhista Pró-Empresário</h3>
+              <p>Defendemos empresas em reclamações trabalhistas e estruturamos a relação com colaboradores para reduzir passivos. Nossa atuação é exclusivamente do lado do empregador: análise de contratos de trabalho, gestão de riscos em demissões, defesa em reclamações e orientação preventiva sobre enquadramento funcional, jornada e remuneração. A atuação preventiva evita que o passivo se transforme em processo, e a defesa técnica protege a empresa quando o litígio é inevitável.</p>
+              <a class="link-arrow" href="areas/trabalhista-empresarial.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">05</span>
+              <h3>Contencioso Cível</h3>
+              <p>Nem todo problema se resolve fora do tribunal, e quando a via judicial é necessária ela precisa ser conduzida com estratégia. Atuamos no contencioso cível em ações de cobrança, indenização, responsabilidade civil, conflitos contratuais entre particulares e defesa de direitos patrimoniais. Antes de propor qualquer medida, avaliamos a viabilidade real do caso, porque processo mal dimensionado consome tempo e recurso sem retorno. Quando a ação é o caminho certo, conduzimos com rigor técnico. Quando não é, dizemos com franqueza.</p>
+              <a class="link-arrow" href="areas/contencioso-civel.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-5" role="tabpanel" aria-labelledby="tab-5" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">06</span>
+              <h3>Direito Imobiliário</h3>
+              <p>Imóvel costuma concentrar boa parte do patrimônio de uma família ou de uma empresa, e o risco de uma operação mal documentada é proporcional. Assessoramos na compra, venda, permuta e locação, analisamos a documentação antes da assinatura, revisamos os instrumentos contratuais e atuamos em disputas possessórias, de inadimplemento e de regularização. O objetivo é que a operação se conclua sem surpresa e que o seu direito sobre o bem fique protegido.</p>
+              <a class="link-arrow" href="areas/direito-imobiliario.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+            <article class="areas__panel" id="panel-6" role="tabpanel" aria-labelledby="tab-6" tabindex="0" hidden>
+              <span class="p-num" aria-hidden="true">07</span>
+              <h3>Direito do Consumidor</h3>
+              <p>A relação de consumo é estruturalmente desigual, e a lei existe para reequilibrá-la. Atuamos na defesa do consumidor em casos de cobrança indevida, inscrição irregular em cadastros de inadimplentes, vício e defeito de produto ou serviço, descumprimento de contrato e falha na prestação de serviços essenciais. Cada caso é avaliado pela consistência da prova e pela viabilidade real, sem promessa fácil.</p>
+              <a class="link-arrow" href="areas/direito-do-consumidor.html">Ver página completa da área
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SOBRE ====================== -->
+    <section class="section band-cream" id="sobre">
+      <div class="container about__grid">
+        <div class="about__media reveal" data-anim="left">
+          <img src="assets/office-hero.jpg" alt="Sala de reunião do escritório da BGL Advogados em Goiânia" width="1200" height="1800" loading="lazy">
+          <span class="badge">Escritório · Goiânia/GO</span>
+        </div>
+        <div class="about__body reveal" data-anim="right" data-delay="1">
+          <span class="eyebrow">Sobre a BGL</span>
+          <h2>Do lado de quem constrói e de quem precisa defender o que é seu.</h2>
+          
+          <p>A BGL Advogados nasceu para entregar advocacia técnica e próxima. O atendimento é conduzido diretamente pelos sócios, e o trabalho é voltado a resolver o problema do cliente, não a vender volume de horas.</p>
+          <p>Nossa origem é o direito empresarial. Trabalhamos com empresários que entendem o direito como base do negócio, estruturando contratos, relações comerciais e a própria sociedade antes que o conflito apareça. Como a vida jurídica de quem empreende não se separa da vida da pessoa, nossa atuação alcança também o contencioso cível: questões patrimoniais, imobiliárias, de consumo e de responsabilidade civil que exigem a mesma técnica e a mesma proximidade.</p>
+          <p>Com mais de cinco anos de atuação, a BGL consolidou experiência tanto na estruturação preventiva de negócios quanto na defesa de direitos no contencioso, sempre com foco na continuidade e no crescimento seguro do que o cliente construiu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== BANDA DE CITAÇÃO ====================== -->
+    <section class="quote-band" aria-label="Posicionamento da BGL">
+      <div class="quote-band__bg" aria-hidden="true">
+        <img src="assets/office-detail.jpg" alt="" width="900" height="1125" loading="lazy" data-parallax="0.18" data-parallax-scale="1.12">
+      </div>
+      <div class="quote-band__overlay" aria-hidden="true"></div>
+      <div class="container">
+        <blockquote class="reveal" data-anim="zoom">O direito não é custo: é a base que sustenta o que você construiu.</blockquote>
+        <cite class="reveal" data-anim="fade" data-delay="1">BGL Advogados</cite>
+      </div>
+    </section>
+
+    <!-- ====================== EQUIPE ====================== -->
+    <section class="section band-cream" id="equipe">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Equipe</span>
+          <h2>Quem está ao seu lado.</h2>
+        </div>
+        <div class="team__grid">
+          <article class="member reveal" data-anim="left">
+            <div class="member__photo">
+              <img src="assets/cecilia-galvao.jpg" alt="Retrato de Cecília Galvão, sócia-fundadora da BGL Advogados" width="880" height="1100" loading="lazy">
+            </div>
+            <div class="member__bio">
+              <h3 class="member__name">Cecília Galvão</h3>
+              <p class="member__role">Sócia-fundadora · OAB/GO 72.929</p>
+              <p>Advogada com atuação sólida no consultivo e no contencioso, com especialização nas áreas civil, empresarial e de proteção patrimonial. Construiu sua base profissional nos gabinetes da 5ª Vara Cível da Comarca de Goiânia e da Vara Cível da Comarca de Orizona, ambos do Tribunal de Justiça de Goiás, experiência que lhe proporcionou uma visão aprofundada sobre a dinâmica processual e a tomada de decisões judiciais. Na BGL, conduz a atuação cível e patrimonial do escritório.</p>
+              <p>É bacharel em Direito pela PUC/GO, pesquisadora do CNPq e reconhecida com Honra ao Mérito acadêmico. Lidera uma advocacia voltada para clientes que buscam mais do que soluções pontuais: um acompanhamento jurídico de alto nível, construído para proteger patrimônios, organizar estruturas e sustentar crescimento seguro.</p>
+              <a class="member__ig" href="https://www.instagram.com/ceciliagalvaob" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/></svg>
+                @ceciliagalvaob
+              </a>
+            </div>
+          </article>
+
+          <article class="member reveal" data-anim="right">
+            <div class="member__photo">
+              <img src="assets/thallys-lopo.jpg" alt="Retrato de Thallys Lopo, sócio-fundador da BGL Advogados" width="880" height="1100" loading="lazy">
+            </div>
+            <div class="member__bio">
+              <h3 class="member__name">Thallys Lopo</h3>
+              <p class="member__role">Sócio-fundador · OAB/GO 75.672</p>
+              <p>Advogado com atuação estratégica em Direito Empresarial, Contratos, Licitações e Relações Institucionais, assessorando empresas na estruturação de negócios, mitigação de riscos e condução de demandas de elevada complexidade jurídica.</p>
+              <p>Atualmente exerce a função de Assessor Especial na Goiás Tecnologia - GOTech, empresa estatal do Estado de Goiás, atuando diretamente em temas relacionados à governança corporativa, contratação pública, estruturação de projetos estratégicos, relações entre os setores público e privado e suporte jurídico à alta administração.</p>
+              <p>Ao longo de sua trajetória profissional, participou da análise, negociação e acompanhamento de contratos de grande relevância econômica, desenvolvendo sólida experiência em gestão contratual, segurança jurídica empresarial e modelagem de relações negociais complexas.</p>
+
+              <p>É Bacharel em Direito pela PUC Goiás, dedica-se à construção de soluções jurídicas voltadas à proteção patrimonial, crescimento sustentável dos negócios e fortalecimento das relações empresariais, oferecendo assessoria jurídica personalizada para empresários, executivos e organizações que demandam suporte jurídico de alto nível..</p>
+              <a class="member__ig" href="https://www.instagram.com/thallyslopo/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/></svg>
+                @thallyslopo
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== PUBLICAÇÕES ====================== -->
+    <section class="section band-navy-deep" id="publicacoes">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Publicações</span>
+          <h2>Conteúdo jurídico para quem toma decisões.</h2>
+        </div>
+        <div class="posts__grid">
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="publicacoes/decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
+            <div class="post-card__cover"><img src="assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Cecília B. Galvão · 14/10/2025</p>
+              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
+              <span class="post-card__more">Ler artigo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </article>
+
+          <article class="post-card reveal" data-anim="zoom" data-delay="1">
+            <a class="post-card__link" href="publicacoes/acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares"></a>
+            <div class="post-card__cover"><img src="assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Cecília B. Galvão · 23/10/2025</p>
+              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
+              <span class="post-card__more">Ler artigo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </article>
+
+          <article class="post-card reveal" data-anim="zoom" data-delay="2">
+            <a class="post-card__link" href="publicacoes/como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle"></a>
+            <div class="post-card__cover"><img src="assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Thallys Lopo · 28/10/2025</p>
+              <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
+              <span class="post-card__more">Ler artigo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </article>
+
+          <article class="post-card reveal" data-anim="zoom" data-delay="3">
+            <a class="post-card__link" href="publicacoes/o-socio-morreu.html" aria-label="Ler: O Sócio Morreu"></a>
+            <div class="post-card__cover"><img src="assets/cover-socio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Cecília B. Galvão · 26/11/2025</p>
+              <h3>O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?</h3>
+              <span class="post-card__more">Ler artigo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </article>
+
+          <article class="post-card reveal" data-anim="zoom" data-delay="4">
+            <a class="post-card__link" href="publicacoes/due-diligence.html" aria-label="Ler: Due Diligence"></a>
+            <div class="post-card__cover"><img src="assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Thallys Lopo · 02/02/2026</p>
+              <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
+              <span class="post-card__more">Ler artigo
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== ESCRITÓRIO (GALERIA) ====================== -->
+    <section class="section band-cream-bright" id="escritorio">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Conheça nosso escritório</span>
+          <h2>Um ambiente pensado para receber quem precisa de respaldo jurídico.</h2>
+        </div>
+        <div class="gallery">
+          <figure class="gallery__item reveal" data-anim="zoom">
+            <img src="assets/gallery-reuniao.jpg" alt="Sala de reunião do escritório da BGL Advogados" width="1100" height="1466" loading="lazy">
+            <figcaption class="gallery__cap">Sala de reunião</figcaption>
+          </figure>
+          <figure class="gallery__item reveal" data-anim="zoom" data-delay="1">
+            <img src="assets/gallery-espera.jpg" alt="Espaço de espera com poltrona no escritório da BGL Advogados" width="1100" height="1466" loading="lazy">
+            <figcaption class="gallery__cap">Espaço de espera</figcaption>
+          </figure>
+          <figure class="gallery__item reveal" data-anim="zoom" data-delay="2">
+            <img src="assets/gallery-titulos.jpg" alt="Parede com diplomas e títulos acadêmicos dos sócios da BGL" width="1100" height="1466" loading="lazy">
+            <figcaption class="gallery__cap">Formação e títulos</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== CONTATO ====================== -->
+    <section class="section band-cream" id="contato">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Contato</span>
+          <h2>Comece por uma conversa.</h2>
+        </div>
+        <div class="contact__grid">
+          <div class="reveal" data-anim="left">
+            <p class="contact__lead">Se você precisa de respaldo jurídico real, para a sua empresa ou para uma questão pessoal, fale com a BGL. O primeiro contato é uma conversa — sem compromisso, sem enrolação.</p>
+            <ul class="contact__list" data-stagger>
+              <li>
+                <svg class="contact__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m4 6 8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <span><span class="label">E-mail</span><a href="mailto:contato@bgladvogados.com.br">contato@bgladvogados.com.br</a></span>
+              </li>
+              <li>
+                <svg class="contact__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.5 14.4c-1 0-2-.2-2.9-.5a.9.9 0 0 0-.9.2l-1.3 1.3a13 13 0 0 1-5.5-5.5l1.3-1.3a.9.9 0 0 0 .2-.9c-.3-.9-.5-1.9-.5-2.9a.9.9 0 0 0-.9-.9H4.3a.9.9 0 0 0-.9.9A14 14 0 0 0 17.5 19a.9.9 0 0 0 .9-.9v-2.7a.9.9 0 0 0-.9-.9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                <span><span class="label">WhatsApp / Telefone</span><a href="https://wa.me/5562992509988" target="_blank" rel="noopener">(62) 99250-9988</a></span>
+              </li>
+              <li>
+                <svg class="contact__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                <span><span class="label">Instagram</span><a href="https://www.instagram.com/bgladvogados_/" target="_blank" rel="noopener">@bgladvogados</a></span>
+              </li>
+              <li>
+                <svg class="contact__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span><span class="label">Endereço</span><a href="https://www.google.com/maps/search/?api=1&query=-16.695603,-49.291391" target="_blank" rel="noopener">Edifício Terra Office — Avenida C4, Qd. 49, Lote 1 a 14, Sala 1301-A — Jardim América, Goiânia/GO, 74265-040</a></span>
+              </li>
+            </ul>
+            <a class="btn btn--primary" href="https://wa.me/5562992509988" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+          </div>
+          <div class="contact__map reveal" data-anim="right" data-delay="1">
+            <iframe
+              title="Localização da BGL Advogados em Goiânia"
+              src="https://www.google.com/maps?q=-16.695603,-49.291391&hl=pt-BR&z=16&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== AVALIAÇÕES GOOGLE ====================== -->
+    <section class="section band-cream reviews" id="avaliacoes" aria-label="Avaliações no Google">
+      <div class="container reviews__inner">
+        <div class="section-head reveal">
+          <span class="eyebrow">Referência externa</span>
+          <h2>Avaliações públicas no <em style="font-style:italic;color:var(--silver-dark)">Google</em></h2>
+          <p class="lead">A BGL Advogados mantém perfil verificado no Google Business Profile. As avaliações são administradas pela própria plataforma e podem ser consultadas diretamente no perfil do escritório.</p>
+        </div>
+        <div class="review-card reveal" data-anim="zoom">
+          <span class="review-card__badge" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18c-.44-1.32-.69-2.73-.69-4.18s.25-2.86.69-4.18v-5.7H4.34A21.98 21.98 0 0 0 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 9.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 3.18 29.93 1 24 1 15.4 1 7.96 5.93 4.34 13.12l7.35 5.7C13.42 13.62 18.27 9.75 24 9.75z"/></svg>
+          </span>
+          <div class="review-card__score">5,0 <span>/ 5,0</span></div>
+          <div class="review-card__stars" role="img" aria-label="5 de 5 estrelas">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.05 6.67.92-4.84 4.66 1.16 6.62L12 18.6l-5.94 3.15 1.16-6.62L2.38 9.47l6.67-.92L12 2.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.05 6.67.92-4.84 4.66 1.16 6.62L12 18.6l-5.94 3.15 1.16-6.62L2.38 9.47l6.67-.92L12 2.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.05 6.67.92-4.84 4.66 1.16 6.62L12 18.6l-5.94 3.15 1.16-6.62L2.38 9.47l6.67-.92L12 2.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.05 6.67.92-4.84 4.66 1.16 6.62L12 18.6l-5.94 3.15 1.16-6.62L2.38 9.47l6.67-.92L12 2.5z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.05 6.67.92-4.84 4.66 1.16 6.62L12 18.6l-5.94 3.15 1.16-6.62L2.38 9.47l6.67-.92L12 2.5z"/></svg>
+          </div>
+          <a class="btn btn--primary" href="https://share.google/m26Zf6uMnE35SLIaC" target="_blank" rel="noopener">
+            Consultar avaliações no Google
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <p class="reviews__foot">BGL Advogados · OAB/GO 75.672 · Goiânia/GO</p>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="foot col">
-    <a id="footPrivacy" href="#" target="_blank" rel="noopener">Política de Privacidade</a><br>
-    Esta avaliação preliminar não substitui a análise do contrato e dos documentos.
+  <!-- ====================== RODAPÉ ====================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="assets/logo-bgl.png" alt="BGL Advogados — Brito Galvão & Lopo Advogados" width="180" height="129">
+          <p>Advocacia empresarial e cível em Goiânia — contratos, sociedade, patrimônio e contencioso.</p>
+        </div>
+        <nav aria-label="Rodapé">
+          <ul class="footer__nav" data-stagger>
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#areas">Áreas de Atuação</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#publicacoes">Publicações</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="copy">© 2025 BGL Advogados. Todos os direitos reservados.</p>
+        <p class="footer__oab">Este site tem caráter meramente informativo e não constitui publicidade, propaganda ou captação de clientela vedada pelo Código de Ética da OAB. As informações aqui contidas não substituem a consulta jurídica.</p>
+      </div>
+    </div>
   </footer>
 
-</div>
-<script>
-/* =========================================================================
-   BGL ADVOGADOS — AVALIACAO IMOBILIARIA PRELIMINAR
-   -------------------------------------------------------------------------
-   INDICE DO SCRIPT
-   01. CONFIG .................. unico ponto de edicao (WhatsApp, links, tags)
-   02. Utilitarios ............. helpers de DOM e texto
-   03. Catalogo de respostas ... listas de opcoes reutilizadas
-   04. Estrutura do funil ...... STEPS: etapas, perguntas e logica condicional
-   05. Estado .................. respostas, navegacao, origem do lead
-   06. Origem do lead .......... captura e persistencia de UTM / fbclid / gclid
-   07. Eventos de conversao .... Meta Pixel + GA4 / GTM (sem duplicar tags)
-   08. Renderizacao ............ telas, perguntas e campos
-   09. Navegacao ............... avancar, voltar, progresso
-   10. Validacao ............... campos obrigatorios, WhatsApp, e-mail
-   11. Qualificacao ............ pontuacao interna HOT / WARM / COLD
-   12. Resumo e resultado ...... leitura das respostas em linguagem juridica
-   13. WhatsApp ................ montagem da mensagem e do link
-   14. Inicializacao
-   ========================================================================= */
-(function () {
-'use strict';
-
-/* =========================================================================
-   01 · CONFIG
-   +-----------------------------------------------------------------------+
-   |  TUDO O QUE PRECISA SER ALTERADO ESTA AQUI. NAO HA DADOS ESPALHADOS.   |
-   +-----------------------------------------------------------------------+
-   ========================================================================= */
-var CONFIG = {
-
-  /* --- WhatsApp de destino ------------------------------------------------
-     Formato internacional, somente digitos: 55 + DDD + numero.
-     Valor atual: numero institucional da BGL - (62) 99250-9988.
-     >>> TROQUE AQUI se a captacao imobiliaria usar outro numero/atendente. */
-  WHATSAPP_NUMBER: '5562992509988',
-
-  /* --- Politica de Privacidade -------------------------------------------
-     >>> SUBSTITUA pela URL real da politica.
-     Enquanto estiver com o valor placeholder abaixo, o link aponta para o
-     site institucional e nao quebra a pagina. */
-  PRIVACY_URL: 'INSERIR_URL_DA_POLITICA_DE_PRIVACIDADE',
-
-  /* --- Site institucional (usado como fallback do link acima) ------------ */
-  SITE_URL: 'https://www.bgladvogados.com.br/',
-
-  /* --- URL final desta ferramenta ----------------------------------------
-     Usada apenas como referencia nos eventos de conversao e no armazenamento
-     local. Ex.: 'https://www.bgladvogados.com.br/avaliacao-imobiliaria/'
-     Deixe vazio ('') para usar automaticamente a URL atual do navegador.   */
-  TOOL_URL: '',
-
-  /* --- Tema ---------------------------------------------------------------
-     'escuro' = navy da identidade BGL + champagne (padrao).
-     'claro'  = creme + navy, para paginas de fundo claro.
-     Atencao: o logotipo oficial da BGL e prata em degrade e so funciona
-     sobre fundo escuro. No tema claro, use uma versao escura do logotipo
-     ou deixe LOGO_URL vazio.                                              */
-  TEMA: 'escuro',
-
-  /* --- Logotipo (opcional) ------------------------------------------------
-     Caminho de imagem do logotipo. Se a imagem nao carregar, o cabecalho
-     volta sozinho para o lettering "BGL Advogados" - nada quebra.
-     Deixe vazio ('') para usar somente o lettering e manter arquivo unico. */
-  LOGO_URL: 'logo-bgl.png',
-
-  /* =======================================================================
-     TAGS DE MEDICAO
-     -----------------------------------------------------------------------
-     Esta ferramenta NAO carrega nenhuma tag por padrao. A premissa e que o
-     Meta Pixel e o GA4/GTM ja existem na pagina que hospeda o arquivo - os
-     eventos sao enviados para o fbq / gtag / dataLayer que ja estiverem la.
-
-     Se esta pagina for publicada isolada (sem tag no site), coloque
-     CARREGAR_TAGS_PROPRIAS em true e preencha os IDs abaixo. O codigo so
-     carrega a tag se ela ainda NAO existir na pagina - nunca duplica.
-     ======================================================================= */
-  CARREGAR_TAGS_PROPRIAS: false,
-
-  /* ID do Meta Pixel da BGL. >>> PREENCHER (ex.: '1234567890123456').
-     Deixe vazio para nunca carregar o Pixel por conta propria.             */
-  META_PIXEL_ID: '',
-
-  /* ID de medicao do GA4 da BGL (G-XXXXXXXXXX).
-     Valor em uso nas landing pages da BGL: 'G-92B1N6DHGM'.                 */
-  GA4_MEASUREMENT_ID: 'G-92B1N6DHGM',
-
-  /* Google Ads - conta e rotulo de conversao usados nas LPs da BGL.
-     Deixe GOOGLE_ADS_CONVERSION vazio para nao disparar conversao do Ads.  */
-  GOOGLE_ADS_ID: 'AW-18117456860',
-  GOOGLE_ADS_CONVERSION: 'AW-18117456860/INMlCPLSobQcENznib9D',
-  GOOGLE_ADS_VALUE: 1.0,
-  GOOGLE_ADS_CURRENCY: 'BRL',
-
-  /* --- Comportamento ------------------------------------------------------ */
-  /* Abre o WhatsApp em nova aba (recomendado no desktop).                   */
-  WHATSAPP_NOVA_ABA: true,
-
-  /* Guarda o lead no navegador (localStorage) para uso futuro / depuracao.
-     Nenhum dado sai do dispositivo do usuario: nao ha backend nesta versao. */
-  SALVAR_LEAD_LOCALMENTE: true,
-
-  /* Avanca sozinho quando a etapa tem uma unica pergunta de multipla escolha.
-     Aumenta muito a conclusao no mobile. Coloque false para exigir sempre o
-     clique em "Continuar".                                                  */
-  AVANCO_AUTOMATICO: true
-};
-
-/* =========================================================================
-   02 · UTILITARIOS
-   ========================================================================= */
-function byId(id) { return document.getElementById(id); }
-
-/* Cria elemento com classe e texto opcionais. */
-function el(tag, cls, txt) {
-  var n = document.createElement(tag);
-  if (cls) n.className = cls;
-  if (txt != null) n.textContent = txt;
-  return n;
-}
-
-/* Primeiro nome, para uso em texto. */
-function primeiroNome(nome) {
-  return String(nome || '').trim().split(/\s+/)[0] || '';
-}
-
-/* Capitaliza cidade digitada em caixa alta ou baixa. */
-function tituloCidade(v) {
-  return String(v || '').trim().toLowerCase().replace(/(^|[\s'-])([a-zà-ú])/g, function (m, a, b) {
-    return a + b.toUpperCase();
-  });
-}
-
-/* Deixa a inicial minuscula para encaixar o rotulo no meio de uma frase,
-   sem estragar valores como "R$ 500 mil" ou "6 a 12 meses". */
-function inicialMinuscula(s) {
-  s = String(s || '');
-  return /^[A-ZÀ-Ú][a-zà-ú]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s;
-}
-
-/* Codigo curto de referencia do lead (facilita achar o atendimento depois). */
-function gerarRef() {
-  return 'BGL-' + Date.now().toString(36).slice(-4).toUpperCase() +
-         Math.floor(Math.random() * 36).toString(36).toUpperCase();
-}
-
-/* =========================================================================
-   03 · CATALOGO DE RESPOSTAS
-   -------------------------------------------------------------------------
-   Listas reutilizadas pelas perguntas. Para mudar um texto de opcao, altere
-   o campo "t" (texto). O campo "v" (valor) e usado pela logica e pela
-   pontuacao: so mude o "v" se ajustar tambem a secao 11 (qualificacao).
-   ========================================================================= */
-var SIM_NAO = [
-  { v: 'sim', t: 'Sim' },
-  { v: 'nao', t: 'Não' }
-];
-
-var PROBLEMAS = [
-  { v: 'atraso',    t: 'A obra está atrasada' },
-  { v: 'desistir',  t: 'Quero desistir/cancelar a compra' },
-  { v: 'retencao',  t: 'A construtora quer reter parte do que paguei' },
-  { v: 'devolucao', t: 'A construtora não quer devolver meu dinheiro' },
-  { v: 'documento', t: 'Recebi um distrato ou documento para assinar' },
-  { v: 'outro',     t: 'Outro problema com a construtora' }
-];
-
-var VALOR_IMOVEL = [
-  { v: 'ate250',   t: 'Até R$ 250 mil' },
-  { v: '250a500',  t: 'R$ 250 mil a R$ 500 mil' },
-  { v: '500a750',  t: 'R$ 500 mil a R$ 750 mil' },
-  { v: '750a1mi',  t: 'R$ 750 mil a R$ 1 milhão' },
-  { v: 'acima1mi', t: 'Acima de R$ 1 milhão' }
-];
-
-var TEMPO_ATRASO = [
-  { v: 'menos3', t: 'Menos de 3 meses' },
-  { v: '3a6',    t: '3 a 6 meses' },
-  { v: '6a12',   t: '6 a 12 meses' },
-  { v: '12a18',  t: '12 a 18 meses' },
-  { v: 'mais18', t: 'Mais de 18 meses' },
-  { v: 'naosei', t: 'Não sei' }
-];
-
-var VALOR_ALUGUEL = [
-  { v: 'ate1000', t: 'Até R$ 1.000' },
-  { v: '1a2',     t: 'R$ 1.000 a R$ 2.000' },
-  { v: '2a3',     t: 'R$ 2.000 a R$ 3.000' },
-  { v: 'acima3',  t: 'Acima de R$ 3.000' }
-];
-
-var VALOR_PAGO = [
-  { v: 'ate20',    t: 'Até R$ 20 mil' },
-  { v: '20a50',    t: 'R$ 20 mil a R$ 50 mil' },
-  { v: '50a100',   t: 'R$ 50 mil a R$ 100 mil' },
-  { v: '100a200',  t: 'R$ 100 mil a R$ 200 mil' },
-  { v: 'acima200', t: 'Acima de R$ 200 mil' }
-];
-
-var RESPOSTA_DISTRATO = [
-  { v: 'aceitou',     t: 'Aceitou o distrato' },
-  { v: 'parcial',     t: 'Informou que vai devolver apenas parte dos valores' },
-  { v: 'percentual',  t: 'Informou que vai reter um percentual' },
-  { v: 'recusou',     t: 'Recusou o distrato' },
-  { v: 'semResposta', t: 'Ainda não respondeu' },
-  { v: 'outro',       t: 'Outro' }
-];
-
-var PERCENTUAL_RETENCAO = [
-  { v: 'ate10',  t: 'Até 10%' },
-  { v: '10a20',  t: '10% a 20%' },
-  { v: '20a30',  t: '20% a 30%' },
-  { v: '30a50',  t: '30% a 50%' },
-  { v: 'mais50', t: 'Mais de 50%' },
-  { v: 'naosei', t: 'Não sei' }
-];
-
-/* Documentacao: selecao multipla numa unica tela. */
-var DOCUMENTOS = [
-  { v: 'contrato',     t: 'Contrato de compra e venda' },
-  { v: 'comprovantes', t: 'Comprovantes dos valores pagos' },
-  { v: 'conversas',    t: 'Conversas, e-mails ou documentos da construtora' }
-];
-
-var QUITACAO = [
-  { v: 'sim',    t: 'Sim' },
-  { v: 'nao',    t: 'Não' },
-  { v: 'naosei', t: 'Não sei' }
-];
-
-var UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR',
-           'PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
-
-var MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
-             'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-
-/* =========================================================================
-   04 · ESTRUTURA DO FUNIL (STEPS)
-   -------------------------------------------------------------------------
-   COMO ALTERAR O QUESTIONARIO:
-   - Cada item do array e uma ETAPA (uma tela).
-   - "when(a)" define se a etapa aparece, a partir das respostas ja dadas.
-     Sem "when", a etapa aparece sempre.
-   - "fields" sao as perguntas da etapa. Tipos disponiveis:
-       cards     : botoes de escolha unica (options)
-       multi     : botoes de selecao multipla (options); grava um array
-       text      : campo de texto curto
-       textarea  : campo de texto longo
-       select    : lista suspensa (options)
-       cityuf    : composto cidade + UF (grava em cidade e uf)
-       monthyear : mes + ano (grava em <id>__m e <id>__y)
-       contato   : bloco de nome + WhatsApp + e-mail + aviso de privacidade
-   - "showIf(a)" dentro de um campo revela a pergunta so quando fizer sentido.
-   - "required: false" torna a pergunta opcional.
-   - Para incluir uma pergunta nova, copie um bloco parecido, escolha um "id"
-     unico e, se ela influenciar a prioridade do lead, adicione o peso na
-     secao 11 e a linha correspondente na secao 13 (mensagem do WhatsApp).
-   ========================================================================= */
-
-/* Atalhos de rota, usados pelos "when" das etapas. */
-function rotaAtraso(a)   { return a.problema === 'atraso'; }
-function rotaDistrato(a) { return ['desistir', 'retencao', 'devolucao', 'documento'].indexOf(a.problema) > -1; }
-function rotaOutro(a)    { return a.problema === 'outro'; }
-
-var STEPS = [
-
-  /* --- 1. Problema principal (define toda a logica seguinte) ------------- */
-  {
-    id: 'problema',
-    fields: [{
-      id: 'problema',
-      type: 'cards',
-      label: 'Qual é o principal problema com o seu imóvel?',
-      options: PROBLEMAS
-    }]
-  },
-
-  /* --- 2. Valor do imovel ------------------------------------------------ */
-  {
-    id: 'valor',
-    fields: [{
-      id: 'valorImovel',
-      type: 'cards',
-      label: 'Qual é o valor aproximado do imóvel?',
-      options: VALOR_IMOVEL
-    }]
-  },
-
-  /* --- 3. Localizacao ---------------------------------------------------- */
-  {
-    id: 'local',
-    fields: [{
-      id: 'cidadeuf',
-      type: 'cityuf',
-      label: 'Onde fica o imóvel?'
-    }]
-  },
-
-  /* ====================== ROTA A · ATRASO DE OBRA ======================== */
-
-  {
-    id: 'atraso_chaves',
-    when: rotaAtraso,
-    fields: [
-      {
-        id: 'chaves',
-        type: 'cards',
-        cols: 'two',
-        label: 'Você já recebeu as chaves?',
-        options: SIM_NAO
-      },
-      {
-        id: 'tempoAtraso',
-        type: 'cards',
-        label: 'Há quanto tempo o imóvel está atrasado?',
-        options: TEMPO_ATRASO,
-        showIf: function (a) { return a.chaves === 'nao'; }
-      }
-    ]
-  },
-
-  {
-    id: 'atraso_prazo',
-    when: rotaAtraso,
-    fields: [{
-      id: 'prazo',
-      type: 'monthyear',
-      required: false,
-      label: 'Quando o imóvel deveria ter sido entregue?',
-      hint: 'A data prevista no contrato. Se não lembrar, siga sem preencher.'
-    }]
-  },
-
-  {
-    id: 'atraso_aluguel',
-    when: rotaAtraso,
-    fields: [
-      {
-        id: 'aluguel',
-        type: 'cards',
-        cols: 'two',
-        label: 'Você está pagando aluguel enquanto aguarda a entrega?',
-        options: SIM_NAO
-      },
-      {
-        id: 'valorAluguel',
-        type: 'cards',
-        label: 'Qual é aproximadamente o valor do aluguel mensal?',
-        options: VALOR_ALUGUEL,
-        showIf: function (a) { return a.aluguel === 'sim'; }
-      }
-    ]
-  },
-
-  {
-    id: 'atraso_previsao',
-    when: rotaAtraso,
-    fields: [
-      {
-        id: 'novaPrevisao',
-        type: 'cards',
-        cols: 'two',
-        label: 'A construtora já informou uma nova previsão de entrega?',
-        options: SIM_NAO
-      },
-      {
-        id: 'previsao',
-        type: 'monthyear',
-        label: 'Qual foi a nova previsão?',
-        showIf: function (a) { return a.novaPrevisao === 'sim'; }
-      }
-    ]
-  },
-
-  /* ============== ROTA B · DISTRATO / RETENCAO / DEVOLUCAO =============== */
-
-  {
-    id: 'distrato_pago',
-    when: rotaDistrato,
-    fields: [{
-      id: 'valorPago',
-      type: 'cards',
-      label: 'Quanto você já pagou aproximadamente pelo imóvel?',
-      hint: 'Some entrada, parcelas e demais valores pagos à construtora.',
-      options: VALOR_PAGO
-    }]
-  },
-
-  {
-    id: 'distrato_pedido',
-    when: rotaDistrato,
-    fields: [
-      {
-        id: 'pediuDistrato',
-        type: 'cards',
-        cols: 'two',
-        label: 'Você já pediu formalmente o distrato à construtora?',
-        options: SIM_NAO
-      },
-      {
-        id: 'respostaDistrato',
-        type: 'cards',
-        label: 'Qual foi a resposta da construtora?',
-        options: RESPOSTA_DISTRATO,
-        showIf: function (a) { return a.pediuDistrato === 'sim'; }
-      },
-      {
-        /* Aparece quando ha percentual em discussao: a construtora informou
-           retencao ou devolucao parcial, ou o proprio usuario entrou pela
-           opcao "a construtora quer reter parte do que paguei". */
-        id: 'percentualRetencao',
-        type: 'cards',
-        label: 'Qual percentual aproximadamente a construtora informou que pretende reter?',
-        options: PERCENTUAL_RETENCAO,
-        showIf: function (a) {
-          return a.respostaDistrato === 'percentual' ||
-                 a.respostaDistrato === 'parcial' ||
-                 a.problema === 'retencao';
-        }
-      }
-    ]
-  },
-
-  {
-    id: 'distrato_assinatura',
-    when: rotaDistrato,
-    fields: [
-      {
-        id: 'assinouDistrato',
-        type: 'cards',
-        cols: 'two',
-        label: 'Você já assinou algum documento de distrato?',
-        options: SIM_NAO
-      },
-      {
-        id: 'quitacao',
-        type: 'cards',
-        label: 'Você recebeu ou assinou algum documento dando quitação à construtora?',
-        hint: 'Quitação é a declaração de que nada mais será cobrado da construtora.',
-        options: QUITACAO,
-        showIf: function (a) { return a.assinouDistrato === 'sim'; }
-      }
-    ]
-  },
-
-  /* ====================== ROTA C · OUTRO PROBLEMA ======================== */
-
-  {
-    id: 'outro_descricao',
-    when: rotaOutro,
-    fields: [{
-      id: 'descricao',
-      type: 'textarea',
-      label: 'Descreva brevemente o problema com a construtora.',
-      hint: 'Poucas linhas já ajudam a equipe a entender o contexto.',
-      placeholder: 'Ex.: cobrança de valores não previstos no contrato, área diferente da contratada, problema na entrega da documentação...',
-      maxlength: 400
-    }]
-  },
-
-  /* ============ ETAPAS COMUNS A TODAS AS ROTAS (A, B e C) ================ */
-
-  {
-    id: 'tentativa',
-    fields: [
-      {
-        id: 'tentouResolver',
-        type: 'cards',
-        cols: 'two',
-        label: 'Você já tentou resolver a situação diretamente com a construtora?',
-        options: SIM_NAO
-      },
-      {
-        id: 'respostaConstrutora',
-        type: 'text',
-        required: false,
-        label: 'Qual foi a resposta da construtora?',
-        hint: 'Em poucas palavras. Opcional.',
-        placeholder: 'Ex.: disse que o atraso está dentro do prazo de tolerância',
-        maxlength: 180,
-        showIf: function (a) { return a.tentouResolver === 'sim'; }
-      }
-    ]
-  },
-
-  {
-    id: 'documentos',
-    fields: [{
-      id: 'docs',
-      type: 'multi',
-      required: false,
-      label: 'O que você já tem em mãos?',
-      hint: 'Marque tudo que se aplica. Se não tiver nada ainda, é só continuar.',
-      options: DOCUMENTOS
-    }]
-  },
-
-  {
-    id: 'contato',
-    title: 'Para onde enviamos sua avaliação?',
-    subtitle: 'A equipe da BGL usa esses dados apenas para retornar sobre o seu caso.',
-    fields: [{ id: 'contato', type: 'contato' }]
-  }
-];
-
-/* =========================================================================
-   05 · ESTADO
-   ========================================================================= */
-var state = {
-  answers: {},      /* todas as respostas, indexadas pelo id do campo */
-  idx: 0,           /* posicao atual dentro de STEPS */
-  screen: 'intro',  /* 'intro' | 'step' | 'result' */
-  voltando: false,  /* apenas para escolher a direcao da animacao */
-  ref: '',          /* codigo curto de referencia do lead */
-  origem: {},       /* UTM / fbclid / gclid */
-  lead: null,       /* resultado da qualificacao, preenchido no final */
-  iniciadoEm: 0
-};
-
-var stage = byId('stage');
-
-/* Etapas visiveis para as respostas atuais. */
-function etapasVisiveis() {
-  var out = [];
-  for (var i = 0; i < STEPS.length; i++) {
-    if (!STEPS[i].when || STEPS[i].when(state.answers)) out.push(i);
-  }
-  return out;
-}
-
-/* Total projetado de etapas, apenas para o contador de progresso.
-   Enquanto o problema principal nao foi escolhido, assume a rota mais comum
-   (atraso de obra). Dentro de cada rota o total e fixo - atraso 10, distrato
-   9, outro 7 -, entao o contador nunca aumenta durante o preenchimento. */
-function etapasProjetadas() {
-  if (state.answers.problema) return etapasVisiveis();
-  var hipotese = {}, k;
-  for (k in state.answers) if (state.answers.hasOwnProperty(k)) hipotese[k] = state.answers[k];
-  hipotese.problema = 'atraso';
-  var out = [];
-  for (var i = 0; i < STEPS.length; i++) {
-    if (!STEPS[i].when || STEPS[i].when(hipotese)) out.push(i);
-  }
-  return out;
-}
-
-/* Campos visiveis de uma etapa (respeita showIf). */
-function camposVisiveis(step) {
-  var out = [];
-  for (var i = 0; i < step.fields.length; i++) {
-    var f = step.fields[i];
-    if (!f.showIf || f.showIf(state.answers)) out.push(f);
-  }
-  return out;
-}
-
-/* Procura a definicao de um campo em qualquer etapa. */
-function acharCampo(id) {
-  for (var i = 0; i < STEPS.length; i++) {
-    for (var j = 0; j < STEPS[i].fields.length; j++) {
-      if (STEPS[i].fields[j].id === id) return STEPS[i].fields[j];
-    }
-  }
-  return null;
-}
-
-/* Texto legivel de uma resposta de multipla escolha. */
-function rotulo(id, valor) {
-  var f = acharCampo(id);
-  if (!f || !f.options) return valor || '';
-  for (var i = 0; i < f.options.length; i++) {
-    if (f.options[i].v === valor) return f.options[i].t;
-  }
-  return valor || '';
-}
-function rotuloDe(id) { return rotulo(id, state.answers[id]); }
-
-/* Texto de um campo mes/ano. */
-function mesAno(id) {
-  var m = state.answers[id + '__m'], y = state.answers[id + '__y'];
-  if (!m || !y) return '';
-  return MESES[parseInt(m, 10) - 1] + '/' + y;
-}
-
-/* Documentacao marcada pelo usuario (campo de selecao multipla "docs"). */
-function temDoc(valor) {
-  var lista = state.answers.docs;
-  return !!lista && lista.indexOf(valor) > -1;
-}
-function docSimNao(valor) { return temDoc(valor) ? 'sim' : 'não'; }
-
-/* =========================================================================
-   06 · ORIGEM DO LEAD (UTM, fbclid, gclid)
-   -------------------------------------------------------------------------
-   Regra: a PRIMEIRA origem registrada prevalece (first touch). Assim, se o
-   usuario chega pelo anuncio, sai e volta pelo Google organico, o credito
-   continua com o anuncio. Guardado em localStorage por 30 dias.
-   ========================================================================= */
-var CHAVES_ORIGEM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
-var ORIGEM_STORE = 'bgl_origem_imob';
-var ORIGEM_VALIDADE_DIAS = 30;
-
-function lerOrigemDaURL() {
-  var q = {}, params;
-  try { params = new URLSearchParams(window.location.search); }
-  catch (e) { return q; }
-  for (var i = 0; i < CHAVES_ORIGEM.length; i++) {
-    var k = CHAVES_ORIGEM[i], v = params.get(k);
-    if (v) q[k] = String(v).slice(0, 120);
-  }
-  return q;
-}
-
-function capturarOrigem() {
-  var atual = lerOrigemDaURL();
-  var salvo = null;
-
-  try {
-    var raw = window.localStorage.getItem(ORIGEM_STORE);
-    if (raw) {
-      var obj = JSON.parse(raw);
-      var idade = (Date.now() - (obj.ts || 0)) / 86400000;
-      if (idade <= ORIGEM_VALIDADE_DIAS) salvo = obj.dados || null;
-    }
-  } catch (e) { /* navegador sem localStorage: segue sem persistencia */ }
-
-  var temAtual = false;
-  for (var k in atual) { if (atual.hasOwnProperty(k)) { temAtual = true; break; } }
-
-  var origem = temAtual ? atual : (salvo || {});
-  origem.referrer = origem.referrer || (document.referrer || '').slice(0, 160);
-  origem.landing  = origem.landing  || (CONFIG.TOOL_URL || window.location.href).split('#')[0].slice(0, 200);
-
-  if (temAtual) {
-    try {
-      window.localStorage.setItem(ORIGEM_STORE, JSON.stringify({ ts: Date.now(), dados: origem }));
-    } catch (e) { /* ignora */ }
-  }
-  return origem;
-}
-
-/* Linha discreta de origem, anexada ao final da mensagem do WhatsApp. */
-function origemResumida() {
-  var o = state.origem || {};
-  var partes = [];
-  if (o.utm_source)   partes.push(o.utm_source);
-  if (o.utm_medium)   partes.push(o.utm_medium);
-  if (o.utm_campaign) partes.push(o.utm_campaign);
-  if (o.utm_content)  partes.push(o.utm_content);
-  if (!partes.length && o.gclid)  partes.push('google-ads');
-  if (!partes.length && o.fbclid) partes.push('meta-ads');
-  return partes.join(' / ');
-}
-
-/* =========================================================================
-   07 · EVENTOS DE CONVERSAO
-   -------------------------------------------------------------------------
-   Nada e carregado por padrao: os eventos vao para o fbq / gtag / dataLayer
-   que JA existirem na pagina hospedeira. Se CONFIG.CARREGAR_TAGS_PROPRIAS
-   for true, as tags sao carregadas apenas quando ainda nao estiverem la.
-
-   Eventos enviados:
-     bgl_avaliacao_inicio     -> inicio da avaliacao
-     bgl_avaliacao_etapa      -> conclusao de cada etapa
-     bgl_avaliacao_lead       -> dados de contato validados (Meta: Lead)
-     bgl_avaliacao_whatsapp   -> clique no WhatsApp (Meta: Contact + Ads)
-   ========================================================================= */
-
-/* Carrega o Meta Pixel somente se ele ainda nao existir na pagina. */
-function carregarPixelSeNecessario() {
-  if (!CONFIG.CARREGAR_TAGS_PROPRIAS || !CONFIG.META_PIXEL_ID) return;
-  if (typeof window.fbq === 'function') return;   /* ja existe: nao duplicar */
-  /* Snippet oficial do Meta, em versao compacta. */
-  !function (f, b, e, v, n, t, s) {
-    if (f.fbq) return; n = f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    };
-    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
-    t = b.createElement(e); t.async = !0; t.src = v;
-    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-  }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-  window.fbq('init', CONFIG.META_PIXEL_ID);
-  window.fbq('track', 'PageView');
-}
-
-/* Carrega o gtag (GA4 / Google Ads) somente se ainda nao existir. */
-function carregarGtagSeNecessario() {
-  if (!CONFIG.CARREGAR_TAGS_PROPRIAS) return;
-  if (typeof window.gtag === 'function') return;  /* ja existe: nao duplicar */
-  var id = CONFIG.GA4_MEASUREMENT_ID || CONFIG.GOOGLE_ADS_ID;
-  if (!id) return;
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { window.dataLayer.push(arguments); };
-  window.gtag('js', new Date());
-  if (CONFIG.GA4_MEASUREMENT_ID) window.gtag('config', CONFIG.GA4_MEASUREMENT_ID);
-  if (CONFIG.GOOGLE_ADS_ID) window.gtag('config', CONFIG.GOOGLE_ADS_ID);
-}
-
-/* Envia um evento para as ferramentas presentes na pagina. */
-function enviarEvento(nome, dados, eventoMetaPadrao) {
-  dados = dados || {};
-  dados.ferramenta = 'avaliacao_imobiliaria';
-  if (state.ref) dados.lead_ref = state.ref;
-
-  /* --- Meta Pixel ------------------------------------------------------- */
-  if (typeof window.fbq === 'function') {
-    try {
-      if (eventoMetaPadrao) window.fbq('track', eventoMetaPadrao, dados);
-      else window.fbq('trackCustom', nome, dados);
-    } catch (e) { /* ignora */ }
-  }
-
-  /* --- Google Tag Manager ----------------------------------------------- */
-  if (window.dataLayer && typeof window.dataLayer.push === 'function' && window.google_tag_manager) {
-    try {
-      var payload = { event: nome };
-      for (var k in dados) if (dados.hasOwnProperty(k)) payload[k] = dados[k];
-      window.dataLayer.push(payload);
-    } catch (e) { /* ignora */ }
-  } else if (typeof window.gtag === 'function') {
-    /* --- GA4 direto (sem GTM) ------------------------------------------- */
-    try { window.gtag('event', nome, dados); } catch (e) { /* ignora */ }
-  }
-}
-
-/* --- Funcoes de conversao nomeadas -------------------------------------- */
-
-/* Disparada no clique em "Começar avaliação". */
-function trackStartEvaluation() {
-  enviarEvento('bgl_avaliacao_inicio', { origem: origemResumida() });
-}
-
-/* Disparada a cada etapa concluida. */
-function trackStepCompleted(stepId, posicao, total) {
-  enviarEvento('bgl_avaliacao_etapa', { etapa_id: stepId, etapa: posicao, etapas_total: total });
-}
-
-/* Disparada quando os dados de contato sao validados (lead formado).
-   >>> Este e o evento a usar como CONVERSAO de lead no Meta e no GA4. */
-function trackLeadQualified(classificacao, pontuacao, problema) {
-  enviarEvento('bgl_avaliacao_lead', {
-    classificacao: classificacao,     /* HOT | WARM | COLD - uso interno */
-    pontuacao: pontuacao,
-    problema: problema,
-    origem: origemResumida()
-  }, 'Lead');   /* Meta: evento padrao "Lead" */
-}
-
-/* Disparada no clique do botao do WhatsApp. */
-function trackWhatsAppClick(classificacao) {
-  enviarEvento('bgl_avaliacao_whatsapp', {
-    classificacao: classificacao,
-    origem: origemResumida()
-  }, 'Contact');  /* Meta: evento padrao "Contact" */
-
-  /* Conversao do Google Ads (mesma conta usada nas LPs da BGL).
-     Deixe CONFIG.GOOGLE_ADS_CONVERSION vazio para desativar. */
-  if (typeof window.gtag === 'function' && CONFIG.GOOGLE_ADS_CONVERSION) {
-    try {
-      window.gtag('event', 'conversion', {
-        send_to: CONFIG.GOOGLE_ADS_CONVERSION,
-        value: CONFIG.GOOGLE_ADS_VALUE,
-        currency: CONFIG.GOOGLE_ADS_CURRENCY
-      });
-    } catch (e) { /* ignora */ }
-  }
-}
-
-/* =========================================================================
-   08 · RENDERIZACAO
-   ========================================================================= */
-
-/* Substitui o conteudo do palco aplicando a animacao de entrada. */
-function pintar(node) {
-  stage.innerHTML = '';
-  node.classList.add('view');
-  if (state.voltando) node.classList.add('is-back');
-  stage.appendChild(node);
-  state.voltando = false;
-}
-
-/* Rola a pagina para o topo do palco (importante no mobile). */
-function subir() {
-  var y = stage.getBoundingClientRect().top + window.pageYOffset - 16;
-  try { window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' }); }
-  catch (e) { window.scrollTo(0, Math.max(0, y)); }
-}
-
-/* --- 8.1 Tela inicial ---------------------------------------------------- */
-function renderIntro() {
-  byId('progress').hidden = true;
-
-  var tela = el('div');
-  tela.innerHTML =
-    '<span class="eyebrow">Avaliação preliminar</span>' +
-    '<h1 class="title title--big">Descubra se o problema do seu imóvel merece uma análise jurídica</h1>' +
-    '<p class="sub">Responda algumas perguntas sobre o imóvel e sua relação com a construtora. ' +
-    'Ao final, você decide se envia as informações para a equipe da BGL Advogados.</p>' +
-    '<p class="hint">Leva cerca de 2 minutos. Não é preciso cadastro para começar.</p>' +
-    '<div class="nav">' +
-      '<button class="btn btn--primary btn--block" id="btnStart" type="button">Começar avaliação</button>' +
-    '</div>';
-
-  pintar(tela);
-  byId('btnStart').addEventListener('click', function () {
-    state.iniciadoEm = Date.now();
-    trackStartEvaluation();
-    state.screen = 'step';
-    state.idx = etapasVisiveis()[0];
-    renderStep();
-    subir();
-  });
-}
-
-/* --- 8.2 Uma etapa do questionario --------------------------------------- */
-function renderStep() {
-  var step = STEPS[state.idx];
-  var visiveis = etapasVisiveis();
-  var posicao = visiveis.indexOf(state.idx) + 1;
-
-  atualizarProgresso(posicao, etapasProjetadas().length);
-
-  var tela = el('div');
-
-  var campos = camposVisiveis(step);
-
-  /* Hierarquia: a pergunta principal da etapa e o proprio titulo da tela.
-     Se a etapa define um "title" proprio, ele prevalece e todas as perguntas
-     ficam com seus rotulos. Perguntas condicionais reveladas depois entram
-     como sub-perguntas, com rotulo normal. */
-  var promove = campos.length > 0 && campos[0].type !== 'contato' && !step.title;
-  var titulo = promove ? campos[0].label : step.title;
-  var apoio  = promove ? campos[0].hint  : step.subtitle;
-
-  if (titulo) tela.appendChild(el('h2', 'title', titulo));
-  if (apoio) tela.appendChild(el('p', 'sub', apoio));
-
-  /* Perguntas da etapa */
-  for (var i = 0; i < campos.length; i++) {
-    tela.appendChild(renderCampo(campos[i], step, promove && i === 0));
-  }
-
-  /* Navegacao: acao principal em destaque, "Voltar" discreto abaixo. */
-  var nav = el('div', 'nav');
-
-  var avancar = el('button', 'btn btn--primary btn--block',
-    step.id === 'contato' ? 'Ver minha avaliação' : 'Continuar');
-  avancar.type = 'button';
-  avancar.id = 'btnNext';
-  avancar.addEventListener('click', irParaProxima);
-  nav.appendChild(avancar);
-
-  var voltar = el('button', 'btn btn--ghost nav__voltar', 'Voltar');
-  voltar.type = 'button';
-  voltar.addEventListener('click', irParaAnterior);
-  nav.appendChild(voltar);
-
-  tela.appendChild(nav);
-  pintar(tela);
-}
-
-/* --- 8.3 Bloco de uma pergunta ------------------------------------------- */
-function renderCampo(f, step, semRotulo) {
-  var bloco = el('div', 'q');
-  bloco.setAttribute('data-field', f.id);
-
-  /* semRotulo = a pergunta ja foi exibida como titulo da etapa. */
-  if (f.label && !semRotulo) bloco.appendChild(el('span', 'q__label', f.label));
-  if (f.hint && !semRotulo) bloco.appendChild(el('span', 'q__hint', f.hint));
-
-  var body = el('div', 'q__body');
-  bloco.appendChild(body);
-
-  switch (f.type) {
-    case 'cards':     montarCards(body, f, step); break;
-    case 'multi':     montarMulti(body, f); break;
-    case 'text':      montarTexto(body, f, 'text'); break;
-    case 'textarea':  montarTextarea(body, f); break;
-    case 'cityuf':    montarCidadeUF(body, f); break;
-    case 'monthyear': montarMesAno(body, f); break;
-    case 'contato':   montarContato(body, f); break;
-  }
-
-  var erro = el('p', 'err');
-  erro.id = 'err-' + f.id;
-  bloco.appendChild(erro);
-
-  return bloco;
-}
-
-/* Botoes de escolha unica. */
-function montarCards(body, f, step) {
-  var grid = el('div', 'opts' + (f.cols === 'two' ? ' opts--two' : ''));
-  grid.setAttribute('role', 'radiogroup');
-  if (f.label) grid.setAttribute('aria-label', f.label);
-
-  for (var i = 0; i < f.options.length; i++) {
-    (function (op) {
-      var b = el('button', 'opt');
-      b.type = 'button';
-      b.setAttribute('role', 'radio');
-      b.setAttribute('aria-label', op.t);
-      var marcado = state.answers[f.id] === op.v;
-      b.setAttribute('aria-checked', marcado ? 'true' : 'false');
-      if (marcado) b.classList.add('is-on');
-      b.appendChild(el('span', 'opt__mark'));
-      b.appendChild(el('span', 'opt__text', op.t));
-      b.addEventListener('click', function () { escolher(f, op.v, step); });
-      grid.appendChild(b);
-    })(f.options[i]);
-  }
-  body.appendChild(grid);
-}
-
-/* Selecao multipla: alterna o valor na lista, sem avanco automatico. */
-function montarMulti(body, f) {
-  if (!state.answers[f.id]) state.answers[f.id] = [];
-  var grid = el('div', 'opts');
-  grid.setAttribute('role', 'group');
-  if (f.label) grid.setAttribute('aria-label', f.label);
-
-  for (var i = 0; i < f.options.length; i++) {
-    (function (op) {
-      var b = el('button', 'opt opt--multi');
-      b.type = 'button';
-      b.setAttribute('aria-pressed', temNaLista(f.id, op.v) ? 'true' : 'false');
-      b.setAttribute('aria-label', op.t);
-      if (temNaLista(f.id, op.v)) b.classList.add('is-on');
-      b.appendChild(el('span', 'opt__mark'));
-      b.appendChild(el('span', 'opt__text', op.t));
-      b.addEventListener('click', function () {
-        alternarNaLista(f.id, op.v);
-        var ligado = temNaLista(f.id, op.v);
-        b.classList.toggle('is-on', ligado);
-        b.setAttribute('aria-pressed', ligado ? 'true' : 'false');
-        limparErro(f.id);
-      });
-      grid.appendChild(b);
-    })(f.options[i]);
-  }
-  body.appendChild(grid);
-}
-
-function temNaLista(id, valor) {
-  var l = state.answers[id];
-  return !!l && l.indexOf(valor) > -1;
-}
-function alternarNaLista(id, valor) {
-  var l = state.answers[id] || (state.answers[id] = []);
-  var i = l.indexOf(valor);
-  if (i > -1) l.splice(i, 1); else l.push(valor);
-}
-
-/* Trata a escolha de um card: grava, limpa dependencias e decide o avanco. */
-function escolher(f, valor, step) {
-  /* Quais perguntas estavam visiveis ANTES da escolha (para animar as novas). */
-  var antes = [], vis = camposVisiveis(step), i;
-  for (i = 0; i < vis.length; i++) antes.push(vis[i].id);
-
-  state.answers[f.id] = valor;
-  limparErro(f.id);
-  limparDependencias();
-
-  if (CONFIG.AVANCO_AUTOMATICO && podeAvancarSozinho(step, f)) {
-    /* Redesenha para mostrar a selecao e avanca logo em seguida. */
-    renderStep();
-    window.setTimeout(function () {
-      if (state.screen === 'step') irParaProxima();
-    }, 260);
-    return;
-  }
-
-  /* Redesenha a etapa: pode revelar ou esconder perguntas condicionais. */
-  renderStep();
-  var depois = camposVisiveis(step);
-  for (i = 0; i < depois.length; i++) {
-    if (antes.indexOf(depois[i].id) === -1) {
-      var novo = stage.querySelector('[data-field="' + depois[i].id + '"]');
-      if (novo) novo.classList.add('is-revealed');
-    }
-  }
-}
-
-/* Avanca sozinho quando a etapa virou uma pergunta so de tocar: todas as
-   perguntas visiveis sao de escolha unica, todas ja estao respondidas e a
-   que acabou de ser tocada e a ultima da tela. Assim, "Você já recebeu as
-   chaves? Sim" avanca na hora, e "Não" espera a pergunta que ele revela. */
-function podeAvancarSozinho(step, campoTocado) {
-  if (!step) return false;
-  var visiveis = camposVisiveis(step);
-  if (!visiveis.length) return false;
-  if (visiveis[visiveis.length - 1].id !== campoTocado.id) return false;
-  for (var i = 0; i < visiveis.length; i++) {
-    if (visiveis[i].type !== 'cards') return false;
-    if (!state.answers[visiveis[i].id]) return false;
-  }
-  return true;
-}
-
-/* Remove respostas que deixaram de fazer sentido apos mudar uma escolha
-   anterior (evita enviar dados contraditorios na mensagem final). */
-function limparDependencias() {
-  var a = state.answers;
-
-  /* Troca de rota (o usuario voltou e mudou o problema principal):
-     descarta as respostas da rota antiga para nao contaminar o resumo,
-     a mensagem do WhatsApp e a pontuacao. */
-  if (a.problema !== 'atraso') {
-    delete a.chaves; delete a.tempoAtraso; delete a.aluguel; delete a.valorAluguel;
-    delete a.novaPrevisao; delete a.prazo__m; delete a.prazo__y;
-    delete a.previsao__m; delete a.previsao__y;
-  }
-  if (!rotaDistrato(a)) {
-    delete a.valorPago; delete a.pediuDistrato; delete a.respostaDistrato;
-    delete a.percentualRetencao; delete a.assinouDistrato; delete a.quitacao;
-  }
-  if (a.problema !== 'outro') delete a.descricao;
-
-  /* Perguntas condicionais dentro da mesma rota. */
-  if (a.aluguel !== 'sim') delete a.valorAluguel;
-  if (a.novaPrevisao !== 'sim') { delete a.previsao__m; delete a.previsao__y; }
-  if (a.pediuDistrato !== 'sim') delete a.respostaDistrato;
-  if (a.assinouDistrato !== 'sim') delete a.quitacao;
-  if (a.tentouResolver !== 'sim') delete a.respostaConstrutora;
-  if (a.chaves !== 'nao') delete a.tempoAtraso;
-  if (!(a.respostaDistrato === 'percentual' || a.respostaDistrato === 'parcial' || a.problema === 'retencao')) {
-    delete a.percentualRetencao;
-  }
-}
-
-/* Campo de texto simples. */
-function montarTexto(body, f, tipo) {
-  var i = el('input', 'inp');
-  i.type = tipo || 'text';
-  i.id = 'f-' + f.id;
-  i.value = state.answers[f.id] || '';
-  if (f.placeholder) i.placeholder = f.placeholder;
-  if (f.maxlength) i.maxLength = f.maxlength;
-  i.addEventListener('input', function () {
-    state.answers[f.id] = i.value;
-    limparErro(f.id);
-  });
-  body.appendChild(i);
-}
-
-/* Campo de texto longo. */
-function montarTextarea(body, f) {
-  var t = el('textarea', 'inp');
-  t.id = 'f-' + f.id;
-  t.rows = 4;
-  t.value = state.answers[f.id] || '';
-  if (f.placeholder) t.placeholder = f.placeholder;
-  if (f.maxlength) t.maxLength = f.maxlength;
-  t.addEventListener('input', function () {
-    state.answers[f.id] = t.value;
-    limparErro(f.id);
-  });
-  body.appendChild(t);
-}
-
-/* Cidade + UF. */
-function montarCidadeUF(body, f) {
-  var g = el('div', 'grid2');
-
-  var cidade = el('input', 'inp');
-  cidade.type = 'text';
-  cidade.id = 'f-cidade';
-  cidade.placeholder = 'Cidade';
-  cidade.autocomplete = 'address-level2';
-  cidade.value = state.answers.cidade || '';
-  cidade.addEventListener('input', function () {
-    state.answers.cidade = cidade.value;
-    limparErro(f.id);
-  });
-
-  var uf = el('select', 'inp');
-  uf.id = 'f-uf';
-  uf.appendChild(new Option('UF', ''));
-  for (var i = 0; i < UFS.length; i++) uf.appendChild(new Option(UFS[i], UFS[i]));
-  uf.value = state.answers.uf || '';
-  uf.addEventListener('change', function () {
-    state.answers.uf = uf.value;
-    limparErro(f.id);
-  });
-
-  g.appendChild(cidade);
-  g.appendChild(uf);
-  body.appendChild(g);
-}
-
-/* Mes + ano. */
-function montarMesAno(body, f) {
-  var g = el('div', 'grid2');
-  var anoAtual = new Date().getFullYear();
-
-  var mes = el('select', 'inp');
-  mes.id = 'f-' + f.id + '-m';
-  mes.appendChild(new Option('Mês', ''));
-  for (var m = 0; m < 12; m++) {
-    mes.appendChild(new Option(MESES[m], String(m + 1).length === 1 ? '0' + (m + 1) : String(m + 1)));
-  }
-  mes.value = state.answers[f.id + '__m'] || '';
-  mes.addEventListener('change', function () {
-    state.answers[f.id + '__m'] = mes.value;
-    limparErro(f.id);
-  });
-
-  /* Datas passadas (prazo original) e futuras (nova previsao) no mesmo range. */
-  var ano = el('select', 'inp');
-  ano.id = 'f-' + f.id + '-y';
-  ano.appendChild(new Option('Ano', ''));
-  for (var y = anoAtual + 5; y >= anoAtual - 15; y--) ano.appendChild(new Option(String(y), String(y)));
-  ano.value = state.answers[f.id + '__y'] || '';
-  ano.addEventListener('change', function () {
-    state.answers[f.id + '__y'] = ano.value;
-    limparErro(f.id);
-  });
-
-  g.appendChild(mes);
-  g.appendChild(ano);
-  body.appendChild(g);
-}
-
-/* Bloco de contato: nome, WhatsApp, e-mail e aviso de privacidade. */
-function montarContato(body) {
-  var nome = el('input', 'inp');
-  nome.type = 'text';
-  nome.id = 'f-nome';
-  nome.placeholder = 'Nome completo';
-  nome.autocomplete = 'name';
-  nome.value = state.answers.nome || '';
-  nome.addEventListener('input', function () {
-    state.answers.nome = nome.value;
-    limparErro('contato');
-  });
-
-  var zap = el('input', 'inp');
-  zap.type = 'tel';
-  zap.id = 'f-whatsapp';
-  zap.placeholder = 'WhatsApp — (00) 00000-0000';
-  zap.inputMode = 'numeric';
-  zap.autocomplete = 'tel-national';
-  zap.maxLength = 16;
-  zap.value = state.answers.whatsapp || '';
-  zap.addEventListener('input', function () {
-    zap.value = mascaraTelefone(zap.value);
-    state.answers.whatsapp = zap.value;
-    limparErro('contato');
-  });
-
-  var mail = el('input', 'inp');
-  mail.type = 'email';
-  mail.id = 'f-email';
-  mail.placeholder = 'E-mail (opcional)';
-  mail.autocomplete = 'email';
-  mail.value = state.answers.email || '';
-  mail.addEventListener('input', function () {
-    state.answers.email = mail.value;
-    limparErro('contato');
-  });
-
-  var box = el('div');
-  box.style.display = 'grid';
-  box.style.gap = '10px';
-  box.appendChild(nome);
-  box.appendChild(zap);
-  box.appendChild(mail);
-  body.appendChild(box);
-
-  var consent = el('p', 'consent');
-  consent.innerHTML =
-    'Ao enviar seus dados, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ' +
-    'Seus dados serão tratados de acordo com a legislação aplicável. ' +
-    '<a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.';
-  body.appendChild(consent);
-}
-
-function urlPrivacidade() {
-  var u = CONFIG.PRIVACY_URL;
-  if (!u || u.indexOf('INSERIR_URL') === 0) return CONFIG.SITE_URL;
-  return u;
-}
-
-/* --- 8.4 Progresso ------------------------------------------------------- */
-function atualizarProgresso(posicao, total) {
-  var box = byId('progress');
-  box.hidden = false;
-  byId('progNow').textContent = posicao;
-  byId('progTotal').textContent = total;
-  var pct = Math.round((posicao - 1) / total * 100);
-  byId('progBar').style.width = Math.max(5, pct) + '%';
-  byId('progTrack').setAttribute('aria-valuenow', String(pct));
-}
-
-/* =========================================================================
-   09 · NAVEGACAO
-   ========================================================================= */
-function irParaProxima() {
-  var step = STEPS[state.idx];
-  if (!validarEtapa(step)) return;
-
-  var visiveis = etapasVisiveis();
-  var posicao = visiveis.indexOf(state.idx) + 1;
-  trackStepCompleted(step.id, posicao, visiveis.length);
-
-  /* Ultima etapa: qualifica o lead e mostra o resultado. */
-  if (step.id === 'contato') {
-    state.lead = qualificarLead();
-    salvarLeadLocalmente();
-    trackLeadQualified(state.lead.classificacao, state.lead.pontuacao, state.answers.problema);
-    state.screen = 'result';
-    renderResult();
-    subir();
-    return;
-  }
-
-  /* Recalcula as etapas visiveis: a resposta pode ter mudado a rota. */
-  visiveis = etapasVisiveis();
-  for (var i = 0; i < visiveis.length; i++) {
-    if (visiveis[i] > state.idx) {
-      state.idx = visiveis[i];
-      renderStep();
-      subir();
-      return;
-    }
-  }
-}
-
-function irParaAnterior() {
-  var visiveis = etapasVisiveis();
-  state.voltando = true;
-
-  for (var i = visiveis.length - 1; i >= 0; i--) {
-    if (visiveis[i] < state.idx) {
-      state.idx = visiveis[i];
-      renderStep();
-      subir();
-      return;
-    }
-  }
-  /* Estava na primeira etapa: volta para a tela inicial. */
-  state.screen = 'intro';
-  renderIntro();
-  subir();
-}
-
-/* =========================================================================
-   10 · VALIDACAO
-   ========================================================================= */
-function mostrarErro(fieldId, msg) {
-  var e = byId('err-' + fieldId);
-  if (e) { e.textContent = msg; e.classList.add('is-on'); }
-  var bloco = stage.querySelector('[data-field="' + fieldId + '"]');
-  if (bloco) {
-    var inputs = bloco.querySelectorAll('.inp');
-    for (var i = 0; i < inputs.length; i++) inputs[i].classList.add('is-error');
-    var y = bloco.getBoundingClientRect().top + window.pageYOffset - 90;
-    try { window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' }); }
-    catch (err) { window.scrollTo(0, Math.max(0, y)); }
-  }
-}
-
-function limparErro(fieldId) {
-  var e = byId('err-' + fieldId);
-  if (e) { e.textContent = ''; e.classList.remove('is-on'); }
-  var bloco = stage.querySelector('[data-field="' + fieldId + '"]');
-  if (bloco) {
-    var inputs = bloco.querySelectorAll('.inp');
-    for (var i = 0; i < inputs.length; i++) inputs[i].classList.remove('is-error');
-  }
-}
-
-/* Mascara brasileira: (XX) XXXXX-XXXX */
-function mascaraTelefone(v) {
-  var d = String(v || '').replace(/\D/g, '').slice(0, 11);
-  if (d.length === 0) return '';
-  if (d.length <= 2) return '(' + d;
-  if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
-  if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
-  return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
-}
-
-/* Valida DDD e quantidade de digitos. Celular com 11 digitos exige o 9. */
-function telefoneValido(v) {
-  var d = String(v || '').replace(/\D/g, '');
-  if (d.length !== 10 && d.length !== 11) return false;
-  var ddd = parseInt(d.slice(0, 2), 10);
-  var DDDS = [11,12,13,14,15,16,17,18,19,21,22,24,27,28,31,32,33,34,35,37,38,
-              41,42,43,44,45,46,47,48,49,51,53,54,55,61,62,63,64,65,66,67,68,69,
-              71,73,74,75,77,79,81,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,98,99];
-  if (DDDS.indexOf(ddd) === -1) return false;
-  if (d.length === 11 && d.charAt(2) !== '9') return false;
-  if (/^(\d)\1+$/.test(d.slice(2))) return false;   /* 99999999999 e afins */
-  return true;
-}
-
-function emailValido(v) {
-  return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(String(v || '').trim());
-}
-
-/* Valida todas as perguntas visiveis da etapa. */
-function validarEtapa(step) {
-  var campos = camposVisiveis(step);
-
-  for (var i = 0; i < campos.length; i++) {
-    var f = campos[i];
-    var obrigatorio = f.required !== false;
-    var a = state.answers;
-
-    if (f.type === 'contato') {
-      var nome = String(a.nome || '').trim();
-      if (nome.split(/\s+/).length < 2 || nome.length < 5) {
-        mostrarErro('contato', 'Informe seu nome completo.');
-        return false;
-      }
-      if (!telefoneValido(a.whatsapp)) {
-        mostrarErro('contato', 'Informe um número de WhatsApp válido, com DDD.');
-        return false;
-      }
-      if (a.email && String(a.email).trim() && !emailValido(a.email)) {
-        mostrarErro('contato', 'O e-mail informado parece inválido. Corrija ou deixe em branco.');
-        return false;
-      }
-      continue;
-    }
-
-    if (!obrigatorio) continue;
-
-    if (f.type === 'cityuf') {
-      if (String(a.cidade || '').trim().length < 2 || !a.uf) {
-        mostrarErro(f.id, 'Informe a cidade e o estado do imóvel.');
-        return false;
-      }
-      continue;
-    }
-
-    if (f.type === 'monthyear') {
-      if (!a[f.id + '__m'] || !a[f.id + '__y']) {
-        mostrarErro(f.id, 'Selecione o mês e o ano.');
-        return false;
-      }
-      continue;
-    }
-
-    if (f.type === 'multi') {
-      if (!a[f.id] || !a[f.id].length) {
-        mostrarErro(f.id, 'Selecione ao menos uma opção para continuar.');
-        return false;
-      }
-      continue;
-    }
-
-    if (f.type === 'textarea' || f.type === 'text') {
-      if (String(a[f.id] || '').trim().length < 5) {
-        mostrarErro(f.id, 'Escreva uma resposta breve para seguir.');
-        return false;
-      }
-      continue;
-    }
-
-    if (!a[f.id]) {
-      mostrarErro(f.id, 'Selecione uma opção para continuar.');
-      return false;
-    }
-  }
-  return true;
-}
-
-/* =========================================================================
-   11 · QUALIFICACAO INTERNA DO LEAD (HOT / WARM / COLD)
-   -------------------------------------------------------------------------
-   ESTA PONTUACAO NAO E MOSTRADA AO USUARIO. Ela existe para organizar o
-   atendimento: o resultado viaja nos eventos de conversao e fica salvo no
-   navegador. Nenhum usuario e impedido de chegar ao WhatsApp.
-
-   Logica: cada resposta que indica um caso mais maduro, mais documentado ou
-   economicamente mais relevante soma pontos. A ausencia de contrato subtrai.
-
-   Faixas:  HOT  >= 32   |   WARM 16 a 31   |   COLD < 16
-   Para calibrar, mude apenas os pesos da tabela PESOS e os limites em
-   LIMITE_HOT / LIMITE_WARM.
-   ========================================================================= */
-var LIMITE_HOT = 32;
-var LIMITE_WARM = 16;
-
-var PESOS = {
-  /* Valor economico envolvido */
-  valorImovel: { ate250: 0, '250a500': 3, '500a750': 5, '750a1mi': 7, acima1mi: 8 },
-  valorPago:   { ate20: 1, '20a50': 3, '50a100': 5, '100a200': 7, acima200: 8 },
-
-  /* Gravidade do atraso */
-  tempoAtraso:  { menos3: 2, '3a6': 5, '6a12': 7, '12a18': 9, mais18: 10, naosei: 2 },
-  valorAluguel: { ate1000: 1, '1a2': 2, '2a3': 3, acima3: 4 },
-
-  /* Estagio da negociacao do distrato */
-  respostaDistrato:   { aceitou: 3, parcial: 6, percentual: 6, recusou: 8, semResposta: 4, outro: 2 },
-  percentualRetencao: { ate10: 1, '10a20': 3, '20a30': 5, '30a50': 7, mais50: 8, naosei: 2 },
-  quitacao:           { sim: 6, naosei: 2, nao: 0 }
-};
-
-function qualificarLead() {
-  var a = state.answers;
-  var pontos = 0;
-  var sinais = [];
-
-  function somar(valor, motivo) {
-    if (!valor) return;
-    pontos += valor;
-    sinais.push(motivo);
-  }
-  function tabela(nome, id, motivo) {
-    var v = PESOS[nome][a[id]];
-    if (v) somar(v, motivo + ': ' + rotuloDe(id));
-  }
-
-  /* --- Sinais economicos ------------------------------------------------ */
-  tabela('valorImovel', 'valorImovel', 'Valor do imóvel');
-  tabela('valorPago', 'valorPago', 'Valor já pago');
-
-  /* --- Rota atraso de obra ---------------------------------------------- */
-  if (a.chaves === 'nao') somar(3, 'Chaves ainda não entregues');
-  tabela('tempoAtraso', 'tempoAtraso', 'Tempo de atraso');
-  if (a.aluguel === 'sim') {
-    somar(6, 'Paga aluguel enquanto aguarda');
-    tabela('valorAluguel', 'valorAluguel', 'Aluguel mensal');
-  }
-
-  /* --- Rota distrato / retencao ----------------------------------------- */
-  if (a.pediuDistrato === 'sim') somar(4, 'Distrato já pedido formalmente');
-  tabela('respostaDistrato', 'respostaDistrato', 'Resposta da construtora');
-  tabela('percentualRetencao', 'percentualRetencao', 'Retenção informada');
-  if (a.assinouDistrato === 'sim') somar(5, 'Já assinou documento de distrato');
-  tabela('quitacao', 'quitacao', 'Quitação');
-  if (a.problema === 'documento') somar(6, 'Recebeu documento para assinar');
-
-  /* --- Maturidade do caso ----------------------------------------------- */
-  if (a.tentouResolver === 'sim') somar(5, 'Já tentou resolver com a construtora');
-
-  /* --- Documentacao ------------------------------------------------------ */
-  if (temDoc('contrato')) somar(5, 'Possui contrato');
-  else somar(-3, 'Não possui contrato');
-  if (temDoc('comprovantes')) somar(4, 'Possui comprovantes de pagamento');
-  if (temDoc('conversas')) somar(2, 'Possui conversas/documentos com a construtora');
-
-  /* --- Rota "outro problema": depende de haver um relato concreto -------- */
-  if (a.problema === 'outro') {
-    var texto = String(a.descricao || '').trim();
-    if (texto.length >= 60) somar(4, 'Descreveu o problema com detalhes');
-    else if (texto.length < 25) somar(-2, 'Relato genérico');
-  }
-
-  var classificacao = pontos >= LIMITE_HOT ? 'HOT' : (pontos >= LIMITE_WARM ? 'WARM' : 'COLD');
-
-  return { pontuacao: pontos, classificacao: classificacao, sinais: sinais };
-}
-
-/* Guarda o lead no navegador (nao ha backend nesta versao). */
-function salvarLeadLocalmente() {
-  if (!CONFIG.SALVAR_LEAD_LOCALMENTE) return;
-  try {
-    var registro = {
-      ref: state.ref,
-      data: new Date().toISOString(),
-      classificacao: state.lead ? state.lead.classificacao : '',
-      pontuacao: state.lead ? state.lead.pontuacao : 0,
-      respostas: state.answers,
-      origem: state.origem,
-      duracao_seg: state.iniciadoEm ? Math.round((Date.now() - state.iniciadoEm) / 1000) : null
-    };
-    var lista = JSON.parse(window.localStorage.getItem('bgl_leads_imob') || '[]');
-    lista.push(registro);
-    window.localStorage.setItem('bgl_leads_imob', JSON.stringify(lista.slice(-20)));
-  } catch (e) { /* navegador sem localStorage: segue normalmente */ }
-}
-
-/* =========================================================================
-   12 · RESUMO E TELA DE RESULTADO
-   -------------------------------------------------------------------------
-   Nenhuma linha aqui afirma direito, percentual ou valor a receber. O texto
-   apenas devolve ao usuario o que ele mesmo informou e indica que o caso
-   precisa ser analisado a partir do contrato e dos documentos.
-   ========================================================================= */
-function montarResumo() {
-  var a = state.answers;
-  var itens = [];
-  var local = tituloCidade(a.cidade) + '/' + (a.uf || '');
-
-  /* --- Linha de contexto do problema ------------------------------------ */
-  if (a.problema === 'atraso')         itens.push('a obra está atrasada e a situação segue sem solução definida;');
-  else if (a.problema === 'desistir')  itens.push('pretende rescindir o contrato com a construtora;');
-  else if (a.problema === 'retencao')  itens.push('a construtora pretende reter parte dos valores já pagos;');
-  else if (a.problema === 'devolucao') itens.push('a construtora não devolveu os valores já pagos;');
-  else if (a.problema === 'documento') itens.push('recebeu um distrato ou documento para assinar;');
-  else if (a.problema === 'outro')     itens.push('enfrenta um problema com a construtora relacionado ao imóvel;');
-
-  itens.push('o imóvel está em ' + local + ', com valor aproximado de ' + inicialMinuscula(rotuloDe('valorImovel')) + ';');
-
-  /* --- Rota atraso ------------------------------------------------------- */
-  if (a.problema === 'atraso') {
-    if (mesAno('prazo')) itens.push('a entrega estava prevista para ' + mesAno('prazo') + ';');
-    itens.push(a.chaves === 'sim'
-      ? 'as chaves já foram recebidas, após o prazo previsto;'
-      : 'as chaves ainda não foram entregues;');
-    if (a.tempoAtraso && a.tempoAtraso !== 'naosei') {
-      itens.push('o atraso está na faixa de ' + inicialMinuscula(rotuloDe('tempoAtraso')) + ';');
-    }
-    if (a.aluguel === 'sim') {
-      itens.push('continua pagando aluguel enquanto aguarda, na faixa de ' +
-                 inicialMinuscula(rotuloDe('valorAluguel')) + ' por mês;');
-    }
-    itens.push(a.novaPrevisao === 'sim'
-      ? 'a construtora informou nova previsão de entrega' + (mesAno('previsao') ? ' para ' + mesAno('previsao') : '') + ';'
-      : 'a construtora ainda não informou uma nova previsão de entrega;');
-  }
-
-  /* --- Rota distrato / retencao / devolucao ------------------------------ */
-  if (rotaDistrato(a)) {
-    if (a.valorPago) itens.push('já pagou aproximadamente ' + inicialMinuscula(rotuloDe('valorPago')) + ' pelo imóvel;');
-    if (a.pediuDistrato === 'sim') {
-      var r = a.respostaDistrato;
-      if (r === 'aceitou')          itens.push('pediu o distrato e a construtora aceitou;');
-      else if (r === 'parcial')     itens.push('pediu o distrato e a construtora informou que devolverá apenas parte dos valores;');
-      else if (r === 'percentual')  itens.push('pediu o distrato e a construtora informou que pretende reter um percentual;');
-      else if (r === 'recusou')     itens.push('pediu o distrato e a construtora recusou;');
-      else if (r === 'semResposta') itens.push('pediu o distrato e ainda não obteve resposta;');
-      else                          itens.push('já pediu formalmente o distrato à construtora;');
-    } else {
-      itens.push('ainda não pediu formalmente o distrato à construtora;');
-    }
-    if (a.percentualRetencao) {
-      itens.push('a retenção informada está na faixa de ' + inicialMinuscula(rotuloDe('percentualRetencao')) + ';');
-    }
-    if (a.assinouDistrato === 'sim') {
-      itens.push('já assinou um documento de distrato' +
-        (a.quitacao === 'sim' ? ', incluindo documento de quitação à construtora' :
-         a.quitacao === 'naosei' ? ', sem ter certeza se havia quitação no documento' : '') + ';');
-    }
-  }
-
-  /* --- Rota outro -------------------------------------------------------- */
-  if (a.problema === 'outro' && a.descricao) {
-    itens.push('relatou a seguinte situação: “' + String(a.descricao).trim().slice(0, 180) + '”;');
-  }
-
-  /* --- Comuns ------------------------------------------------------------ */
-  itens.push(a.tentouResolver === 'sim'
-    ? 'já tentou resolver a situação diretamente com a construtora;'
-    : 'ainda não tentou resolver a situação diretamente com a construtora;');
-
-  var docs = [];
-  if (temDoc('contrato')) docs.push('o contrato de compra e venda');
-  if (temDoc('comprovantes')) docs.push('comprovantes dos valores pagos');
-  if (temDoc('conversas')) docs.push('conversas ou documentos trocados com a construtora');
-  itens.push(docs.length
-    ? 'possui ' + listar(docs) + '.'
-    : 'ainda não reuniu o contrato e os comprovantes relacionados ao imóvel.');
-
-  return itens;
-}
-
-/* Junta itens de lista com virgulas e "e". */
-function listar(arr) {
-  if (arr.length === 1) return arr[0];
-  return arr.slice(0, -1).join(', ') + ' e ' + arr[arr.length - 1];
-}
-
-/* Titulo do resultado, adequado a rota e sem promessa de resultado. */
-function tituloResultado() {
-  var a = state.answers;
-  var fraco = state.lead && state.lead.classificacao === 'COLD';
-
-  if (fraco) return 'Sua situação precisa ser analisada a partir do contrato e dos documentos.';
-  if (rotaDistrato(a)) return 'Seu caso apresenta elementos que justificam uma análise jurídica antes de aceitar a proposta da construtora.';
-  if (a.problema === 'atraso') return 'Seu caso apresenta elementos que justificam uma análise jurídica.';
-  return 'Seu relato apresenta elementos que justificam uma análise jurídica.';
-}
-
-/* Observacao adicional para situacoes que envolvem assinatura de documento. */
-function alertaDocumento() {
-  var a = state.answers;
-  if (a.quitacao === 'sim' || a.assinouDistrato === 'sim') {
-    return 'Documentos de distrato costumam conter cláusula de quitação. Como você informou que já houve assinatura, ' +
-           'a leitura do que foi assinado é parte necessária da análise.';
-  }
-  if (a.problema === 'documento') {
-    return 'Documentos enviados pela construtora para assinatura costumam definir valores e quitação. ' +
-           'A leitura do documento antes da assinatura é parte necessária da análise.';
-  }
-  return '';
-}
-
-function renderResult() {
-  byId('progress').hidden = true;
-
-  var tela = el('div');
-  var itens = montarResumo();
-  var alerta = alertaDocumento();
-  var nome = primeiroNome(state.answers.nome);
-
-  var html =
-    '<span class="selo"><span></span>Avaliação preliminar</span>' +
-    '<h2 class="title">' + escapar(tituloResultado()) + '</h2>' +
-    (nome ? '<p class="sub">' + escapar(nome) + ', este é o resumo do que você informou, ' +
-            'organizado para a equipe da BGL analisar seu caso.</p>' : '') +
-    '<div class="painel">' +
-      '<p class="painel__titulo">Você informou que</p><ul>' +
-      itens.map(function (t) { return '<li>' + escapar(t) + '</li>'; }).join('') +
-      '</ul></div>' +
-    '<p class="nota">Essas informações podem indicar questões jurídicas que precisam ser avaliadas ' +
-      'a partir do contrato e dos documentos. Cada caso é analisado individualmente e esta avaliação ' +
-      'preliminar não representa promessa ou garantia de resultado.</p>' +
-    (alerta ? '<p class="nota">' + escapar(alerta) + '</p>' : '') +
-    '<div class="cta">' +
-      '<h3 class="title">Quer entender o que pode ser feito no seu caso?</h3>' +
-      '<p class="cta__texto">A equipe da BGL Advogados poderá analisar as informações fornecidas ' +
-        'e orientar você sobre os próximos passos.</p>' +
-      '<div class="cta__acoes">' +
-        '<a class="btn btn--wa btn--block" id="btnWhats" href="#" rel="noopener">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg>' +
-          'Falar com a BGL pelo WhatsApp</a>' +
-        '<p class="cta__ref">O resumo acima vai junto na mensagem. Referência: ' + escapar(state.ref) + '</p>' +
-        '<button class="refazer" type="button" id="btnRestart">Refazer a avaliação</button>' +
-      '</div>' +
-    '</div>' +
-    '<p class="consent">Ao enviar, você concorda que a BGL Advogados entre em contato para tratar da sua ' +
-      'solicitação. <a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.</p>';
-
-  tela.innerHTML = html;
-  pintar(tela);
-
-  var botao = byId('btnWhats');
-  botao.href = linkWhatsApp();
-  if (CONFIG.WHATSAPP_NOVA_ABA) botao.target = '_blank';
-  botao.addEventListener('click', function () {
-    trackWhatsAppClick(state.lead ? state.lead.classificacao : '');
-  });
-
-  byId('btnRestart').addEventListener('click', function () {
-    state.answers = {};
-    state.lead = null;
-    state.ref = gerarRef();
-    state.screen = 'intro';
-    state.idx = 0;
-    renderIntro();
-    subir();
-  });
-}
-
-/* Escapa texto antes de injetar em HTML. */
-function escapar(s) {
-  return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-/* =========================================================================
-   13 · MENSAGEM E LINK DO WHATSAPP
-   -------------------------------------------------------------------------
-   A mensagem e curta e estruturada de proposito: o advogado precisa saber
-   em poucos segundos quem e a pessoa, qual o problema, o valor envolvido,
-   o estagio do caso, se ja houve tratativa e se ha documentacao.
-   Para incluir uma informacao nova, acrescente uma linha em "linhas".
-   ========================================================================= */
-function montarMensagemWhatsApp() {
-  var a = state.answers;
-  var linhas = [];
-
-  linhas.push('Olá, equipe BGL. Fiz a avaliação imobiliária pelo site e gostaria de analisar meu caso.');
-  linhas.push('');
-  linhas.push('Nome: ' + String(a.nome || '').trim());
-  linhas.push('Problema principal: ' + rotuloDe('problema'));
-  linhas.push('Cidade/UF do imóvel: ' + tituloCidade(a.cidade) + '/' + (a.uf || ''));
-  linhas.push('Valor aproximado do imóvel: ' + rotuloDe('valorImovel'));
-
-  /* --- Rota atraso ------------------------------------------------------- */
-  if (a.problema === 'atraso') {
-    if (mesAno('prazo')) linhas.push('Entrega prevista para: ' + mesAno('prazo'));
-    linhas.push('Chaves recebidas: ' + rotuloDe('chaves'));
-    if (a.tempoAtraso) linhas.push('Tempo de atraso: ' + rotuloDe('tempoAtraso'));
-    linhas.push('Pagando aluguel: ' + rotuloDe('aluguel') +
-      (a.aluguel === 'sim' && a.valorAluguel ? ' (' + rotuloDe('valorAluguel') + ')' : ''));
-    linhas.push('Nova previsão informada: ' + rotuloDe('novaPrevisao') +
-      (a.novaPrevisao === 'sim' && mesAno('previsao') ? ' (' + mesAno('previsao') + ')' : ''));
-  }
-
-  /* --- Rota distrato / retencao / devolucao ------------------------------ */
-  if (rotaDistrato(a)) {
-    if (a.valorPago) linhas.push('Valor já pago: ' + rotuloDe('valorPago'));
-    linhas.push('Distrato pedido formalmente: ' + rotuloDe('pediuDistrato') +
-      (a.pediuDistrato === 'sim' && a.respostaDistrato ? ' — ' + rotuloDe('respostaDistrato') : ''));
-    if (a.percentualRetencao) linhas.push('Retenção informada: ' + rotuloDe('percentualRetencao'));
-    linhas.push('Documento de distrato assinado: ' + rotuloDe('assinouDistrato') +
-      (a.assinouDistrato === 'sim' && a.quitacao ? ' — quitação: ' + rotuloDe('quitacao') : ''));
-  }
-
-  /* --- Rota outro -------------------------------------------------------- */
-  if (a.problema === 'outro' && a.descricao) {
-    linhas.push('Resumo do problema: ' + String(a.descricao).trim().slice(0, 240));
-  }
-
-  /* --- Comuns ------------------------------------------------------------ */
-  linhas.push('Já tentei resolver com a construtora: ' + rotuloDe('tentouResolver') +
-    (a.tentouResolver === 'sim' && a.respostaConstrutora
-      ? ' — resposta: ' + String(a.respostaConstrutora).trim().slice(0, 140) : ''));
-  linhas.push('Documentos: contrato ' + docSimNao('contrato') +
-    ', comprovantes ' + docSimNao('comprovantes') +
-    ', conversas ' + docSimNao('conversas'));
-  if (a.email && String(a.email).trim()) linhas.push('E-mail: ' + String(a.email).trim());
-
-  linhas.push('');
-  linhas.push('Gostaria de saber como funciona a análise do meu caso.');
-
-  /* --- Rodape tecnico, discreto: referencia e origem do lead ------------- */
-  var rodape = 'Ref.: ' + state.ref;
-  var origem = origemResumida();
-  if (origem) rodape += ' · Origem: ' + origem;
-  linhas.push('');
-  linhas.push(rodape);
-
-  return linhas.join('\n');
-}
-
-function linkWhatsApp() {
-  var numero = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
-  var texto = encodeURIComponent(montarMensagemWhatsApp());
-  if (!numero) {
-    /* Sem numero configurado, o link ainda abre o WhatsApp com o texto pronto. */
-    return 'https://wa.me/?text=' + texto;
-  }
-  return 'https://wa.me/' + numero + '?text=' + texto;
-}
-
-/* =========================================================================
-   14 · INICIALIZACAO
-   ========================================================================= */
-function init() {
-  /* Tema */
-  document.documentElement.setAttribute('data-tema',
-    CONFIG.TEMA === 'claro' ? 'claro' : 'escuro');
-
-  /* Marca: a imagem so substitui o lettering se realmente carregar. */
-  if (CONFIG.LOGO_URL) {
-    var logo = byId('brandLogo');
-    logo.onload = function () {
-      logo.hidden = false;
-      byId('brandWord').style.display = 'none';
-    };
-    logo.onerror = function () { logo.removeAttribute('src'); };
-    logo.src = CONFIG.LOGO_URL;
-  }
-
-  /* Rodape */
-  byId('footPrivacy').href = urlPrivacidade();
-
-  /* Origem e referencia do lead */
-  state.origem = capturarOrigem();
-  state.ref = gerarRef();
-
-  /* Tags de medicao (so carregam se CONFIG.CARREGAR_TAGS_PROPRIAS = true
-     e se ainda nao existirem na pagina hospedeira) */
-  carregarPixelSeNecessario();
-  carregarGtagSeNecessario();
-
-  /* Primeira tela */
-  renderIntro();
-
-  /* Ponto de inspecao para depuracao no console do navegador:
-     BGL_AVALIACAO.estado() mostra respostas, origem e classificacao. */
-  window.BGL_AVALIACAO = {
-    estado: function () { return { respostas: state.answers, origem: state.origem, lead: state.lead, ref: state.ref }; },
-    config: CONFIG,
-    mensagem: montarMensagemWhatsApp
-  };
-}
-
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-else init();
-
-})();
-</script>
+  <!-- WhatsApp flutuante -->
+  <a class="wa-float" href="https://wa.me/5562992509988" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.5.7 4.8 1.9 6.8L3 29l6.7-2.1c2 1.1 4.2 1.6 6.3 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3Zm0 23c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4 1.2 1.3-3.9-.3-.4a10.4 10.4 0 0 1-1.6-5.5C5.6 10 10.2 5.4 16 5.4S26.4 10 26.4 15.7 21.8 26 16 26Zm5.9-7.7c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-.9-.8-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4Z"/></svg>
+  </a>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>
