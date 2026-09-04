@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- =========================================================================
+     BGL ADVOGADOS - AVALIACAO IMOBILIARIA PRELIMINAR
+     Funil interativo de captacao e qualificacao de leads (imovel na planta,
+     atraso de obra, distrato/rescisao e retencao de valores).
+
+     ARQUIVO UNICO. Sem backend, sem banco de dados, sem framework.
+     Basta hospedar este index.html em uma pasta do site. Ex.:
+        /avaliacao-imobiliaria/index.html
+
+     >>> TUDO O QUE PRECISA SER EDITADO ESTA NO OBJETO "CONFIG",
+         logo no inicio do <script>, ao final deste arquivo. <<<
+
+     Unica dependencia externa: Google Fonts (DM Sans), a mesma tipografia
+     ja usada nas paginas da BGL. Ha fallback completo (system-ui): se a
+     fonte nao carregar, a pagina continua correta.
+     ========================================================================= -->
+
+<title>Avaliação preliminar do seu caso imobiliário | BGL Advogados</title>
+<meta name="description" content="Responda algumas perguntas sobre o seu imóvel e sua relação com a construtora. Ao final, envie as informações para a equipe da BGL Advogados.">
+<meta name="author" content="BGL Advogados">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0e1a2e">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================================
+   INDICE DO CSS
+   01. Tokens (tema escuro / tema claro)
+   02. Reset e base
+   03. Layout de tela cheia
+   04. Cabecalho e progresso
+   05. Tipografia
+   06. Perguntas, opcoes e campos
+   07. Botoes e navegacao
+   08. Resultado
+   09. Rodape
+   ========================================================================= */
+
+/* =========================================================================
+   01 · TOKENS
+   -------------------------------------------------------------------------
+   TEMA ESCURO (padrao) - navy da identidade BGL + champagne.
+   O logotipo oficial da BGL e prata em degrade, feito para fundo escuro.
+   Para usar o tema claro, troque CONFIG.TEMA para 'claro' no script.
+   ========================================================================= */
+:root,
+[data-tema="escuro"] {
+  --bg:            #0e1a2e;   /* navy profundo da identidade BGL */
+  --bg-soft:       #16243d;   /* superficie das opcoes e campos  */
+  --bg-soft-2:     #1b2c48;
+  --line:          #2b3f5e;
+  --line-strong:   #3d5477;
+
+  --text:          #eef1f6;
+  --text-soft:     #a8b4c6;
+  --text-mute:     #7d8ba1;
+
+  --accent:        #cf9e4d;   /* champagne */
+  --accent-soft:   #e0bd85;
+  --accent-ink:    #10203a;   /* texto sobre o champagne */
+
+  --wa:            #1f8a5b;
+  --wa-hover:      #1a744c;
+  --erro:          #e0857d;
+  --erro-bg:       rgba(224,133,125,.10);
+
+  --sombra:        0 10px 30px -18px rgba(0,0,0,.9);
+}
+
+[data-tema="claro"] {
+  --bg:            #f6f3ee;
+  --bg-soft:       #ffffff;
+  --bg-soft-2:     #fbf9f5;
+  --line:          #e2dbcd;
+  --line-strong:   #cabfa9;
+
+  --text:          #16243d;
+  --text-soft:     #4a5466;
+  --text-mute:     #78829a;
+
+  --accent:        #a6844b;
+  --accent-soft:   #8e7040;
+  --accent-ink:    #ffffff;
+
+  --wa:            #1f7a52;
+  --wa-hover:      #196342;
+  --erro:          #a63d3d;
+  --erro-bg:       #fdf6f5;
+
+  --sombra:        0 10px 30px -22px rgba(14,26,46,.45);
+}
+
+:root {
+  --raio: 8px;
+  --alvo: 68px;                /* altura dos elementos tocaveis */
+  --col: 27rem;                /* largura maxima da coluna      */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --fonte: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+           "Helvetica Neue", Arial, sans-serif;
+}
+
+/* =========================================================================
+   02 · RESET E BASE
+   ========================================================================= */
+*,*::before,*::after { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100% }
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1,h2,h3 { margin: 0; font-weight: 600; line-height: 1.22; letter-spacing: -.015em }
+p { margin: 0 }
+button { font: inherit; color: inherit }
+input, select, textarea { font: inherit; color: inherit }
+a { color: var(--accent) }
+::selection { background: var(--accent); color: var(--accent-ink) }
+
+/* =========================================================================
+   03 · LAYOUT DE TELA CHEIA
+   Logotipo no topo, conteudo ao centro, navegacao embaixo.
+   ========================================================================= */
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(900px 420px at 50% -12%, rgba(207,158,77,.10), transparent 68%),
+    var(--bg);
+}
+.col { width: 100%; max-width: var(--col); margin: 0 auto; padding: 0 20px }
+
+/* =========================================================================
+   04 · CABECALHO E PROGRESSO
+   ========================================================================= */
+.head { padding: 26px 0 18px; text-align: center }
+.head__logo { height: 46px; width: auto; margin: 0 auto; display: block }
+.head__word {
+  font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--text); font-weight: 500;
+}
+.head__word small {
+  display: block; margin-top: 5px;
+  font-size: .58rem; letter-spacing: .26em; color: var(--text-mute); font-weight: 400;
+}
+
+.progress { padding-bottom: 22px }
+.progress[hidden] { display: none }
+.progress__track {
+  height: 3px; border-radius: 3px; background: var(--line);
+  position: relative; overflow: hidden;
+}
+.progress__bar {
+  position: absolute; inset: 0 auto 0 0; width: 0%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent));
+  transition: width .45s var(--ease);
+}
+.progress__meta {
+  margin-top: 8px; text-align: right;
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute);
+}
+
+/* =========================================================================
+   05 · TIPOGRAFIA
+   ========================================================================= */
+.stage { flex: 1 0 auto; padding-bottom: 6px }
+.view { animation: entra .34s var(--ease) both }
+.view.is-back { animation-name: entraVolta }
+@keyframes entra      { from { opacity:0; transform: translateY(9px) }  to { opacity:1; transform:none } }
+@keyframes entraVolta { from { opacity:0; transform: translateY(-7px) } to { opacity:1; transform:none } }
+@media (prefers-reduced-motion: reduce) {
+  .view, .view.is-back { animation: none }
+  * { transition-duration: .01ms !important }
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  font-size: .66rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent); font-weight: 500;
+}
+.eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--accent) }
+
+.title      { font-size: 1.42rem }
+.title--big { font-size: clamp(1.6rem, 6.2vw, 2rem) }
+.sub        { margin-top: 12px; color: var(--text-soft); font-size: .96rem }
+.hint       { margin-top: 8px; color: var(--text-mute); font-size: .84rem }
+
+/* =========================================================================
+   06 · PERGUNTAS, OPCOES E CAMPOS
+   ========================================================================= */
+.q { margin-top: 22px }
+.q:first-of-type { margin-top: 20px }
+.q__label { display: block; font-size: 1rem; font-weight: 500; line-height: 1.4 }
+.q__hint  { display: block; margin-top: 5px; font-size: .83rem; color: var(--text-mute) }
+.q__body  { margin-top: 12px }
+.q.is-revealed { animation: entra .3s var(--ease) both }
+
+/* --- Opcoes (escolha unica e multipla) --------------------------------- */
+.opts { display: grid; gap: 8px }
+.opts--two { grid-template-columns: 1fr 1fr }
+
+.opt {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  min-height: var(--alvo); padding: 12px 16px; text-align: left;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition: background .18s var(--ease), border-color .18s var(--ease),
+              transform .18s var(--ease), color .18s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.opt:hover { background: var(--bg-soft-2); border-color: var(--line-strong) }
+.opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.opt__mark {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid var(--line-strong); position: relative;
+  transition: border-color .18s var(--ease), background .18s var(--ease);
+}
+.opt--multi .opt__mark { border-radius: 5px }
+.opt__mark::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-ink);
+  transform: scale(0); transition: transform .2s var(--ease);
+}
+.opt--multi .opt__mark::after { border-radius: 2px }
+.opt__text { font-size: .97rem; line-height: 1.35 }
+
+.opt.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+.opt.is-on .opt__mark { border-color: var(--accent-ink); background: transparent }
+.opt.is-on .opt__mark::after { transform: scale(1) }
+
+/* --- Campos digitaveis -------------------------------------------------- */
+.grid2 { display: grid; grid-template-columns: 1fr 108px; gap: 8px }
+.inp {
+  width: 100%; min-height: var(--alvo); padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  appearance: none; -webkit-appearance: none;
+  transition: border-color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
+}
+.inp::placeholder { color: var(--text-mute) }
+.inp:hover { border-color: var(--line-strong) }
+.inp:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(207,158,77,.16);
+}
+select.inp {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23a8b4c6' stroke-width='1.4'><path d='M1 1.5 6 6.5 11 1.5'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center;
+  background-size: 12px 8px; padding-right: 38px;
+}
+select.inp option { background: var(--bg-soft); color: var(--text) }
+textarea.inp { min-height: 116px; resize: vertical; line-height: 1.55; padding-top: 15px }
+.inp.is-error { border-color: var(--erro); background: var(--erro-bg) }
+
+.err { display: none; margin-top: 8px; font-size: .83rem; color: var(--erro) }
+.err.is-on { display: block }
+
+/* =========================================================================
+   07 · BOTOES E NAVEGACAO
+   ========================================================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--alvo); padding: 14px 24px;
+  border: 1px solid transparent; border-radius: var(--raio);
+  font-size: 1rem; font-weight: 600; letter-spacing: .01em;
+  cursor: pointer; text-decoration: none;
+  transition: background .18s var(--ease), color .18s var(--ease),
+              border-color .18s var(--ease), transform .18s var(--ease);
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+.btn--primary { background: var(--accent); color: var(--accent-ink) }
+.btn--primary:hover { background: var(--accent-soft); transform: translateY(-1px) }
+.btn--ghost {
+  min-height: 44px; padding: 8px 12px; font-weight: 400; font-size: .92rem;
+  background: none; color: var(--text-mute);
+}
+.btn--ghost:hover { color: var(--text) }
+.btn--wa { background: var(--wa); color: #fff }
+.btn--wa:hover { background: var(--wa-hover); transform: translateY(-1px) }
+.btn--wa svg { width: 21px; height: 21px; flex: none }
+.btn--block { width: 100% }
+
+.nav {
+  position: sticky; bottom: 0; z-index: 5;
+  padding: 16px 0 max(18px, env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, transparent 0%, var(--bg) 38%);
+}
+.nav__voltar { display: block; margin: 10px auto 0 }
+
+/* =========================================================================
+   08 · RESULTADO
+   ========================================================================= */
+.selo {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 100px;
+  font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-soft);
+}
+.selo span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent) }
+
+.painel {
+  margin-top: 20px; padding: 18px 20px;
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--raio);
+}
+.painel__titulo {
+  margin-bottom: 10px;
+  font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-mute);
+}
+.painel ul { margin: 0; padding: 0; list-style: none }
+.painel li {
+  position: relative; padding-left: 18px; margin-bottom: 8px;
+  font-size: .92rem; line-height: 1.5; color: var(--text-soft);
+}
+.painel li:last-child { margin-bottom: 0 }
+.painel li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: 7px; height: 1px; background: var(--accent);
+}
+
+.nota {
+  margin-top: 18px; padding-left: 14px; border-left: 2px solid var(--line-strong);
+  font-size: .88rem; line-height: 1.6; color: var(--text-mute);
+}
+
+.cta { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line) }
+.cta__texto { margin-top: 10px; color: var(--text-soft); font-size: .95rem }
+.cta__acoes { margin-top: 18px }
+.cta__ref { margin-top: 12px; font-size: .74rem; color: var(--text-mute) }
+
+.refazer {
+  display: block; margin: 14px auto 0; padding: 6px;
+  background: none; border: 0; cursor: pointer;
+  font-size: .84rem; color: var(--text-mute);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.refazer:hover { color: var(--text) }
+
+/* =========================================================================
+   09 · RODAPE
+   ========================================================================= */
+.consent {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: .78rem; line-height: 1.55; color: var(--text-mute);
+}
+.consent a { color: var(--text-soft); text-underline-offset: 3px }
+.foot {
+  flex: none; padding: 18px 0 26px; text-align: center;
+  font-size: .72rem; line-height: 1.6; color: var(--text-mute);
+}
+.foot a { color: var(--text-mute) }
+</style>
+</head>
+<body>
+
+<!-- =========================================================================
+     O conteudo das etapas e gerado pelo JavaScript dentro de #stage.
+     Aqui existem apenas os elementos fixos: marca, progresso, palco e rodape.
+     ========================================================================= -->
+<div class="app" id="app">
+
+  <header class="head col">
+    <!-- Se CONFIG.LOGO_URL estiver preenchido e a imagem carregar, ela
+         substitui o lettering. Se falhar, o lettering permanece. -->
+    <img class="head__logo" id="brandLogo" alt="BGL Advogados" hidden>
+    <div class="head__word" id="brandWord">BGL<small>Advogados</small></div>
+  </header>
+
+  <div class="col progress" id="progress" hidden>
+    <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progTrack">
+      <div class="progress__bar" id="progBar"></div>
+    </div>
+    <p class="progress__meta">Etapa <span id="progNow">1</span> de <span id="progTotal">10</span></p>
+  </div>
+
+  <main class="col stage" id="stage" aria-live="polite">
+    <noscript>
+      <h1 class="title">Ative o JavaScript para responder à avaliação</h1>
+      <p class="sub">Esta ferramenta funciona no próprio navegador, sem envio automático de dados.
+      Se preferir, entre em contato diretamente com a equipe da BGL Advogados.</p>
+    </noscript>
+  </main>
+
+  <footer class="foot col">
+    <a id="footPrivacy" href="#" target="_blank" rel="noopener">Política de Privacidade</a><br>
+    Esta avaliação preliminar não substitui a análise do contrato e dos documentos.
+  </footer>
+
+</div>
