@@ -22,7 +22,7 @@
      ========================================================================= -->
 
 <title>Avaliação preliminar do seu caso imobiliário | BGL Advogados</title>
-<meta name="description" content="Responda algumas perguntas sobre o seu imóvel e sua relação com a construtora. Ao final, envie as informações para a equipe da BGL Advogados.">
+<meta name="description" content="Responda algumas perguntas sobre o seu imóvel e sua relação com a construtora. Ao final, você recebe um resumo organizado do seu caso para a equipe da BGL Advogados analisar.">
 <meta name="author" content="BGL Advogados">
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#0e1a2e">
@@ -396,7 +396,7 @@ textarea.inp { min-height: 116px; resize: vertical; line-height: 1.55; padding-t
   <main class="col stage" id="stage" aria-live="polite">
     <noscript>
       <h1 class="title">Ative o JavaScript para responder à avaliação</h1>
-      <p class="sub">Esta ferramenta funciona no próprio navegador, sem envio automático de dados.
+      <p class="sub">As perguntas são exibidas com JavaScript ativado.
       Se preferir, entre em contato diretamente com a equipe da BGL Advogados.</p>
     </noscript>
   </main>
@@ -419,6 +419,7 @@ textarea.inp { min-height: 116px; resize: vertical; line-height: 1.55; padding-t
    05. Estado .................. respostas, navegacao, origem do lead
    06. Origem do lead .......... captura e persistencia de UTM / fbclid / gclid
    07. Eventos de conversao .... Meta Pixel + GA4 / GTM (sem duplicar tags)
+   07B. Captura do lead ........ envio ao webhook + fila de reenvio
    08. Renderizacao ............ telas, perguntas e campos
    09. Navegacao ............... avancar, voltar, progresso
    10. Validacao ............... campos obrigatorios, WhatsApp, e-mail
@@ -500,6 +501,36 @@ var CONFIG = {
   GOOGLE_ADS_CONVERSION: 'AW-18117456860/INMlCPLSobQcENznib9D',
   GOOGLE_ADS_VALUE: 1.0,
   GOOGLE_ADS_CURRENCY: 'BRL',
+
+  /* =======================================================================
+     CAPTURA DO LEAD (ENVIO PARA A BGL)
+     -----------------------------------------------------------------------
+     Sem isto, o lead so existe se a pessoa clicar no botao do WhatsApp.
+     Com a URL abaixo preenchida, o resumo completo do caso e enviado assim
+     que os dados de contato sao validados - antes de qualquer clique.
+
+     WEBHOOK_URL aceita qualquer endpoint que receba POST com JSON no corpo:
+     planilha via Google Apps Script (script pronto em captura-lead/),
+     Make, Zapier, n8n, RD Station, HubSpot ou API propria.
+     Deixe vazio ('') e nada e enviado - a ferramenta volta ao comportamento
+     anterior, somente local.
+     ======================================================================= */
+  WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxvjB7mb4ZsXnXXCt9eH-XmBIzBND6p9KoZj0kZIisjgq5KhOUJKFgksPg-SW8R8TTRRg/exec',
+
+  /* Palavra-chave combinada com o endpoint, para ele recusar envios de
+     terceiros. Preencha o mesmo valor nos dois lados. Nao e segredo forte:
+     serve para filtrar ruido, nao para proteger dado sensivel.            */
+  WEBHOOK_TOKEN: 'bgl-imob-2026',
+
+  /* Liga/desliga o envio automatico sem precisar apagar a URL.            */
+  ENVIAR_LEAD_AUTOMATICO: true,
+
+  /* Envia tambem um registro parcial quando nome e WhatsApp ja estao
+     validos, mesmo antes de a pessoa clicar em "Ver minha avaliacao".
+     Fecha a ultima brecha de abandono, mas capta dado antes do ato de
+     envio do usuario - avalie com a LGPD e o texto de consentimento na
+     mao antes de ligar. Padrao: desligado.                                */
+  CAPTURAR_ANTES_DO_ENVIO: false,
 
   /* --- Comportamento ------------------------------------------------------ */
   /* Abre o WhatsApp em nova aba (recomendado no desktop).                   */
@@ -1180,6 +1211,217 @@ function trackWhatsAppClick(classificacao) {
 }
 
 /* =========================================================================
+   07B · CAPTURA DO LEAD (ENVIO PARA A BGL)
+   -------------------------------------------------------------------------
+   O que esta secao resolve: antes, tudo ficava no navegador. Quem respondia
+   o formulario inteiro e nao clicava no botao do WhatsApp simplesmente
+   sumia. Agora o lead e enviado para CONFIG.WEBHOOK_URL no momento em que
+   os dados de contato passam na validacao - o clique no WhatsApp vira um
+   evento a mais, nao a unica chance de captura.
+
+   Como se comporta:
+     - Nao trava a tela: o envio e disparado em segundo plano e o resultado
+       aparece na hora, mesmo que a rede esteja ruim.
+     - Se o envio falhar, o lead fica em fila no localStorage e e reenviado
+       na proxima visita, na troca de aba e ao fechar a pagina.
+     - Cada envio carrega uma chave unica (ref + evento). Reenvio nao gera
+       lead duplicado desde que o endpoint ignore chaves repetidas - o
+       script de exemplo em captura-lead/apps-script.gs ja faz isso.
+
+   Eventos enviados:
+     formulario_concluido -> dados de contato validados (este e o lead)
+     whatsapp_clique      -> a pessoa seguiu para o WhatsApp
+     contato_preenchido   -> parcial, so com CONFIG.CAPTURAR_ANTES_DO_ENVIO
+   ========================================================================= */
+var FILA_STORE = 'bgl_fila_leads';
+var FILA_MAX_TENTATIVAS = 10;
+var enviosFeitos = {};    /* chaves ja despachadas nesta sessao */
+var enviandoAgora = false;
+
+/* --- Fila local ----------------------------------------------------------
+   O localStorage e o lugar preferido, porque sobrevive ao fechamento da aba.
+   Em navegador com armazenamento bloqueado (modo privativo, cookies negados)
+   a fila cai para a memoria: o lead ainda e enviado na hora, so nao resiste
+   a um fechamento antes da entrega.                                         */
+var filaMemoria = null;
+
+function filaLer() {
+  try {
+    var bruto = window.localStorage.getItem(FILA_STORE);
+    if (bruto !== null) return JSON.parse(bruto);
+  } catch (e) { /* armazenamento bloqueado: usa a memoria */ }
+  return filaMemoria || [];
+}
+
+function filaEscrever(lista) {
+  lista = lista.slice(-30);
+  filaMemoria = lista;
+  try { window.localStorage.setItem(FILA_STORE, JSON.stringify(lista)); }
+  catch (e) { /* armazenamento bloqueado: a fila segue so em memoria */ }
+}
+
+function filaAdicionar(payload) {
+  var lista = filaLer();
+  lista.push({ id: payload.chave + '|' + Date.now(), tentativas: 0, payload: payload });
+  filaEscrever(lista);
+}
+
+function filaRemover(id) {
+  var lista = filaLer();
+  var restante = [];
+  for (var i = 0; i < lista.length; i++) if (lista[i].id !== id) restante.push(lista[i]);
+  filaEscrever(restante);
+  return restante;
+}
+
+function filaFalhou(id) {
+  var lista = filaLer();
+  var restante = [];
+  for (var i = 0; i < lista.length; i++) {
+    var it = lista[i];
+    if (it.id === id) {
+      it.tentativas = (it.tentativas || 0) + 1;
+      if (it.tentativas >= FILA_MAX_TENTATIVAS) continue;   /* desiste do item */
+    }
+    restante.push(it);
+  }
+  filaEscrever(restante);
+  return restante;
+}
+
+/* --- Montagem do registro enviado ---------------------------------------- */
+function payloadLead(evento) {
+  var a = state.answers;
+  var o = state.origem || {};
+  var digitos = String(a.whatsapp || '').replace(/\D/g, '');
+
+  return {
+    token: CONFIG.WEBHOOK_TOKEN || '',
+    evento: evento,
+    chave: state.ref + '|' + evento,
+    ref: state.ref,
+    data_iso: new Date().toISOString(),
+
+    nome: String(a.nome || '').trim(),
+    whatsapp: String(a.whatsapp || '').trim(),
+    whatsapp_e164: digitos ? '55' + digitos : '',
+    email: String(a.email || '').trim(),
+    cidade: tituloCidade(a.cidade),
+    uf: a.uf || '',
+
+    problema: rotuloDe('problema'),
+    valor_imovel: rotuloDe('valorImovel'),
+    classificacao: state.lead ? state.lead.classificacao : '',
+    pontuacao: state.lead ? state.lead.pontuacao : 0,
+
+    resumo: montarResumo().join(' '),
+    mensagem: montarMensagemWhatsApp(),
+
+    origem: origemResumida(),
+    utm_source: o.utm_source || '',
+    utm_medium: o.utm_medium || '',
+    utm_campaign: o.utm_campaign || '',
+    utm_content: o.utm_content || '',
+    utm_term: o.utm_term || '',
+    gclid: o.gclid || '',
+    fbclid: o.fbclid || '',
+    referrer: o.referrer || '',
+
+    pagina: CONFIG.TOOL_URL || window.location.href,
+    duracao_seg: state.iniciadoEm ? Math.round((Date.now() - state.iniciadoEm) / 1000) : null,
+    respostas: a
+  };
+}
+
+/* --- Transporte ----------------------------------------------------------
+   Content-Type text/plain de proposito: evita o preflight OPTIONS, que
+   Google Apps Script e boa parte dos webhooks simples nao respondem. O
+   corpo continua sendo JSON e deve ser lido como JSON do outro lado.      */
+function enviarItem(item, pronto) {
+  var url = CONFIG.WEBHOOK_URL;
+  var corpo = JSON.stringify(item.payload);
+  if (!url) { pronto(false); return; }
+
+  if (typeof window.fetch !== 'function') {
+    try {
+      var x = new XMLHttpRequest();
+      x.open('POST', url, true);
+      x.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+      x.onload  = function () { pronto(x.status >= 200 && x.status < 400); };
+      x.onerror = function () { pronto(false); };
+      x.send(corpo);
+    } catch (e) { pronto(false); }
+    return;
+  }
+
+  var opcoes = {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: corpo
+  };
+
+  try {
+    window.fetch(url, opcoes).then(function (r) {
+      pronto(!!r && (r.ok || r.type === 'opaque'));
+    })['catch'](function () {
+      /* CORS bloqueado ou resposta ilegivel: reenvia sem leitura de resposta.
+         O pedido sai do navegador; a deduplicacao fica com o endpoint.     */
+      try {
+        opcoes.mode = 'no-cors';
+        window.fetch(url, opcoes).then(function () { pronto(true); })['catch'](function () { pronto(false); });
+      } catch (e2) { pronto(false); }
+    });
+  } catch (e) { pronto(false); }
+}
+
+/* Processa a fila, um item por vez, sem bloquear a interface. */
+function descarregarFila() {
+  if (enviandoAgora || !CONFIG.WEBHOOK_URL) return;
+  var lista = filaLer();
+  if (!lista.length) return;
+
+  enviandoAgora = true;
+  var item = lista[0];
+  enviarItem(item, function (ok) {
+    enviandoAgora = false;
+    var restante = ok ? filaRemover(item.id) : filaFalhou(item.id);
+    if (!restante.length) return;
+    if (ok) descarregarFila();
+    else window.setTimeout(descarregarFila, 6000);
+  });
+}
+
+/* Ultima tentativa quando a aba e fechada ou vai para segundo plano. */
+function descarregarComBeacon() {
+  if (!CONFIG.WEBHOOK_URL) return;
+  var lista = filaLer();
+  if (!lista.length || !navigator.sendBeacon) return;
+  for (var i = 0; i < lista.length; i++) {
+    try {
+      navigator.sendBeacon(CONFIG.WEBHOOK_URL,
+        new Blob([JSON.stringify(lista[i].payload)], { type: 'text/plain;charset=UTF-8' }));
+    } catch (e) { /* ignora */ }
+  }
+}
+
+/* A captura so esta ativa com endpoint configurado. Os textos de
+   consentimento seguem esta resposta - nada de prometer envio que nao ocorre. */
+function capturaAtiva() {
+  return !!(CONFIG.WEBHOOK_URL && CONFIG.ENVIAR_LEAD_AUTOMATICO);
+}
+
+/* Ponto unico de entrada: registra o lead e tenta entregar imediatamente. */
+function enviarLead(evento) {
+  if (!CONFIG.WEBHOOK_URL || !CONFIG.ENVIAR_LEAD_AUTOMATICO) return;
+  var chave = state.ref + '|' + evento;
+  if (enviosFeitos[chave]) return;      /* nada de duplicar no mesmo acesso */
+  enviosFeitos[chave] = true;
+  filaAdicionar(payloadLead(evento));
+  descarregarFila();
+}
+
+/* =========================================================================
    08 · RENDERIZACAO
    ========================================================================= */
 
@@ -1208,7 +1450,9 @@ function renderIntro() {
     '<span class="eyebrow">Avaliação preliminar</span>' +
     '<h1 class="title title--big">Descubra se o problema do seu imóvel merece uma análise jurídica</h1>' +
     '<p class="sub">Responda algumas perguntas sobre o imóvel e sua relação com a construtora. ' +
-    'Ao final, você decide se envia as informações para a equipe da BGL Advogados.</p>' +
+    (capturaAtiva()
+      ? 'Ao final, você recebe um resumo do seu caso e a equipe da BGL Advogados pode retornar o contato.'
+      : 'Ao final, você decide se envia as informações para a equipe da BGL Advogados.') + '</p>' +
     '<p class="hint">Leva cerca de 2 minutos. Não é preciso cadastro para começar.</p>' +
     '<div class="nav">' +
       '<button class="btn btn--primary btn--block" id="btnStart" type="button">Começar avaliação</button>' +
@@ -1572,6 +1816,21 @@ function montarContato(body) {
     limparErro('contato');
   });
 
+  /* Captura parcial (CONFIG.CAPTURAR_ANTES_DO_ENVIO): quem digita nome e
+     WhatsApp validos e desiste antes de clicar tambem chega ate a equipe.
+     Desligada por padrao - ler a nota da CONFIG antes de ativar. */
+  function talvezCapturarParcial() {
+    if (!CONFIG.CAPTURAR_ANTES_DO_ENVIO) return;
+    var a = state.answers;
+    var completo = String(a.nome || '').trim();
+    if (completo.split(/\s+/).length < 2 || completo.length < 5) return;
+    if (!telefoneValido(a.whatsapp)) return;
+    enviarLead('contato_preenchido');
+  }
+  nome.addEventListener('blur', talvezCapturarParcial);
+  zap.addEventListener('blur', talvezCapturarParcial);
+  mail.addEventListener('blur', talvezCapturarParcial);
+
   var box = el('div');
   box.style.display = 'grid';
   box.style.gap = '10px';
@@ -1582,7 +1841,10 @@ function montarContato(body) {
 
   var consent = el('p', 'consent');
   consent.innerHTML =
-    'Ao enviar seus dados, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ' +
+    (capturaAtiva()
+      ? 'Ao continuar, suas respostas e seus dados de contato são enviados para a equipe da BGL Advogados, ' +
+        'que poderá entrar em contato para tratar da sua solicitação. '
+      : 'Ao enviar seus dados, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ') +
     'Seus dados serão tratados de acordo com a legislação aplicável. ' +
     '<a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.';
   body.appendChild(consent);
@@ -1621,6 +1883,9 @@ function irParaProxima() {
     state.lead = qualificarLead();
     salvarLeadLocalmente();
     trackLeadQualified(state.lead.classificacao, state.lead.pontuacao, state.answers.problema);
+    /* Captura do lead: acontece aqui, e nao no clique do WhatsApp. Quem
+       responde ate o fim ja chega para a equipe, clicando ou nao. */
+    enviarLead('formulario_concluido');
     state.screen = 'result';
     renderResult();
     subir();
@@ -1867,7 +2132,8 @@ function qualificarLead() {
   return { pontuacao: pontos, classificacao: classificacao, sinais: sinais };
 }
 
-/* Guarda o lead no navegador (nao ha backend nesta versao). */
+/* Guarda o lead no navegador. Copia de seguranca local: o envio para a
+   equipe e feito por enviarLead(), na secao 07B. */
 function salvarLeadLocalmente() {
   if (!CONFIG.SALVAR_LEAD_LOCALMENTE) return;
   try {
@@ -2035,8 +2301,11 @@ function renderResult() {
         '<button class="refazer" type="button" id="btnRestart">Refazer a avaliação</button>' +
       '</div>' +
     '</div>' +
-    '<p class="consent">Ao enviar, você concorda que a BGL Advogados entre em contato para tratar da sua ' +
-      'solicitação. <a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.</p>';
+    '<p class="consent">' +
+      (capturaAtiva()
+        ? 'Suas respostas foram registradas e a equipe da BGL Advogados poderá entrar em contato para tratar da sua solicitação. '
+        : 'Ao enviar, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ') +
+      '<a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.</p>';
 
   tela.innerHTML = html;
   pintar(tela);
@@ -2046,6 +2315,9 @@ function renderResult() {
   if (CONFIG.WHATSAPP_NOVA_ABA) botao.target = '_blank';
   botao.addEventListener('click', function () {
     trackWhatsAppClick(state.lead ? state.lead.classificacao : '');
+    /* Segundo registro: marca no destino quem realmente seguiu para o
+       WhatsApp, separando-o de quem parou na tela de resultado. */
+    enviarLead('whatsapp_clique');
   });
 
   byId('btnRestart').addEventListener('click', function () {
@@ -2174,6 +2446,17 @@ function init() {
   carregarPixelSeNecessario();
   carregarGtagSeNecessario();
 
+  /* Leads que ficaram na fila em visitas anteriores (rede caiu, aba
+     fechada antes da hora) saem agora. */
+  descarregarFila();
+
+  /* Ultima janela de entrega: troca de aba, minimizar, fechar. */
+  window.addEventListener('pagehide', descarregarComBeacon);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') descarregarComBeacon();
+    else descarregarFila();
+  });
+
   /* Primeira tela */
   renderIntro();
 
@@ -2182,7 +2465,9 @@ function init() {
   window.BGL_AVALIACAO = {
     estado: function () { return { respostas: state.answers, origem: state.origem, lead: state.lead, ref: state.ref }; },
     config: CONFIG,
-    mensagem: montarMensagemWhatsApp
+    mensagem: montarMensagemWhatsApp,
+    fila: filaLer,
+    reenviar: descarregarFila
   };
 }
 
