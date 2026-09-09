@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- =========================================================================
+     BGL ADVOGADOS - AVALIACAO IMOBILIARIA PRELIMINAR
+     Funil interativo de captacao e qualificacao de leads (imovel na planta,
+     atraso de obra, distrato/rescisao e retencao de valores).
+
+     ARQUIVO UNICO. Sem backend, sem banco de dados, sem framework.
+     Basta hospedar este index.html em uma pasta do site. Ex.:
+        /avaliacao-imobiliaria/index.html
+
+     >>> TUDO O QUE PRECISA SER EDITADO ESTA NO OBJETO "CONFIG",
+         logo no inicio do <script>, ao final deste arquivo. <<<
+
+     Unica dependencia externa: Google Fonts (DM Sans), a mesma tipografia
+     ja usada nas paginas da BGL. Ha fallback completo (system-ui): se a
+     fonte nao carregar, a pagina continua correta.
+     ========================================================================= -->
+
+<title>Avaliação preliminar do seu caso imobiliário | BGL Advogados</title>
+<meta name="description" content="Responda algumas perguntas sobre o seu imóvel e sua relação com a construtora. Ao final, você recebe um resumo organizado do seu caso para a equipe da BGL Advogados analisar.">
+<meta name="author" content="BGL Advogados">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0e1a2e">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================================
+   INDICE DO CSS
+   01. Tokens (tema escuro / tema claro)
+   02. Reset e base
+   03. Layout de tela cheia
+   04. Cabecalho e progresso
+   05. Tipografia
+   06. Perguntas, opcoes e campos
+   07. Botoes e navegacao
+   08. Resultado
+   09. Rodape
+   ========================================================================= */
+
+/* =========================================================================
+   01 · TOKENS
+   -------------------------------------------------------------------------
+   TEMA ESCURO (padrao) - navy da identidade BGL + champagne.
+   O logotipo oficial da BGL e prata em degrade, feito para fundo escuro.
+   Para usar o tema claro, troque CONFIG.TEMA para 'claro' no script.
+   ========================================================================= */
+:root,
+[data-tema="escuro"] {
+  --bg:            #0e1a2e;   /* navy profundo da identidade BGL */
+  --bg-soft:       #16243d;   /* superficie das opcoes e campos  */
+  --bg-soft-2:     #1b2c48;
+  --line:          #2b3f5e;
+  --line-strong:   #3d5477;
+
+  --text:          #eef1f6;
+  --text-soft:     #a8b4c6;
+  --text-mute:     #7d8ba1;
+
+  --accent:        #cf9e4d;   /* champagne */
+  --accent-soft:   #e0bd85;
+  --accent-ink:    #10203a;   /* texto sobre o champagne */
+
+  --wa:            #1f8a5b;
+  --wa-hover:      #1a744c;
+  --erro:          #e0857d;
+  --erro-bg:       rgba(224,133,125,.10);
+
+  --sombra:        0 10px 30px -18px rgba(0,0,0,.9);
+}
+
+[data-tema="claro"] {
+  --bg:            #f6f3ee;
+  --bg-soft:       #ffffff;
+  --bg-soft-2:     #fbf9f5;
+  --line:          #e2dbcd;
+  --line-strong:   #cabfa9;
+
+  --text:          #16243d;
+  --text-soft:     #4a5466;
+  --text-mute:     #78829a;
+
+  --accent:        #a6844b;
+  --accent-soft:   #8e7040;
+  --accent-ink:    #ffffff;
+
+  --wa:            #1f7a52;
+  --wa-hover:      #196342;
+  --erro:          #a63d3d;
+  --erro-bg:       #fdf6f5;
+
+  --sombra:        0 10px 30px -22px rgba(14,26,46,.45);
+}
+
+:root {
+  --raio: 8px;
+  --alvo: 68px;                /* altura dos elementos tocaveis */
+  --col: 27rem;                /* largura maxima da coluna      */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --fonte: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+           "Helvetica Neue", Arial, sans-serif;
+}
+
+/* =========================================================================
+   02 · RESET E BASE
+   ========================================================================= */
+*,*::before,*::after { box-sizing: border-box }
+html { -webkit-text-size-adjust: 100% }
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1,h2,h3 { margin: 0; font-weight: 600; line-height: 1.22; letter-spacing: -.015em }
+p { margin: 0 }
+button { font: inherit; color: inherit }
+input, select, textarea { font: inherit; color: inherit }
+a { color: var(--accent) }
+::selection { background: var(--accent); color: var(--accent-ink) }
+
+/* =========================================================================
+   03 · LAYOUT DE TELA CHEIA
+   Logotipo no topo, conteudo ao centro, navegacao embaixo.
+   ========================================================================= */
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(900px 420px at 50% -12%, rgba(207,158,77,.10), transparent 68%),
+    var(--bg);
+}
+.col { width: 100%; max-width: var(--col); margin: 0 auto; padding: 0 20px }
+
+/* =========================================================================
+   04 · CABECALHO E PROGRESSO
+   ========================================================================= */
+.head { padding: 26px 0 18px; text-align: center }
+.head__logo { height: 46px; width: auto; margin: 0 auto; display: block }
+.head__word {
+  font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--text); font-weight: 500;
+}
+.head__word small {
+  display: block; margin-top: 5px;
+  font-size: .58rem; letter-spacing: .26em; color: var(--text-mute); font-weight: 400;
+}
+
+.progress { padding-bottom: 22px }
+.progress[hidden] { display: none }
+.progress__track {
+  height: 3px; border-radius: 3px; background: var(--line);
+  position: relative; overflow: hidden;
+}
+.progress__bar {
+  position: absolute; inset: 0 auto 0 0; width: 0%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent));
+  transition: width .45s var(--ease);
+}
+.progress__meta {
+  margin-top: 8px; text-align: right;
+  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute);
+}
+
+/* =========================================================================
+   05 · TIPOGRAFIA
+   ========================================================================= */
+.stage { flex: 1 0 auto; padding-bottom: 6px }
+.view { animation: entra .34s var(--ease) both }
+.view.is-back { animation-name: entraVolta }
+@keyframes entra      { from { opacity:0; transform: translateY(9px) }  to { opacity:1; transform:none } }
+@keyframes entraVolta { from { opacity:0; transform: translateY(-7px) } to { opacity:1; transform:none } }
+@media (prefers-reduced-motion: reduce) {
+  .view, .view.is-back { animation: none }
+  * { transition-duration: .01ms !important }
+}
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  font-size: .66rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent); font-weight: 500;
+}
+.eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--accent) }
+
+.title      { font-size: 1.42rem }
+.title--big { font-size: clamp(1.6rem, 6.2vw, 2rem) }
+.sub        { margin-top: 12px; color: var(--text-soft); font-size: .96rem }
+.hint       { margin-top: 8px; color: var(--text-mute); font-size: .84rem }
+
+/* =========================================================================
+   06 · PERGUNTAS, OPCOES E CAMPOS
+   ========================================================================= */
+.q { margin-top: 22px }
+.q:first-of-type { margin-top: 20px }
+.q__label { display: block; font-size: 1rem; font-weight: 500; line-height: 1.4 }
+.q__hint  { display: block; margin-top: 5px; font-size: .83rem; color: var(--text-mute) }
+.q__body  { margin-top: 12px }
+.q.is-revealed { animation: entra .3s var(--ease) both }
+
+/* --- Opcoes (escolha unica e multipla) --------------------------------- */
+.opts { display: grid; gap: 8px }
+.opts--two { grid-template-columns: 1fr 1fr }
+
+.opt {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  min-height: var(--alvo); padding: 12px 16px; text-align: left;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  cursor: pointer;
+  transition: background .18s var(--ease), border-color .18s var(--ease),
+              transform .18s var(--ease), color .18s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.opt:hover { background: var(--bg-soft-2); border-color: var(--line-strong) }
+.opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.opt__mark {
+  flex: none; width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid var(--line-strong); position: relative;
+  transition: border-color .18s var(--ease), background .18s var(--ease);
+}
+.opt--multi .opt__mark { border-radius: 5px }
+.opt__mark::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent-ink);
+  transform: scale(0); transition: transform .2s var(--ease);
+}
+.opt--multi .opt__mark::after { border-radius: 2px }
+.opt__text { font-size: .97rem; line-height: 1.35 }
+
+.opt.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+.opt.is-on .opt__mark { border-color: var(--accent-ink); background: transparent }
+.opt.is-on .opt__mark::after { transform: scale(1) }
+
+/* --- Campos digitaveis -------------------------------------------------- */
+.grid2 { display: grid; grid-template-columns: 1fr 108px; gap: 8px }
+.inp {
+  width: 100%; min-height: var(--alvo); padding: 14px 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--raio);
+  appearance: none; -webkit-appearance: none;
+  transition: border-color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
+}
+.inp::placeholder { color: var(--text-mute) }
+.inp:hover { border-color: var(--line-strong) }
+.inp:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(207,158,77,.16);
+}
+select.inp {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23a8b4c6' stroke-width='1.4'><path d='M1 1.5 6 6.5 11 1.5'/></svg>");
+  background-repeat: no-repeat; background-position: right 14px center;
+  background-size: 12px 8px; padding-right: 38px;
+}
+select.inp option { background: var(--bg-soft); color: var(--text) }
+textarea.inp { min-height: 116px; resize: vertical; line-height: 1.55; padding-top: 15px }
+.inp.is-error { border-color: var(--erro); background: var(--erro-bg) }
+
+.err { display: none; margin-top: 8px; font-size: .83rem; color: var(--erro) }
+.err.is-on { display: block }
+
+/* =========================================================================
+   07 · BOTOES E NAVEGACAO
+   ========================================================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--alvo); padding: 14px 24px;
+  border: 1px solid transparent; border-radius: var(--raio);
+  font-size: 1rem; font-weight: 600; letter-spacing: .01em;
+  cursor: pointer; text-decoration: none;
+  transition: background .18s var(--ease), color .18s var(--ease),
+              border-color .18s var(--ease), transform .18s var(--ease);
+}
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px }
+.btn--primary { background: var(--accent); color: var(--accent-ink) }
+.btn--primary:hover { background: var(--accent-soft); transform: translateY(-1px) }
+.btn--ghost {
+  min-height: 44px; padding: 8px 12px; font-weight: 400; font-size: .92rem;
+  background: none; color: var(--text-mute);
+}
+.btn--ghost:hover { color: var(--text) }
+.btn--wa { background: var(--wa); color: #fff }
+.btn--wa:hover { background: var(--wa-hover); transform: translateY(-1px) }
+.btn--wa svg { width: 21px; height: 21px; flex: none }
+.btn--block { width: 100% }
+
+.nav {
+  position: sticky; bottom: 0; z-index: 5;
+  padding: 16px 0 max(18px, env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, transparent 0%, var(--bg) 38%);
+}
+.nav__voltar { display: block; margin: 10px auto 0 }
+
+/* =========================================================================
+   08 · RESULTADO
+   ========================================================================= */
+.selo {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+  padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 100px;
+  font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-soft);
+}
+.selo span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent) }
+
+.painel {
+  margin-top: 20px; padding: 18px 20px;
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--raio);
+}
+.painel__titulo {
+  margin-bottom: 10px;
+  font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-mute);
+}
+.painel ul { margin: 0; padding: 0; list-style: none }
+.painel li {
+  position: relative; padding-left: 18px; margin-bottom: 8px;
+  font-size: .92rem; line-height: 1.5; color: var(--text-soft);
+}
+.painel li:last-child { margin-bottom: 0 }
+.painel li::before {
+  content: ""; position: absolute; left: 0; top: .62em;
+  width: 7px; height: 1px; background: var(--accent);
+}
+
+.nota {
+  margin-top: 18px; padding-left: 14px; border-left: 2px solid var(--line-strong);
+  font-size: .88rem; line-height: 1.6; color: var(--text-mute);
+}
+
+.cta { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line) }
+.cta__texto { margin-top: 10px; color: var(--text-soft); font-size: .95rem }
+.cta__acoes { margin-top: 18px }
+.cta__ref { margin-top: 12px; font-size: .74rem; color: var(--text-mute) }
+
+.refazer {
+  display: block; margin: 14px auto 0; padding: 6px;
+  background: none; border: 0; cursor: pointer;
+  font-size: .84rem; color: var(--text-mute);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.refazer:hover { color: var(--text) }
+
+/* =========================================================================
+   09 · RODAPE
+   ========================================================================= */
+.consent {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: .78rem; line-height: 1.55; color: var(--text-mute);
+}
+.consent a { color: var(--text-soft); text-underline-offset: 3px }
+.foot {
+  flex: none; padding: 18px 0 26px; text-align: center;
+  font-size: .72rem; line-height: 1.6; color: var(--text-mute);
+}
+.foot a { color: var(--text-mute) }
+</style>
+
+<!-- =========================================================================
+     META PIXEL (BGL Advogados) - ID 1791041548696543
+     Codigo oficial do Meta. Fica no <head> para disparar o PageView assim
+     que a pagina abre. Os eventos do funil (Lead, Contact) sao enviados
+     pelo bloco "07 - EVENTOS DE CONVERSAO", mais abaixo, via fbq().
+     ========================================================================= -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1791041548696543');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- Meta Pixel Code (noscript) -->
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1791041548696543&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<!-- =========================================================================
+     O conteudo das etapas e gerado pelo JavaScript dentro de #stage.
+     Aqui existem apenas os elementos fixos: marca, progresso, palco e rodape.
+     ========================================================================= -->
+<div class="app" id="app">
+
+  <header class="head col">
+    <!-- Se CONFIG.LOGO_URL estiver preenchido e a imagem carregar, ela
+         substitui o lettering. Se falhar, o lettering permanece. -->
+    <img class="head__logo" id="brandLogo" alt="BGL Advogados" hidden>
+    <div class="head__word" id="brandWord">BGL<small>Advogados</small></div>
+  </header>
+
+  <div class="col progress" id="progress" hidden>
+    <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progTrack">
+      <div class="progress__bar" id="progBar"></div>
+    </div>
+    <p class="progress__meta">Etapa <span id="progNow">1</span> de <span id="progTotal">10</span></p>
+  </div>
+
+  <main class="col stage" id="stage" aria-live="polite">
+    <noscript>
+      <h1 class="title">Ative o JavaScript para responder à avaliação</h1>
+      <p class="sub">As perguntas são exibidas com JavaScript ativado.
+      Se preferir, entre em contato diretamente com a equipe da BGL Advogados.</p>
+    </noscript>
+  </main>
+
+  <footer class="foot col">
+    <a id="footPrivacy" href="#" target="_blank" rel="noopener">Política de Privacidade</a><br>
+    Esta avaliação preliminar não substitui a análise do contrato e dos documentos.
+  </footer>
+
+</div>
+<script>
+/* =========================================================================
+   BGL ADVOGADOS — AVALIACAO IMOBILIARIA PRELIMINAR
+   -------------------------------------------------------------------------
+   INDICE DO SCRIPT
+   01. CONFIG .................. unico ponto de edicao (WhatsApp, links, tags)
+   02. Utilitarios ............. helpers de DOM e texto
+   03. Catalogo de respostas ... listas de opcoes reutilizadas
+   04. Estrutura do funil ...... STEPS: etapas, perguntas e logica condicional
+   05. Estado .................. respostas, navegacao, origem do lead
+   06. Origem do lead .......... captura e persistencia de UTM / fbclid / gclid
+   07. Eventos de conversao .... Meta Pixel + GA4 / GTM (sem duplicar tags)
+   07B. Captura do lead ........ envio ao webhook + fila de reenvio
+   08. Renderizacao ............ telas, perguntas e campos
+   09. Navegacao ............... avancar, voltar, progresso
+   10. Validacao ............... campos obrigatorios, WhatsApp, e-mail
+   11. Qualificacao ............ pontuacao interna HOT / WARM / COLD
+   12. Resumo e resultado ...... leitura das respostas em linguagem juridica
+   13. WhatsApp ................ montagem da mensagem e do link
+   14. Inicializacao
+   ========================================================================= */
+(function () {
+'use strict';
+
+/* =========================================================================
+   LOGOTIPO EMBUTIDO (BGL Advogados)
+   -------------------------------------------------------------------------
+   O logotipo oficial vai embutido em base64 para manter a promessa de
+   ARQUIVO UNICO: a pagina pode ser publicada sozinha, em qualquer pasta,
+   sem depender de um /assets ao lado. Imagem prata em degrade, 192x138 px
+   (3x o tamanho de exibicao de 46 px de altura, nitido em telas retina).
+   Original: BGL/assets/logo-bgl.png (760x546).
+   ========================================================================= */
+var LOGO_BGL_EMBUTIDO = 'data:image/png;base64,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';
+
+/* =========================================================================
+   01 · CONFIG
+   +-----------------------------------------------------------------------+
+   |  TUDO O QUE PRECISA SER ALTERADO ESTA AQUI. NAO HA DADOS ESPALHADOS.   |
+   +-----------------------------------------------------------------------+
+   ========================================================================= */
+var CONFIG = {
+
+  /* --- WhatsApp de destino ------------------------------------------------
+     Formato internacional, somente digitos: 55 + DDD + numero.
+     Valor atual: numero institucional da BGL - (62) 99250-9988.
+     >>> TROQUE AQUI se a captacao imobiliaria usar outro numero/atendente. */
+  WHATSAPP_NUMBER: '5562992509988',
+
+  /* --- Politica de Privacidade -------------------------------------------
+     >>> SUBSTITUA pela URL real da politica.
+     Enquanto estiver com o valor placeholder abaixo, o link aponta para o
+     site institucional e nao quebra a pagina. */
+  PRIVACY_URL: 'INSERIR_URL_DA_POLITICA_DE_PRIVACIDADE',
+
+  /* --- Site institucional (usado como fallback do link acima) ------------ */
+  SITE_URL: 'https://www.bgladvogados.com.br/',
+
+  /* --- URL final desta ferramenta ----------------------------------------
+     Usada apenas como referencia nos eventos de conversao e no armazenamento
+     local. Ex.: 'https://www.bgladvogados.com.br/avaliacao-imobiliaria/'
+     Deixe vazio ('') para usar automaticamente a URL atual do navegador.   */
+  TOOL_URL: '',
+
+  /* --- Tema ---------------------------------------------------------------
+     'escuro' = navy da identidade BGL + champagne (padrao).
+     'claro'  = creme + navy, para paginas de fundo claro.
+     Atencao: o logotipo oficial da BGL e prata em degrade e so funciona
+     sobre fundo escuro. No tema claro, use uma versao escura do logotipo
+     ou deixe LOGO_URL vazio.                                              */
+  TEMA: 'escuro',
+
+  /* --- Logotipo -----------------------------------------------------------
+     Por padrao usa LOGO_BGL_EMBUTIDO (base64, definido no topo deste script):
+     o logotipo aparece mesmo com a pagina publicada sozinha, sem /assets.
+     Para usar um arquivo externo, troque por um caminho - ex.: 'logo-bgl.png'
+     ou 'https://www.bgladvogados.com.br/assets/logo-bgl.png'.
+     Se a imagem nao carregar, o cabecalho volta sozinho para o lettering
+     "BGL Advogados" - nada quebra. Deixe vazio ('') para so usar o lettering. */
+  LOGO_URL: LOGO_BGL_EMBUTIDO,
+
+  /* =======================================================================
+     TAGS DE MEDICAO
+     -----------------------------------------------------------------------
+     Esta ferramenta NAO carrega nenhuma tag por padrao. A premissa e que o
+     Meta Pixel e o GA4/GTM ja existem na pagina que hospeda o arquivo - os
+     eventos sao enviados para o fbq / gtag / dataLayer que ja estiverem la.
+
+     Se esta pagina for publicada isolada (sem tag no site), coloque
+     CARREGAR_TAGS_PROPRIAS em true e preencha os IDs abaixo. O codigo so
+     carrega a tag se ela ainda NAO existir na pagina - nunca duplica.
+     ======================================================================= */
+  CARREGAR_TAGS_PROPRIAS: false,
+
+  /* ID do Meta Pixel da BGL. >>> PREENCHER (ex.: '1234567890123456').
+     Deixe vazio para nunca carregar o Pixel por conta propria.             */
+  META_PIXEL_ID: '1791041548696543',
+
+  /* ID de medicao do GA4 da BGL (G-XXXXXXXXXX).
+     Valor em uso nas landing pages da BGL: 'G-92B1N6DHGM'.                 */
+  GA4_MEASUREMENT_ID: 'G-92B1N6DHGM',
+
+  /* Google Ads - conta e rotulo de conversao usados nas LPs da BGL.
+     Deixe GOOGLE_ADS_CONVERSION vazio para nao disparar conversao do Ads.  */
+  GOOGLE_ADS_ID: 'AW-18117456860',
+  GOOGLE_ADS_CONVERSION: 'AW-18117456860/INMlCPLSobQcENznib9D',
+  GOOGLE_ADS_VALUE: 1.0,
+  GOOGLE_ADS_CURRENCY: 'BRL',
+
+  /* =======================================================================
+     CAPTURA DO LEAD (ENVIO PARA A BGL)
+     -----------------------------------------------------------------------
+     Sem isto, o lead so existe se a pessoa clicar no botao do WhatsApp.
+     Com a URL abaixo preenchida, o resumo completo do caso e enviado assim
+     que os dados de contato sao validados - antes de qualquer clique.
+
+     WEBHOOK_URL aceita qualquer endpoint que receba POST com JSON no corpo:
+     planilha via Google Apps Script (script pronto em captura-lead/),
+     Make, Zapier, n8n, RD Station, HubSpot ou API propria.
+     Deixe vazio ('') e nada e enviado - a ferramenta volta ao comportamento
+     anterior, somente local.
+     ======================================================================= */
+  WEBHOOK_URL: 'https://script.google.com/macros/s/AKfycbxvjB7mb4ZsXnXXCt9eH-XmBIzBND6p9KoZj0kZIisjgq5KhOUJKFgksPg-SW8R8TTRRg/exec',
+
+  /* Palavra-chave combinada com o endpoint, para ele recusar envios de
+     terceiros. Preencha o mesmo valor nos dois lados. Nao e segredo forte:
+     serve para filtrar ruido, nao para proteger dado sensivel.            */
+  WEBHOOK_TOKEN: 'bgl-imob-2026',
+
+  /* Liga/desliga o envio automatico sem precisar apagar a URL.            */
+  ENVIAR_LEAD_AUTOMATICO: true,
+
+  /* Envia tambem um registro parcial quando nome e WhatsApp ja estao
+     validos, mesmo antes de a pessoa clicar em "Ver minha avaliacao".
+     Fecha a ultima brecha de abandono, mas capta dado antes do ato de
+     envio do usuario - avalie com a LGPD e o texto de consentimento na
+     mao antes de ligar. Padrao: desligado.                                */
+  CAPTURAR_ANTES_DO_ENVIO: false,
+
+  /* --- Comportamento ------------------------------------------------------ */
+  /* Abre o WhatsApp em nova aba (recomendado no desktop).                   */
+  WHATSAPP_NOVA_ABA: true,
+
+  /* Guarda o lead no navegador (localStorage) para uso futuro / depuracao.
+     Nenhum dado sai do dispositivo do usuario: nao ha backend nesta versao. */
+  SALVAR_LEAD_LOCALMENTE: true,
+
+  /* Avanca sozinho quando a etapa tem uma unica pergunta de multipla escolha.
+     Aumenta muito a conclusao no mobile. Coloque false para exigir sempre o
+     clique em "Continuar".                                                  */
+  AVANCO_AUTOMATICO: true
+};
+
+/* =========================================================================
+   02 · UTILITARIOS
+   ========================================================================= */
+function byId(id) { return document.getElementById(id); }
+
+/* Cria elemento com classe e texto opcionais. */
+function el(tag, cls, txt) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (txt != null) n.textContent = txt;
+  return n;
+}
+
+/* Primeiro nome, para uso em texto. */
+function primeiroNome(nome) {
+  return String(nome || '').trim().split(/\s+/)[0] || '';
+}
+
+/* Capitaliza cidade digitada em caixa alta ou baixa. */
+function tituloCidade(v) {
+  return String(v || '').trim().toLowerCase().replace(/(^|[\s'-])([a-zà-ú])/g, function (m, a, b) {
+    return a + b.toUpperCase();
+  });
+}
+
+/* Deixa a inicial minuscula para encaixar o rotulo no meio de uma frase,
+   sem estragar valores como "R$ 500 mil" ou "6 a 12 meses". */
+function inicialMinuscula(s) {
+  s = String(s || '');
+  return /^[A-ZÀ-Ú][a-zà-ú]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+}
+
+/* Codigo curto de referencia do lead (facilita achar o atendimento depois). */
+function gerarRef() {
+  return 'BGL-' + Date.now().toString(36).slice(-4).toUpperCase() +
+         Math.floor(Math.random() * 36).toString(36).toUpperCase();
+}
+
+/* =========================================================================
+   03 · CATALOGO DE RESPOSTAS
+   -------------------------------------------------------------------------
+   Listas reutilizadas pelas perguntas. Para mudar um texto de opcao, altere
+   o campo "t" (texto). O campo "v" (valor) e usado pela logica e pela
+   pontuacao: so mude o "v" se ajustar tambem a secao 11 (qualificacao).
+   ========================================================================= */
+var SIM_NAO = [
+  { v: 'sim', t: 'Sim' },
+  { v: 'nao', t: 'Não' }
+];
+
+var PROBLEMAS = [
+  { v: 'atraso',    t: 'A obra está atrasada' },
+  { v: 'desistir',  t: 'Quero desistir/cancelar a compra' },
+  { v: 'retencao',  t: 'A construtora quer reter parte do que paguei' },
+  { v: 'devolucao', t: 'A construtora não quer devolver meu dinheiro' },
+  { v: 'documento', t: 'Recebi um distrato ou documento para assinar' },
+  { v: 'outro',     t: 'Outro problema com a construtora' }
+];
+
+var VALOR_IMOVEL = [
+  { v: 'ate250',   t: 'Até R$ 250 mil' },
+  { v: '250a500',  t: 'R$ 250 mil a R$ 500 mil' },
+  { v: '500a750',  t: 'R$ 500 mil a R$ 750 mil' },
+  { v: '750a1mi',  t: 'R$ 750 mil a R$ 1 milhão' },
+  { v: 'acima1mi', t: 'Acima de R$ 1 milhão' }
+];
+
+var TEMPO_ATRASO = [
+  { v: 'menos3', t: 'Menos de 3 meses' },
+  { v: '3a6',    t: '3 a 6 meses' },
+  { v: '6a12',   t: '6 a 12 meses' },
+  { v: '12a18',  t: '12 a 18 meses' },
+  { v: 'mais18', t: 'Mais de 18 meses' },
+  { v: 'naosei', t: 'Não sei' }
+];
+
+var VALOR_ALUGUEL = [
+  { v: 'ate1000', t: 'Até R$ 1.000' },
+  { v: '1a2',     t: 'R$ 1.000 a R$ 2.000' },
+  { v: '2a3',     t: 'R$ 2.000 a R$ 3.000' },
+  { v: 'acima3',  t: 'Acima de R$ 3.000' }
+];
+
+var VALOR_PAGO = [
+  { v: 'ate20',    t: 'Até R$ 20 mil' },
+  { v: '20a50',    t: 'R$ 20 mil a R$ 50 mil' },
+  { v: '50a100',   t: 'R$ 50 mil a R$ 100 mil' },
+  { v: '100a200',  t: 'R$ 100 mil a R$ 200 mil' },
+  { v: 'acima200', t: 'Acima de R$ 200 mil' }
+];
+
+var RESPOSTA_DISTRATO = [
+  { v: 'aceitou',     t: 'Aceitou o distrato' },
+  { v: 'parcial',     t: 'Informou que vai devolver apenas parte dos valores' },
+  { v: 'percentual',  t: 'Informou que vai reter um percentual' },
+  { v: 'recusou',     t: 'Recusou o distrato' },
+  { v: 'semResposta', t: 'Ainda não respondeu' },
+  { v: 'outro',       t: 'Outro' }
+];
+
+var PERCENTUAL_RETENCAO = [
+  { v: 'ate10',  t: 'Até 10%' },
+  { v: '10a20',  t: '10% a 20%' },
+  { v: '20a30',  t: '20% a 30%' },
+  { v: '30a50',  t: '30% a 50%' },
+  { v: 'mais50', t: 'Mais de 50%' },
+  { v: 'naosei', t: 'Não sei' }
+];
+
+/* Documentacao: selecao multipla numa unica tela. */
+var DOCUMENTOS = [
+  { v: 'contrato',     t: 'Contrato de compra e venda' },
+  { v: 'comprovantes', t: 'Comprovantes dos valores pagos' },
+  { v: 'conversas',    t: 'Conversas, e-mails ou documentos da construtora' }
+];
+
+var QUITACAO = [
+  { v: 'sim',    t: 'Sim' },
+  { v: 'nao',    t: 'Não' },
+  { v: 'naosei', t: 'Não sei' }
+];
+
+var UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR',
+           'PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+
+var MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+             'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+/* =========================================================================
+   04 · ESTRUTURA DO FUNIL (STEPS)
+   -------------------------------------------------------------------------
+   COMO ALTERAR O QUESTIONARIO:
+   - Cada item do array e uma ETAPA (uma tela).
+   - "when(a)" define se a etapa aparece, a partir das respostas ja dadas.
+     Sem "when", a etapa aparece sempre.
+   - "fields" sao as perguntas da etapa. Tipos disponiveis:
+       cards     : botoes de escolha unica (options)
+       multi     : botoes de selecao multipla (options); grava um array
+       text      : campo de texto curto
+       textarea  : campo de texto longo
+       select    : lista suspensa (options)
+       cityuf    : composto cidade + UF (grava em cidade e uf)
+       monthyear : mes + ano (grava em <id>__m e <id>__y)
+       contato   : bloco de nome + WhatsApp + e-mail + aviso de privacidade
+   - "showIf(a)" dentro de um campo revela a pergunta so quando fizer sentido.
+   - "required: false" torna a pergunta opcional.
+   - Para incluir uma pergunta nova, copie um bloco parecido, escolha um "id"
+     unico e, se ela influenciar a prioridade do lead, adicione o peso na
+     secao 11 e a linha correspondente na secao 13 (mensagem do WhatsApp).
+   ========================================================================= */
+
+/* Atalhos de rota, usados pelos "when" das etapas. */
+function rotaAtraso(a)   { return a.problema === 'atraso'; }
+function rotaDistrato(a) { return ['desistir', 'retencao', 'devolucao', 'documento'].indexOf(a.problema) > -1; }
+function rotaOutro(a)    { return a.problema === 'outro'; }
+
+var STEPS = [
+
+  /* --- 1. Problema principal (define toda a logica seguinte) ------------- */
+  {
+    id: 'problema',
+    fields: [{
+      id: 'problema',
+      type: 'cards',
+      label: 'Qual é o principal problema com o seu imóvel?',
+      options: PROBLEMAS
+    }]
+  },
+
+  /* --- 2. Valor do imovel ------------------------------------------------ */
+  {
+    id: 'valor',
+    fields: [{
+      id: 'valorImovel',
+      type: 'cards',
+      label: 'Qual é o valor aproximado do imóvel?',
+      options: VALOR_IMOVEL
+    }]
+  },
+
+  /* --- 3. Localizacao ---------------------------------------------------- */
+  {
+    id: 'local',
+    fields: [{
+      id: 'cidadeuf',
+      type: 'cityuf',
+      label: 'Onde fica o imóvel?'
+    }]
+  },
+
+  /* ====================== ROTA A · ATRASO DE OBRA ======================== */
+
+  {
+    id: 'atraso_chaves',
+    when: rotaAtraso,
+    fields: [
+      {
+        id: 'chaves',
+        type: 'cards',
+        cols: 'two',
+        label: 'Você já recebeu as chaves?',
+        options: SIM_NAO
+      },
+      {
+        id: 'tempoAtraso',
+        type: 'cards',
+        label: 'Há quanto tempo o imóvel está atrasado?',
+        options: TEMPO_ATRASO,
+        showIf: function (a) { return a.chaves === 'nao'; }
+      }
+    ]
+  },
+
+  {
+    id: 'atraso_prazo',
+    when: rotaAtraso,
+    fields: [{
+      id: 'prazo',
+      type: 'monthyear',
+      required: false,
+      label: 'Quando o imóvel deveria ter sido entregue?',
+      hint: 'A data prevista no contrato. Se não lembrar, siga sem preencher.'
+    }]
+  },
+
+  {
+    id: 'atraso_aluguel',
+    when: rotaAtraso,
+    fields: [
+      {
+        id: 'aluguel',
+        type: 'cards',
+        cols: 'two',
+        label: 'Você está pagando aluguel enquanto aguarda a entrega?',
+        options: SIM_NAO
+      },
+      {
+        id: 'valorAluguel',
+        type: 'cards',
+        label: 'Qual é aproximadamente o valor do aluguel mensal?',
+        options: VALOR_ALUGUEL,
+        showIf: function (a) { return a.aluguel === 'sim'; }
+      }
+    ]
+  },
+
+  {
+    id: 'atraso_previsao',
+    when: rotaAtraso,
+    fields: [
+      {
+        id: 'novaPrevisao',
+        type: 'cards',
+        cols: 'two',
+        label: 'A construtora já informou uma nova previsão de entrega?',
+        options: SIM_NAO
+      },
+      {
+        id: 'previsao',
+        type: 'monthyear',
+        label: 'Qual foi a nova previsão?',
+        showIf: function (a) { return a.novaPrevisao === 'sim'; }
+      }
+    ]
+  },
+
+  /* ============== ROTA B · DISTRATO / RETENCAO / DEVOLUCAO =============== */
+
+  {
+    id: 'distrato_pago',
+    when: rotaDistrato,
+    fields: [{
+      id: 'valorPago',
+      type: 'cards',
+      label: 'Quanto você já pagou aproximadamente pelo imóvel?',
+      hint: 'Some entrada, parcelas e demais valores pagos à construtora.',
+      options: VALOR_PAGO
+    }]
+  },
+
+  {
+    id: 'distrato_pedido',
+    when: rotaDistrato,
+    fields: [
+      {
+        id: 'pediuDistrato',
+        type: 'cards',
+        cols: 'two',
+        label: 'Você já pediu formalmente o distrato à construtora?',
+        options: SIM_NAO
+      },
+      {
+        id: 'respostaDistrato',
+        type: 'cards',
+        label: 'Qual foi a resposta da construtora?',
+        options: RESPOSTA_DISTRATO,
+        showIf: function (a) { return a.pediuDistrato === 'sim'; }
+      },
+      {
+        /* Aparece quando ha percentual em discussao: a construtora informou
+           retencao ou devolucao parcial, ou o proprio usuario entrou pela
+           opcao "a construtora quer reter parte do que paguei". */
+        id: 'percentualRetencao',
+        type: 'cards',
+        label: 'Qual percentual aproximadamente a construtora informou que pretende reter?',
+        options: PERCENTUAL_RETENCAO,
+        showIf: function (a) {
+          return a.respostaDistrato === 'percentual' ||
+                 a.respostaDistrato === 'parcial' ||
+                 a.problema === 'retencao';
+        }
+      }
+    ]
+  },
+
+  {
+    id: 'distrato_assinatura',
+    when: rotaDistrato,
+    fields: [
+      {
+        id: 'assinouDistrato',
+        type: 'cards',
+        cols: 'two',
+        label: 'Você já assinou algum documento de distrato?',
+        options: SIM_NAO
+      },
+      {
+        id: 'quitacao',
+        type: 'cards',
+        label: 'Você recebeu ou assinou algum documento dando quitação à construtora?',
+        hint: 'Quitação é a declaração de que nada mais será cobrado da construtora.',
+        options: QUITACAO,
+        showIf: function (a) { return a.assinouDistrato === 'sim'; }
+      }
+    ]
+  },
+
+  /* ====================== ROTA C · OUTRO PROBLEMA ======================== */
+
+  {
+    id: 'outro_descricao',
+    when: rotaOutro,
+    fields: [{
+      id: 'descricao',
+      type: 'textarea',
+      label: 'Descreva brevemente o problema com a construtora.',
+      hint: 'Poucas linhas já ajudam a equipe a entender o contexto.',
+      placeholder: 'Ex.: cobrança de valores não previstos no contrato, área diferente da contratada, problema na entrega da documentação...',
+      maxlength: 400
+    }]
+  },
+
+  /* ============ ETAPAS COMUNS A TODAS AS ROTAS (A, B e C) ================ */
+
+  {
+    id: 'tentativa',
+    fields: [
+      {
+        id: 'tentouResolver',
+        type: 'cards',
+        cols: 'two',
+        label: 'Você já tentou resolver a situação diretamente com a construtora?',
+        options: SIM_NAO
+      },
+      {
+        id: 'respostaConstrutora',
+        type: 'text',
+        required: false,
+        label: 'Qual foi a resposta da construtora?',
+        hint: 'Em poucas palavras. Opcional.',
+        placeholder: 'Ex.: disse que o atraso está dentro do prazo de tolerância',
+        maxlength: 180,
+        showIf: function (a) { return a.tentouResolver === 'sim'; }
+      }
+    ]
+  },
+
+  {
+    id: 'documentos',
+    fields: [{
+      id: 'docs',
+      type: 'multi',
+      required: false,
+      label: 'O que você já tem em mãos?',
+      hint: 'Marque tudo que se aplica. Se não tiver nada ainda, é só continuar.',
+      options: DOCUMENTOS
+    }]
+  },
+
+  {
+    id: 'contato',
+    title: 'Para onde enviamos sua avaliação?',
+    subtitle: 'A equipe da BGL usa esses dados apenas para retornar sobre o seu caso.',
+    fields: [{ id: 'contato', type: 'contato' }]
+  }
+];
+
+/* =========================================================================
+   05 · ESTADO
+   ========================================================================= */
+var state = {
+  answers: {},      /* todas as respostas, indexadas pelo id do campo */
+  idx: 0,           /* posicao atual dentro de STEPS */
+  screen: 'intro',  /* 'intro' | 'step' | 'result' */
+  voltando: false,  /* apenas para escolher a direcao da animacao */
+  ref: '',          /* codigo curto de referencia do lead */
+  origem: {},       /* UTM / fbclid / gclid */
+  lead: null,       /* resultado da qualificacao, preenchido no final */
+  iniciadoEm: 0
+};
+
+var stage = byId('stage');
+
+/* Etapas visiveis para as respostas atuais. */
+function etapasVisiveis() {
+  var out = [];
+  for (var i = 0; i < STEPS.length; i++) {
+    if (!STEPS[i].when || STEPS[i].when(state.answers)) out.push(i);
+  }
+  return out;
+}
+
+/* Total projetado de etapas, apenas para o contador de progresso.
+   Enquanto o problema principal nao foi escolhido, assume a rota mais comum
+   (atraso de obra). Dentro de cada rota o total e fixo - atraso 10, distrato
+   9, outro 7 -, entao o contador nunca aumenta durante o preenchimento. */
+function etapasProjetadas() {
+  if (state.answers.problema) return etapasVisiveis();
+  var hipotese = {}, k;
+  for (k in state.answers) if (state.answers.hasOwnProperty(k)) hipotese[k] = state.answers[k];
+  hipotese.problema = 'atraso';
+  var out = [];
+  for (var i = 0; i < STEPS.length; i++) {
+    if (!STEPS[i].when || STEPS[i].when(hipotese)) out.push(i);
+  }
+  return out;
+}
+
+/* Campos visiveis de uma etapa (respeita showIf). */
+function camposVisiveis(step) {
+  var out = [];
+  for (var i = 0; i < step.fields.length; i++) {
+    var f = step.fields[i];
+    if (!f.showIf || f.showIf(state.answers)) out.push(f);
+  }
+  return out;
+}
+
+/* Procura a definicao de um campo em qualquer etapa. */
+function acharCampo(id) {
+  for (var i = 0; i < STEPS.length; i++) {
+    for (var j = 0; j < STEPS[i].fields.length; j++) {
+      if (STEPS[i].fields[j].id === id) return STEPS[i].fields[j];
+    }
+  }
+  return null;
+}
+
+/* Texto legivel de uma resposta de multipla escolha. */
+function rotulo(id, valor) {
+  var f = acharCampo(id);
+  if (!f || !f.options) return valor || '';
+  for (var i = 0; i < f.options.length; i++) {
+    if (f.options[i].v === valor) return f.options[i].t;
+  }
+  return valor || '';
+}
+function rotuloDe(id) { return rotulo(id, state.answers[id]); }
+
+/* Texto de um campo mes/ano. */
+function mesAno(id) {
+  var m = state.answers[id + '__m'], y = state.answers[id + '__y'];
+  if (!m || !y) return '';
+  return MESES[parseInt(m, 10) - 1] + '/' + y;
+}
+
+/* Documentacao marcada pelo usuario (campo de selecao multipla "docs"). */
+function temDoc(valor) {
+  var lista = state.answers.docs;
+  return !!lista && lista.indexOf(valor) > -1;
+}
+function docSimNao(valor) { return temDoc(valor) ? 'sim' : 'não'; }
+
+/* =========================================================================
+   06 · ORIGEM DO LEAD (UTM, fbclid, gclid)
+   -------------------------------------------------------------------------
+   Regra: a PRIMEIRA origem registrada prevalece (first touch). Assim, se o
+   usuario chega pelo anuncio, sai e volta pelo Google organico, o credito
+   continua com o anuncio. Guardado em localStorage por 30 dias.
+   ========================================================================= */
+var CHAVES_ORIGEM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'];
+var ORIGEM_STORE = 'bgl_origem_imob';
+var ORIGEM_VALIDADE_DIAS = 30;
+
+function lerOrigemDaURL() {
+  var q = {}, params;
+  try { params = new URLSearchParams(window.location.search); }
+  catch (e) { return q; }
+  for (var i = 0; i < CHAVES_ORIGEM.length; i++) {
+    var k = CHAVES_ORIGEM[i], v = params.get(k);
+    if (v) q[k] = String(v).slice(0, 120);
+  }
+  return q;
+}
+
+function capturarOrigem() {
+  var atual = lerOrigemDaURL();
+  var salvo = null;
+
+  try {
+    var raw = window.localStorage.getItem(ORIGEM_STORE);
+    if (raw) {
+      var obj = JSON.parse(raw);
+      var idade = (Date.now() - (obj.ts || 0)) / 86400000;
+      if (idade <= ORIGEM_VALIDADE_DIAS) salvo = obj.dados || null;
+    }
+  } catch (e) { /* navegador sem localStorage: segue sem persistencia */ }
+
+  var temAtual = false;
+  for (var k in atual) { if (atual.hasOwnProperty(k)) { temAtual = true; break; } }
+
+  var origem = temAtual ? atual : (salvo || {});
+  origem.referrer = origem.referrer || (document.referrer || '').slice(0, 160);
+  origem.landing  = origem.landing  || (CONFIG.TOOL_URL || window.location.href).split('#')[0].slice(0, 200);
+
+  if (temAtual) {
+    try {
+      window.localStorage.setItem(ORIGEM_STORE, JSON.stringify({ ts: Date.now(), dados: origem }));
+    } catch (e) { /* ignora */ }
+  }
+  return origem;
+}
+
+/* Linha discreta de origem, anexada ao final da mensagem do WhatsApp. */
+function origemResumida() {
+  var o = state.origem || {};
+  var partes = [];
+  if (o.utm_source)   partes.push(o.utm_source);
+  if (o.utm_medium)   partes.push(o.utm_medium);
+  if (o.utm_campaign) partes.push(o.utm_campaign);
+  if (o.utm_content)  partes.push(o.utm_content);
+  if (!partes.length && o.gclid)  partes.push('google-ads');
+  if (!partes.length && o.fbclid) partes.push('meta-ads');
+  return partes.join(' / ');
+}
+
+/* =========================================================================
+   07 · EVENTOS DE CONVERSAO
+   -------------------------------------------------------------------------
+   Nada e carregado por padrao: os eventos vao para o fbq / gtag / dataLayer
+   que JA existirem na pagina hospedeira. Se CONFIG.CARREGAR_TAGS_PROPRIAS
+   for true, as tags sao carregadas apenas quando ainda nao estiverem la.
+
+   Eventos enviados:
+     bgl_avaliacao_inicio     -> inicio da avaliacao
+     bgl_avaliacao_etapa      -> conclusao de cada etapa
+     bgl_avaliacao_lead       -> dados de contato validados (Meta: Lead)
+     bgl_avaliacao_whatsapp   -> clique no WhatsApp (Meta: Contact + Ads)
+   ========================================================================= */
+
+/* Carrega o Meta Pixel somente se ele ainda nao existir na pagina. */
+function carregarPixelSeNecessario() {
+  if (!CONFIG.CARREGAR_TAGS_PROPRIAS || !CONFIG.META_PIXEL_ID) return;
+  if (typeof window.fbq === 'function') return;   /* ja existe: nao duplicar */
+  /* Snippet oficial do Meta, em versao compacta. */
+  !function (f, b, e, v, n, t, s) {
+    if (f.fbq) return; n = f.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+    t = b.createElement(e); t.async = !0; t.src = v;
+    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+  }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  window.fbq('init', CONFIG.META_PIXEL_ID);
+  window.fbq('track', 'PageView');
+}
+
+/* Carrega o gtag (GA4 / Google Ads) somente se ainda nao existir. */
+function carregarGtagSeNecessario() {
+  if (!CONFIG.CARREGAR_TAGS_PROPRIAS) return;
+  if (typeof window.gtag === 'function') return;  /* ja existe: nao duplicar */
+  var id = CONFIG.GA4_MEASUREMENT_ID || CONFIG.GOOGLE_ADS_ID;
+  if (!id) return;
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  if (CONFIG.GA4_MEASUREMENT_ID) window.gtag('config', CONFIG.GA4_MEASUREMENT_ID);
+  if (CONFIG.GOOGLE_ADS_ID) window.gtag('config', CONFIG.GOOGLE_ADS_ID);
+}
+
+/* Envia um evento para as ferramentas presentes na pagina. */
+function enviarEvento(nome, dados, eventoMetaPadrao) {
+  dados = dados || {};
+  dados.ferramenta = 'avaliacao_imobiliaria';
+  if (state.ref) dados.lead_ref = state.ref;
+
+  /* --- Meta Pixel ------------------------------------------------------- */
+  if (typeof window.fbq === 'function') {
+    try {
+      if (eventoMetaPadrao) window.fbq('track', eventoMetaPadrao, dados);
+      else window.fbq('trackCustom', nome, dados);
+    } catch (e) { /* ignora */ }
+  }
+
+  /* --- Google Tag Manager ----------------------------------------------- */
+  if (window.dataLayer && typeof window.dataLayer.push === 'function' && window.google_tag_manager) {
+    try {
+      var payload = { event: nome };
+      for (var k in dados) if (dados.hasOwnProperty(k)) payload[k] = dados[k];
+      window.dataLayer.push(payload);
+    } catch (e) { /* ignora */ }
+  } else if (typeof window.gtag === 'function') {
+    /* --- GA4 direto (sem GTM) ------------------------------------------- */
+    try { window.gtag('event', nome, dados); } catch (e) { /* ignora */ }
+  }
+}
+
+/* --- Funcoes de conversao nomeadas -------------------------------------- */
+
+/* Disparada no clique em "Começar avaliação". */
+function trackStartEvaluation() {
+  enviarEvento('bgl_avaliacao_inicio', { origem: origemResumida() });
+}
+
+/* Disparada a cada etapa concluida. */
+function trackStepCompleted(stepId, posicao, total) {
+  enviarEvento('bgl_avaliacao_etapa', { etapa_id: stepId, etapa: posicao, etapas_total: total });
+}
+
+/* Disparada quando os dados de contato sao validados (lead formado).
+   >>> Este e o evento a usar como CONVERSAO de lead no Meta e no GA4. */
+function trackLeadQualified(classificacao, pontuacao, problema) {
+  enviarEvento('bgl_avaliacao_lead', {
+    classificacao: classificacao,     /* HOT | WARM | COLD - uso interno */
+    pontuacao: pontuacao,
+    problema: problema,
+    origem: origemResumida()
+  }, 'Lead');   /* Meta: evento padrao "Lead" */
+}
+
+/* Disparada no clique do botao do WhatsApp. */
+function trackWhatsAppClick(classificacao) {
+  enviarEvento('bgl_avaliacao_whatsapp', {
+    classificacao: classificacao,
+    origem: origemResumida()
+  }, 'Contact');  /* Meta: evento padrao "Contact" */
+
+  /* Conversao do Google Ads (mesma conta usada nas LPs da BGL).
+     Deixe CONFIG.GOOGLE_ADS_CONVERSION vazio para desativar. */
+  if (typeof window.gtag === 'function' && CONFIG.GOOGLE_ADS_CONVERSION) {
+    try {
+      window.gtag('event', 'conversion', {
+        send_to: CONFIG.GOOGLE_ADS_CONVERSION,
+        value: CONFIG.GOOGLE_ADS_VALUE,
+        currency: CONFIG.GOOGLE_ADS_CURRENCY
+      });
+    } catch (e) { /* ignora */ }
+  }
+}
+
+/* =========================================================================
+   07B · CAPTURA DO LEAD (ENVIO PARA A BGL)
+   -------------------------------------------------------------------------
+   O que esta secao resolve: antes, tudo ficava no navegador. Quem respondia
+   o formulario inteiro e nao clicava no botao do WhatsApp simplesmente
+   sumia. Agora o lead e enviado para CONFIG.WEBHOOK_URL no momento em que
+   os dados de contato passam na validacao - o clique no WhatsApp vira um
+   evento a mais, nao a unica chance de captura.
+
+   Como se comporta:
+     - Nao trava a tela: o envio e disparado em segundo plano e o resultado
+       aparece na hora, mesmo que a rede esteja ruim.
+     - Se o envio falhar, o lead fica em fila no localStorage e e reenviado
+       na proxima visita, na troca de aba e ao fechar a pagina.
+     - Cada envio carrega uma chave unica (ref + evento). Reenvio nao gera
+       lead duplicado desde que o endpoint ignore chaves repetidas - o
+       script de exemplo em captura-lead/apps-script.gs ja faz isso.
+
+   Eventos enviados:
+     formulario_concluido -> dados de contato validados (este e o lead)
+     whatsapp_clique      -> a pessoa seguiu para o WhatsApp
+     contato_preenchido   -> parcial, so com CONFIG.CAPTURAR_ANTES_DO_ENVIO
+   ========================================================================= */
+var FILA_STORE = 'bgl_fila_leads';
+var FILA_MAX_TENTATIVAS = 10;
+var enviosFeitos = {};    /* chaves ja despachadas nesta sessao */
+var enviandoAgora = false;
+
+/* --- Fila local ----------------------------------------------------------
+   O localStorage e o lugar preferido, porque sobrevive ao fechamento da aba.
+   Em navegador com armazenamento bloqueado (modo privativo, cookies negados)
+   a fila cai para a memoria: o lead ainda e enviado na hora, so nao resiste
+   a um fechamento antes da entrega.                                         */
+var filaMemoria = null;
+
+function filaLer() {
+  try {
+    var bruto = window.localStorage.getItem(FILA_STORE);
+    if (bruto !== null) return JSON.parse(bruto);
+  } catch (e) { /* armazenamento bloqueado: usa a memoria */ }
+  return filaMemoria || [];
+}
+
+function filaEscrever(lista) {
+  lista = lista.slice(-30);
+  filaMemoria = lista;
+  try { window.localStorage.setItem(FILA_STORE, JSON.stringify(lista)); }
+  catch (e) { /* armazenamento bloqueado: a fila segue so em memoria */ }
+}
+
+function filaAdicionar(payload) {
+  var lista = filaLer();
+  lista.push({ id: payload.chave + '|' + Date.now(), tentativas: 0, payload: payload });
+  filaEscrever(lista);
+}
+
+function filaRemover(id) {
+  var lista = filaLer();
+  var restante = [];
+  for (var i = 0; i < lista.length; i++) if (lista[i].id !== id) restante.push(lista[i]);
+  filaEscrever(restante);
+  return restante;
+}
+
+function filaFalhou(id) {
+  var lista = filaLer();
+  var restante = [];
+  for (var i = 0; i < lista.length; i++) {
+    var it = lista[i];
+    if (it.id === id) {
+      it.tentativas = (it.tentativas || 0) + 1;
+      if (it.tentativas >= FILA_MAX_TENTATIVAS) continue;   /* desiste do item */
+    }
+    restante.push(it);
+  }
+  filaEscrever(restante);
+  return restante;
+}
+
+/* --- Montagem do registro enviado ---------------------------------------- */
+function payloadLead(evento) {
+  var a = state.answers;
+  var o = state.origem || {};
+  var digitos = String(a.whatsapp || '').replace(/\D/g, '');
+
+  return {
+    token: CONFIG.WEBHOOK_TOKEN || '',
+    evento: evento,
+    chave: state.ref + '|' + evento,
+    ref: state.ref,
+    data_iso: new Date().toISOString(),
+
+    nome: String(a.nome || '').trim(),
+    whatsapp: String(a.whatsapp || '').trim(),
+    whatsapp_e164: digitos ? '55' + digitos : '',
+    email: String(a.email || '').trim(),
+    cidade: tituloCidade(a.cidade),
+    uf: a.uf || '',
+
+    problema: rotuloDe('problema'),
+    valor_imovel: rotuloDe('valorImovel'),
+    classificacao: state.lead ? state.lead.classificacao : '',
+    pontuacao: state.lead ? state.lead.pontuacao : 0,
+
+    resumo: montarResumo().join(' '),
+    mensagem: montarMensagemWhatsApp(),
+
+    origem: origemResumida(),
+    utm_source: o.utm_source || '',
+    utm_medium: o.utm_medium || '',
+    utm_campaign: o.utm_campaign || '',
+    utm_content: o.utm_content || '',
+    utm_term: o.utm_term || '',
+    gclid: o.gclid || '',
+    fbclid: o.fbclid || '',
+    referrer: o.referrer || '',
+
+    pagina: CONFIG.TOOL_URL || window.location.href,
+    duracao_seg: state.iniciadoEm ? Math.round((Date.now() - state.iniciadoEm) / 1000) : null,
+    respostas: a
+  };
+}
+
+/* --- Transporte ----------------------------------------------------------
+   Content-Type text/plain de proposito: evita o preflight OPTIONS, que
+   Google Apps Script e boa parte dos webhooks simples nao respondem. O
+   corpo continua sendo JSON e deve ser lido como JSON do outro lado.      */
+function enviarItem(item, pronto) {
+  var url = CONFIG.WEBHOOK_URL;
+  var corpo = JSON.stringify(item.payload);
+  if (!url) { pronto(false); return; }
+
+  if (typeof window.fetch !== 'function') {
+    try {
+      var x = new XMLHttpRequest();
+      x.open('POST', url, true);
+      x.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+      x.onload  = function () { pronto(x.status >= 200 && x.status < 400); };
+      x.onerror = function () { pronto(false); };
+      x.send(corpo);
+    } catch (e) { pronto(false); }
+    return;
+  }
+
+  var opcoes = {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+    body: corpo
+  };
+
+  try {
+    window.fetch(url, opcoes).then(function (r) {
+      pronto(!!r && (r.ok || r.type === 'opaque'));
+    })['catch'](function () {
+      /* CORS bloqueado ou resposta ilegivel: reenvia sem leitura de resposta.
+         O pedido sai do navegador; a deduplicacao fica com o endpoint.     */
+      try {
+        opcoes.mode = 'no-cors';
+        window.fetch(url, opcoes).then(function () { pronto(true); })['catch'](function () { pronto(false); });
+      } catch (e2) { pronto(false); }
+    });
+  } catch (e) { pronto(false); }
+}
+
+/* Processa a fila, um item por vez, sem bloquear a interface. */
+function descarregarFila() {
+  if (enviandoAgora || !CONFIG.WEBHOOK_URL) return;
+  var lista = filaLer();
+  if (!lista.length) return;
+
+  enviandoAgora = true;
+  var item = lista[0];
+  enviarItem(item, function (ok) {
+    enviandoAgora = false;
+    var restante = ok ? filaRemover(item.id) : filaFalhou(item.id);
+    if (!restante.length) return;
+    if (ok) descarregarFila();
+    else window.setTimeout(descarregarFila, 6000);
+  });
+}
+
+/* Ultima tentativa quando a aba e fechada ou vai para segundo plano. */
+function descarregarComBeacon() {
+  if (!CONFIG.WEBHOOK_URL) return;
+  var lista = filaLer();
+  if (!lista.length || !navigator.sendBeacon) return;
+  for (var i = 0; i < lista.length; i++) {
+    try {
+      navigator.sendBeacon(CONFIG.WEBHOOK_URL,
+        new Blob([JSON.stringify(lista[i].payload)], { type: 'text/plain;charset=UTF-8' }));
+    } catch (e) { /* ignora */ }
+  }
+}
+
+/* A captura so esta ativa com endpoint configurado. Os textos de
+   consentimento seguem esta resposta - nada de prometer envio que nao ocorre. */
+function capturaAtiva() {
+  return !!(CONFIG.WEBHOOK_URL && CONFIG.ENVIAR_LEAD_AUTOMATICO);
+}
+
+/* Ponto unico de entrada: registra o lead e tenta entregar imediatamente. */
+function enviarLead(evento) {
+  if (!CONFIG.WEBHOOK_URL || !CONFIG.ENVIAR_LEAD_AUTOMATICO) return;
+  var chave = state.ref + '|' + evento;
+  if (enviosFeitos[chave]) return;      /* nada de duplicar no mesmo acesso */
+  enviosFeitos[chave] = true;
+  filaAdicionar(payloadLead(evento));
+  descarregarFila();
+}
+
+/* =========================================================================
+   08 · RENDERIZACAO
+   ========================================================================= */
+
+/* Substitui o conteudo do palco aplicando a animacao de entrada. */
+function pintar(node) {
+  stage.innerHTML = '';
+  node.classList.add('view');
+  if (state.voltando) node.classList.add('is-back');
+  stage.appendChild(node);
+  state.voltando = false;
+}
+
+/* Rola a pagina para o topo do palco (importante no mobile). */
+function subir() {
+  var y = stage.getBoundingClientRect().top + window.pageYOffset - 16;
+  try { window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' }); }
+  catch (e) { window.scrollTo(0, Math.max(0, y)); }
+}
+
+/* --- 8.1 Tela inicial ---------------------------------------------------- */
+function renderIntro() {
+  byId('progress').hidden = true;
+
+  var tela = el('div');
+  tela.innerHTML =
+    '<span class="eyebrow">Avaliação preliminar</span>' +
+    '<h1 class="title title--big">Descubra se o problema do seu imóvel merece uma análise jurídica</h1>' +
+    '<p class="sub">Responda algumas perguntas sobre o imóvel e sua relação com a construtora. ' +
+    (capturaAtiva()
+      ? 'Ao final, você recebe um resumo do seu caso e a equipe da BGL Advogados pode retornar o contato.'
+      : 'Ao final, você decide se envia as informações para a equipe da BGL Advogados.') + '</p>' +
+    '<p class="hint">Leva cerca de 2 minutos. Não é preciso cadastro para começar.</p>' +
+    '<div class="nav">' +
+      '<button class="btn btn--primary btn--block" id="btnStart" type="button">Começar avaliação</button>' +
+    '</div>';
+
+  pintar(tela);
+  byId('btnStart').addEventListener('click', function () {
+    state.iniciadoEm = Date.now();
+    trackStartEvaluation();
+    state.screen = 'step';
+    state.idx = etapasVisiveis()[0];
+    renderStep();
+    subir();
+  });
+}
+
+/* --- 8.2 Uma etapa do questionario --------------------------------------- */
+function renderStep() {
+  var step = STEPS[state.idx];
+  var visiveis = etapasVisiveis();
+  var posicao = visiveis.indexOf(state.idx) + 1;
+
+  atualizarProgresso(posicao, etapasProjetadas().length);
+
+  var tela = el('div');
+
+  var campos = camposVisiveis(step);
+
+  /* Hierarquia: a pergunta principal da etapa e o proprio titulo da tela.
+     Se a etapa define um "title" proprio, ele prevalece e todas as perguntas
+     ficam com seus rotulos. Perguntas condicionais reveladas depois entram
+     como sub-perguntas, com rotulo normal. */
+  var promove = campos.length > 0 && campos[0].type !== 'contato' && !step.title;
+  var titulo = promove ? campos[0].label : step.title;
+  var apoio  = promove ? campos[0].hint  : step.subtitle;
+
+  if (titulo) tela.appendChild(el('h2', 'title', titulo));
+  if (apoio) tela.appendChild(el('p', 'sub', apoio));
+
+  /* Perguntas da etapa */
+  for (var i = 0; i < campos.length; i++) {
+    tela.appendChild(renderCampo(campos[i], step, promove && i === 0));
+  }
+
+  /* Navegacao: acao principal em destaque, "Voltar" discreto abaixo. */
+  var nav = el('div', 'nav');
+
+  var avancar = el('button', 'btn btn--primary btn--block',
+    step.id === 'contato' ? 'Ver minha avaliação' : 'Continuar');
+  avancar.type = 'button';
+  avancar.id = 'btnNext';
+  avancar.addEventListener('click', irParaProxima);
+  nav.appendChild(avancar);
+
+  var voltar = el('button', 'btn btn--ghost nav__voltar', 'Voltar');
+  voltar.type = 'button';
+  voltar.addEventListener('click', irParaAnterior);
+  nav.appendChild(voltar);
+
+  tela.appendChild(nav);
+  pintar(tela);
+}
+
+/* --- 8.3 Bloco de uma pergunta ------------------------------------------- */
+function renderCampo(f, step, semRotulo) {
+  var bloco = el('div', 'q');
+  bloco.setAttribute('data-field', f.id);
+
+  /* semRotulo = a pergunta ja foi exibida como titulo da etapa. */
+  if (f.label && !semRotulo) bloco.appendChild(el('span', 'q__label', f.label));
+  if (f.hint && !semRotulo) bloco.appendChild(el('span', 'q__hint', f.hint));
+
+  var body = el('div', 'q__body');
+  bloco.appendChild(body);
+
+  switch (f.type) {
+    case 'cards':     montarCards(body, f, step); break;
+    case 'multi':     montarMulti(body, f); break;
+    case 'text':      montarTexto(body, f, 'text'); break;
+    case 'textarea':  montarTextarea(body, f); break;
+    case 'cityuf':    montarCidadeUF(body, f); break;
+    case 'monthyear': montarMesAno(body, f); break;
+    case 'contato':   montarContato(body, f); break;
+  }
+
+  var erro = el('p', 'err');
+  erro.id = 'err-' + f.id;
+  bloco.appendChild(erro);
+
+  return bloco;
+}
+
+/* Botoes de escolha unica. */
+function montarCards(body, f, step) {
+  var grid = el('div', 'opts' + (f.cols === 'two' ? ' opts--two' : ''));
+  grid.setAttribute('role', 'radiogroup');
+  if (f.label) grid.setAttribute('aria-label', f.label);
+
+  for (var i = 0; i < f.options.length; i++) {
+    (function (op) {
+      var b = el('button', 'opt');
+      b.type = 'button';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('aria-label', op.t);
+      var marcado = state.answers[f.id] === op.v;
+      b.setAttribute('aria-checked', marcado ? 'true' : 'false');
+      if (marcado) b.classList.add('is-on');
+      b.appendChild(el('span', 'opt__mark'));
+      b.appendChild(el('span', 'opt__text', op.t));
+      b.addEventListener('click', function () { escolher(f, op.v, step); });
+      grid.appendChild(b);
+    })(f.options[i]);
+  }
+  body.appendChild(grid);
+}
+
+/* Selecao multipla: alterna o valor na lista, sem avanco automatico. */
+function montarMulti(body, f) {
+  if (!state.answers[f.id]) state.answers[f.id] = [];
+  var grid = el('div', 'opts');
+  grid.setAttribute('role', 'group');
+  if (f.label) grid.setAttribute('aria-label', f.label);
+
+  for (var i = 0; i < f.options.length; i++) {
+    (function (op) {
+      var b = el('button', 'opt opt--multi');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', temNaLista(f.id, op.v) ? 'true' : 'false');
+      b.setAttribute('aria-label', op.t);
+      if (temNaLista(f.id, op.v)) b.classList.add('is-on');
+      b.appendChild(el('span', 'opt__mark'));
+      b.appendChild(el('span', 'opt__text', op.t));
+      b.addEventListener('click', function () {
+        alternarNaLista(f.id, op.v);
+        var ligado = temNaLista(f.id, op.v);
+        b.classList.toggle('is-on', ligado);
+        b.setAttribute('aria-pressed', ligado ? 'true' : 'false');
+        limparErro(f.id);
+      });
+      grid.appendChild(b);
+    })(f.options[i]);
+  }
+  body.appendChild(grid);
+}
+
+function temNaLista(id, valor) {
+  var l = state.answers[id];
+  return !!l && l.indexOf(valor) > -1;
+}
+function alternarNaLista(id, valor) {
+  var l = state.answers[id] || (state.answers[id] = []);
+  var i = l.indexOf(valor);
+  if (i > -1) l.splice(i, 1); else l.push(valor);
+}
+
+/* Trata a escolha de um card: grava, limpa dependencias e decide o avanco. */
+function escolher(f, valor, step) {
+  /* Quais perguntas estavam visiveis ANTES da escolha (para animar as novas). */
+  var antes = [], vis = camposVisiveis(step), i;
+  for (i = 0; i < vis.length; i++) antes.push(vis[i].id);
+
+  state.answers[f.id] = valor;
+  limparErro(f.id);
+  limparDependencias();
+
+  if (CONFIG.AVANCO_AUTOMATICO && podeAvancarSozinho(step, f)) {
+    /* Redesenha para mostrar a selecao e avanca logo em seguida. */
+    renderStep();
+    window.setTimeout(function () {
+      if (state.screen === 'step') irParaProxima();
+    }, 260);
+    return;
+  }
+
+  /* Redesenha a etapa: pode revelar ou esconder perguntas condicionais. */
+  renderStep();
+  var depois = camposVisiveis(step);
+  for (i = 0; i < depois.length; i++) {
+    if (antes.indexOf(depois[i].id) === -1) {
+      var novo = stage.querySelector('[data-field="' + depois[i].id + '"]');
+      if (novo) novo.classList.add('is-revealed');
+    }
+  }
+}
+
+/* Avanca sozinho quando a etapa virou uma pergunta so de tocar: todas as
+   perguntas visiveis sao de escolha unica, todas ja estao respondidas e a
+   que acabou de ser tocada e a ultima da tela. Assim, "Você já recebeu as
+   chaves? Sim" avanca na hora, e "Não" espera a pergunta que ele revela. */
+function podeAvancarSozinho(step, campoTocado) {
+  if (!step) return false;
+  var visiveis = camposVisiveis(step);
+  if (!visiveis.length) return false;
+  if (visiveis[visiveis.length - 1].id !== campoTocado.id) return false;
+  for (var i = 0; i < visiveis.length; i++) {
+    if (visiveis[i].type !== 'cards') return false;
+    if (!state.answers[visiveis[i].id]) return false;
+  }
+  return true;
+}
+
+/* Remove respostas que deixaram de fazer sentido apos mudar uma escolha
+   anterior (evita enviar dados contraditorios na mensagem final). */
+function limparDependencias() {
+  var a = state.answers;
+
+  /* Troca de rota (o usuario voltou e mudou o problema principal):
+     descarta as respostas da rota antiga para nao contaminar o resumo,
+     a mensagem do WhatsApp e a pontuacao. */
+  if (a.problema !== 'atraso') {
+    delete a.chaves; delete a.tempoAtraso; delete a.aluguel; delete a.valorAluguel;
+    delete a.novaPrevisao; delete a.prazo__m; delete a.prazo__y;
+    delete a.previsao__m; delete a.previsao__y;
+  }
+  if (!rotaDistrato(a)) {
+    delete a.valorPago; delete a.pediuDistrato; delete a.respostaDistrato;
+    delete a.percentualRetencao; delete a.assinouDistrato; delete a.quitacao;
+  }
+  if (a.problema !== 'outro') delete a.descricao;
+
+  /* Perguntas condicionais dentro da mesma rota. */
+  if (a.aluguel !== 'sim') delete a.valorAluguel;
+  if (a.novaPrevisao !== 'sim') { delete a.previsao__m; delete a.previsao__y; }
+  if (a.pediuDistrato !== 'sim') delete a.respostaDistrato;
+  if (a.assinouDistrato !== 'sim') delete a.quitacao;
+  if (a.tentouResolver !== 'sim') delete a.respostaConstrutora;
+  if (a.chaves !== 'nao') delete a.tempoAtraso;
+  if (!(a.respostaDistrato === 'percentual' || a.respostaDistrato === 'parcial' || a.problema === 'retencao')) {
+    delete a.percentualRetencao;
+  }
+}
+
+/* Campo de texto simples. */
+function montarTexto(body, f, tipo) {
+  var i = el('input', 'inp');
+  i.type = tipo || 'text';
+  i.id = 'f-' + f.id;
+  i.value = state.answers[f.id] || '';
+  if (f.placeholder) i.placeholder = f.placeholder;
+  if (f.maxlength) i.maxLength = f.maxlength;
+  i.addEventListener('input', function () {
+    state.answers[f.id] = i.value;
+    limparErro(f.id);
+  });
+  body.appendChild(i);
+}
+
+/* Campo de texto longo. */
+function montarTextarea(body, f) {
+  var t = el('textarea', 'inp');
+  t.id = 'f-' + f.id;
+  t.rows = 4;
+  t.value = state.answers[f.id] || '';
+  if (f.placeholder) t.placeholder = f.placeholder;
+  if (f.maxlength) t.maxLength = f.maxlength;
+  t.addEventListener('input', function () {
+    state.answers[f.id] = t.value;
+    limparErro(f.id);
+  });
+  body.appendChild(t);
+}
+
+/* Cidade + UF. */
+function montarCidadeUF(body, f) {
+  var g = el('div', 'grid2');
+
+  var cidade = el('input', 'inp');
+  cidade.type = 'text';
+  cidade.id = 'f-cidade';
+  cidade.placeholder = 'Cidade';
+  cidade.autocomplete = 'address-level2';
+  cidade.value = state.answers.cidade || '';
+  cidade.addEventListener('input', function () {
+    state.answers.cidade = cidade.value;
+    limparErro(f.id);
+  });
+
+  var uf = el('select', 'inp');
+  uf.id = 'f-uf';
+  uf.appendChild(new Option('UF', ''));
+  for (var i = 0; i < UFS.length; i++) uf.appendChild(new Option(UFS[i], UFS[i]));
+  uf.value = state.answers.uf || '';
+  uf.addEventListener('change', function () {
+    state.answers.uf = uf.value;
+    limparErro(f.id);
+  });
+
+  g.appendChild(cidade);
+  g.appendChild(uf);
+  body.appendChild(g);
+}
+
+/* Mes + ano. */
+function montarMesAno(body, f) {
+  var g = el('div', 'grid2');
+  var anoAtual = new Date().getFullYear();
+
+  var mes = el('select', 'inp');
+  mes.id = 'f-' + f.id + '-m';
+  mes.appendChild(new Option('Mês', ''));
+  for (var m = 0; m < 12; m++) {
+    mes.appendChild(new Option(MESES[m], String(m + 1).length === 1 ? '0' + (m + 1) : String(m + 1)));
+  }
+  mes.value = state.answers[f.id + '__m'] || '';
+  mes.addEventListener('change', function () {
+    state.answers[f.id + '__m'] = mes.value;
+    limparErro(f.id);
+  });
+
+  /* Datas passadas (prazo original) e futuras (nova previsao) no mesmo range. */
+  var ano = el('select', 'inp');
+  ano.id = 'f-' + f.id + '-y';
+  ano.appendChild(new Option('Ano', ''));
+  for (var y = anoAtual + 5; y >= anoAtual - 15; y--) ano.appendChild(new Option(String(y), String(y)));
+  ano.value = state.answers[f.id + '__y'] || '';
+  ano.addEventListener('change', function () {
+    state.answers[f.id + '__y'] = ano.value;
+    limparErro(f.id);
+  });
+
+  g.appendChild(mes);
+  g.appendChild(ano);
+  body.appendChild(g);
+}
+
+/* Bloco de contato: nome, WhatsApp, e-mail e aviso de privacidade. */
+function montarContato(body) {
+  var nome = el('input', 'inp');
+  nome.type = 'text';
+  nome.id = 'f-nome';
+  nome.placeholder = 'Nome completo';
+  nome.autocomplete = 'name';
+  nome.value = state.answers.nome || '';
+  nome.addEventListener('input', function () {
+    state.answers.nome = nome.value;
+    limparErro('contato');
+  });
+
+  var zap = el('input', 'inp');
+  zap.type = 'tel';
+  zap.id = 'f-whatsapp';
+  zap.placeholder = 'WhatsApp — (00) 00000-0000';
+  zap.inputMode = 'numeric';
+  zap.autocomplete = 'tel-national';
+  zap.maxLength = 16;
+  zap.value = state.answers.whatsapp || '';
+  zap.addEventListener('input', function () {
+    zap.value = mascaraTelefone(zap.value);
+    state.answers.whatsapp = zap.value;
+    limparErro('contato');
+  });
+
+  var mail = el('input', 'inp');
+  mail.type = 'email';
+  mail.id = 'f-email';
+  mail.placeholder = 'E-mail (opcional)';
+  mail.autocomplete = 'email';
+  mail.value = state.answers.email || '';
+  mail.addEventListener('input', function () {
+    state.answers.email = mail.value;
+    limparErro('contato');
+  });
+
+  /* Captura parcial (CONFIG.CAPTURAR_ANTES_DO_ENVIO): quem digita nome e
+     WhatsApp validos e desiste antes de clicar tambem chega ate a equipe.
+     Desligada por padrao - ler a nota da CONFIG antes de ativar. */
+  function talvezCapturarParcial() {
+    if (!CONFIG.CAPTURAR_ANTES_DO_ENVIO) return;
+    var a = state.answers;
+    var completo = String(a.nome || '').trim();
+    if (completo.split(/\s+/).length < 2 || completo.length < 5) return;
+    if (!telefoneValido(a.whatsapp)) return;
+    enviarLead('contato_preenchido');
+  }
+  nome.addEventListener('blur', talvezCapturarParcial);
+  zap.addEventListener('blur', talvezCapturarParcial);
+  mail.addEventListener('blur', talvezCapturarParcial);
+
+  var box = el('div');
+  box.style.display = 'grid';
+  box.style.gap = '10px';
+  box.appendChild(nome);
+  box.appendChild(zap);
+  box.appendChild(mail);
+  body.appendChild(box);
+
+  var consent = el('p', 'consent');
+  consent.innerHTML =
+    (capturaAtiva()
+      ? 'Ao continuar, suas respostas e seus dados de contato são enviados para a equipe da BGL Advogados, ' +
+        'que poderá entrar em contato para tratar da sua solicitação. '
+      : 'Ao enviar seus dados, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ') +
+    'Seus dados serão tratados de acordo com a legislação aplicável. ' +
+    '<a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.';
+  body.appendChild(consent);
+}
+
+function urlPrivacidade() {
+  var u = CONFIG.PRIVACY_URL;
+  if (!u || u.indexOf('INSERIR_URL') === 0) return CONFIG.SITE_URL;
+  return u;
+}
+
+/* --- 8.4 Progresso ------------------------------------------------------- */
+function atualizarProgresso(posicao, total) {
+  var box = byId('progress');
+  box.hidden = false;
+  byId('progNow').textContent = posicao;
+  byId('progTotal').textContent = total;
+  var pct = Math.round((posicao - 1) / total * 100);
+  byId('progBar').style.width = Math.max(5, pct) + '%';
+  byId('progTrack').setAttribute('aria-valuenow', String(pct));
+}
+
+/* =========================================================================
+   09 · NAVEGACAO
+   ========================================================================= */
+function irParaProxima() {
+  var step = STEPS[state.idx];
+  if (!validarEtapa(step)) return;
+
+  var visiveis = etapasVisiveis();
+  var posicao = visiveis.indexOf(state.idx) + 1;
+  trackStepCompleted(step.id, posicao, visiveis.length);
+
+  /* Ultima etapa: qualifica o lead e mostra o resultado. */
+  if (step.id === 'contato') {
+    state.lead = qualificarLead();
+    salvarLeadLocalmente();
+    trackLeadQualified(state.lead.classificacao, state.lead.pontuacao, state.answers.problema);
+    /* Captura do lead: acontece aqui, e nao no clique do WhatsApp. Quem
+       responde ate o fim ja chega para a equipe, clicando ou nao. */
+    enviarLead('formulario_concluido');
+    state.screen = 'result';
+    renderResult();
+    subir();
+    return;
+  }
+
+  /* Recalcula as etapas visiveis: a resposta pode ter mudado a rota. */
+  visiveis = etapasVisiveis();
+  for (var i = 0; i < visiveis.length; i++) {
+    if (visiveis[i] > state.idx) {
+      state.idx = visiveis[i];
+      renderStep();
+      subir();
+      return;
+    }
+  }
+}
+
+function irParaAnterior() {
+  var visiveis = etapasVisiveis();
+  state.voltando = true;
+
+  for (var i = visiveis.length - 1; i >= 0; i--) {
+    if (visiveis[i] < state.idx) {
+      state.idx = visiveis[i];
+      renderStep();
+      subir();
+      return;
+    }
+  }
+  /* Estava na primeira etapa: volta para a tela inicial. */
+  state.screen = 'intro';
+  renderIntro();
+  subir();
+}
+
+/* =========================================================================
+   10 · VALIDACAO
+   ========================================================================= */
+function mostrarErro(fieldId, msg) {
+  var e = byId('err-' + fieldId);
+  if (e) { e.textContent = msg; e.classList.add('is-on'); }
+  var bloco = stage.querySelector('[data-field="' + fieldId + '"]');
+  if (bloco) {
+    var inputs = bloco.querySelectorAll('.inp');
+    for (var i = 0; i < inputs.length; i++) inputs[i].classList.add('is-error');
+    var y = bloco.getBoundingClientRect().top + window.pageYOffset - 90;
+    try { window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' }); }
+    catch (err) { window.scrollTo(0, Math.max(0, y)); }
+  }
+}
+
+function limparErro(fieldId) {
+  var e = byId('err-' + fieldId);
+  if (e) { e.textContent = ''; e.classList.remove('is-on'); }
+  var bloco = stage.querySelector('[data-field="' + fieldId + '"]');
+  if (bloco) {
+    var inputs = bloco.querySelectorAll('.inp');
+    for (var i = 0; i < inputs.length; i++) inputs[i].classList.remove('is-error');
+  }
+}
+
+/* Mascara brasileira: (XX) XXXXX-XXXX */
+function mascaraTelefone(v) {
+  var d = String(v || '').replace(/\D/g, '').slice(0, 11);
+  if (d.length === 0) return '';
+  if (d.length <= 2) return '(' + d;
+  if (d.length <= 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+  if (d.length <= 10) return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
+  return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
+}
+
+/* Valida DDD e quantidade de digitos. Celular com 11 digitos exige o 9. */
+function telefoneValido(v) {
+  var d = String(v || '').replace(/\D/g, '');
+  if (d.length !== 10 && d.length !== 11) return false;
+  var ddd = parseInt(d.slice(0, 2), 10);
+  var DDDS = [11,12,13,14,15,16,17,18,19,21,22,24,27,28,31,32,33,34,35,37,38,
+              41,42,43,44,45,46,47,48,49,51,53,54,55,61,62,63,64,65,66,67,68,69,
+              71,73,74,75,77,79,81,82,83,84,85,86,87,88,89,91,92,93,94,95,96,97,98,99];
+  if (DDDS.indexOf(ddd) === -1) return false;
+  if (d.length === 11 && d.charAt(2) !== '9') return false;
+  if (/^(\d)\1+$/.test(d.slice(2))) return false;   /* 99999999999 e afins */
+  return true;
+}
+
+function emailValido(v) {
+  return /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(String(v || '').trim());
+}
+
+/* Valida todas as perguntas visiveis da etapa. */
+function validarEtapa(step) {
+  var campos = camposVisiveis(step);
+
+  for (var i = 0; i < campos.length; i++) {
+    var f = campos[i];
+    var obrigatorio = f.required !== false;
+    var a = state.answers;
+
+    if (f.type === 'contato') {
+      var nome = String(a.nome || '').trim();
+      if (nome.split(/\s+/).length < 2 || nome.length < 5) {
+        mostrarErro('contato', 'Informe seu nome completo.');
+        return false;
+      }
+      if (!telefoneValido(a.whatsapp)) {
+        mostrarErro('contato', 'Informe um número de WhatsApp válido, com DDD.');
+        return false;
+      }
+      if (a.email && String(a.email).trim() && !emailValido(a.email)) {
+        mostrarErro('contato', 'O e-mail informado parece inválido. Corrija ou deixe em branco.');
+        return false;
+      }
+      continue;
+    }
+
+    if (!obrigatorio) continue;
+
+    if (f.type === 'cityuf') {
+      if (String(a.cidade || '').trim().length < 2 || !a.uf) {
+        mostrarErro(f.id, 'Informe a cidade e o estado do imóvel.');
+        return false;
+      }
+      continue;
+    }
+
+    if (f.type === 'monthyear') {
+      if (!a[f.id + '__m'] || !a[f.id + '__y']) {
+        mostrarErro(f.id, 'Selecione o mês e o ano.');
+        return false;
+      }
+      continue;
+    }
+
+    if (f.type === 'multi') {
+      if (!a[f.id] || !a[f.id].length) {
+        mostrarErro(f.id, 'Selecione ao menos uma opção para continuar.');
+        return false;
+      }
+      continue;
+    }
+
+    if (f.type === 'textarea' || f.type === 'text') {
+      if (String(a[f.id] || '').trim().length < 5) {
+        mostrarErro(f.id, 'Escreva uma resposta breve para seguir.');
+        return false;
+      }
+      continue;
+    }
+
+    if (!a[f.id]) {
+      mostrarErro(f.id, 'Selecione uma opção para continuar.');
+      return false;
+    }
+  }
+  return true;
+}
+
+/* =========================================================================
+   11 · QUALIFICACAO INTERNA DO LEAD (HOT / WARM / COLD)
+   -------------------------------------------------------------------------
+   ESTA PONTUACAO NAO E MOSTRADA AO USUARIO. Ela existe para organizar o
+   atendimento: o resultado viaja nos eventos de conversao e fica salvo no
+   navegador. Nenhum usuario e impedido de chegar ao WhatsApp.
+
+   Logica: cada resposta que indica um caso mais maduro, mais documentado ou
+   economicamente mais relevante soma pontos. A ausencia de contrato subtrai.
+
+   Faixas:  HOT  >= 32   |   WARM 16 a 31   |   COLD < 16
+   Para calibrar, mude apenas os pesos da tabela PESOS e os limites em
+   LIMITE_HOT / LIMITE_WARM.
+   ========================================================================= */
+var LIMITE_HOT = 32;
+var LIMITE_WARM = 16;
+
+var PESOS = {
+  /* Valor economico envolvido */
+  valorImovel: { ate250: 0, '250a500': 3, '500a750': 5, '750a1mi': 7, acima1mi: 8 },
+  valorPago:   { ate20: 1, '20a50': 3, '50a100': 5, '100a200': 7, acima200: 8 },
+
+  /* Gravidade do atraso */
+  tempoAtraso:  { menos3: 2, '3a6': 5, '6a12': 7, '12a18': 9, mais18: 10, naosei: 2 },
+  valorAluguel: { ate1000: 1, '1a2': 2, '2a3': 3, acima3: 4 },
+
+  /* Estagio da negociacao do distrato */
+  respostaDistrato:   { aceitou: 3, parcial: 6, percentual: 6, recusou: 8, semResposta: 4, outro: 2 },
+  percentualRetencao: { ate10: 1, '10a20': 3, '20a30': 5, '30a50': 7, mais50: 8, naosei: 2 },
+  quitacao:           { sim: 6, naosei: 2, nao: 0 }
+};
+
+function qualificarLead() {
+  var a = state.answers;
+  var pontos = 0;
+  var sinais = [];
+
+  function somar(valor, motivo) {
+    if (!valor) return;
+    pontos += valor;
+    sinais.push(motivo);
+  }
+  function tabela(nome, id, motivo) {
+    var v = PESOS[nome][a[id]];
+    if (v) somar(v, motivo + ': ' + rotuloDe(id));
+  }
+
+  /* --- Sinais economicos ------------------------------------------------ */
+  tabela('valorImovel', 'valorImovel', 'Valor do imóvel');
+  tabela('valorPago', 'valorPago', 'Valor já pago');
+
+  /* --- Rota atraso de obra ---------------------------------------------- */
+  if (a.chaves === 'nao') somar(3, 'Chaves ainda não entregues');
+  tabela('tempoAtraso', 'tempoAtraso', 'Tempo de atraso');
+  if (a.aluguel === 'sim') {
+    somar(6, 'Paga aluguel enquanto aguarda');
+    tabela('valorAluguel', 'valorAluguel', 'Aluguel mensal');
+  }
+
+  /* --- Rota distrato / retencao ----------------------------------------- */
+  if (a.pediuDistrato === 'sim') somar(4, 'Distrato já pedido formalmente');
+  tabela('respostaDistrato', 'respostaDistrato', 'Resposta da construtora');
+  tabela('percentualRetencao', 'percentualRetencao', 'Retenção informada');
+  if (a.assinouDistrato === 'sim') somar(5, 'Já assinou documento de distrato');
+  tabela('quitacao', 'quitacao', 'Quitação');
+  if (a.problema === 'documento') somar(6, 'Recebeu documento para assinar');
+
+  /* --- Maturidade do caso ----------------------------------------------- */
+  if (a.tentouResolver === 'sim') somar(5, 'Já tentou resolver com a construtora');
+
+  /* --- Documentacao ------------------------------------------------------ */
+  if (temDoc('contrato')) somar(5, 'Possui contrato');
+  else somar(-3, 'Não possui contrato');
+  if (temDoc('comprovantes')) somar(4, 'Possui comprovantes de pagamento');
+  if (temDoc('conversas')) somar(2, 'Possui conversas/documentos com a construtora');
+
+  /* --- Rota "outro problema": depende de haver um relato concreto -------- */
+  if (a.problema === 'outro') {
+    var texto = String(a.descricao || '').trim();
+    if (texto.length >= 60) somar(4, 'Descreveu o problema com detalhes');
+    else if (texto.length < 25) somar(-2, 'Relato genérico');
+  }
+
+  var classificacao = pontos >= LIMITE_HOT ? 'HOT' : (pontos >= LIMITE_WARM ? 'WARM' : 'COLD');
+
+  return { pontuacao: pontos, classificacao: classificacao, sinais: sinais };
+}
+
+/* Guarda o lead no navegador. Copia de seguranca local: o envio para a
+   equipe e feito por enviarLead(), na secao 07B. */
+function salvarLeadLocalmente() {
+  if (!CONFIG.SALVAR_LEAD_LOCALMENTE) return;
+  try {
+    var registro = {
+      ref: state.ref,
+      data: new Date().toISOString(),
+      classificacao: state.lead ? state.lead.classificacao : '',
+      pontuacao: state.lead ? state.lead.pontuacao : 0,
+      respostas: state.answers,
+      origem: state.origem,
+      duracao_seg: state.iniciadoEm ? Math.round((Date.now() - state.iniciadoEm) / 1000) : null
+    };
+    var lista = JSON.parse(window.localStorage.getItem('bgl_leads_imob') || '[]');
+    lista.push(registro);
+    window.localStorage.setItem('bgl_leads_imob', JSON.stringify(lista.slice(-20)));
+  } catch (e) { /* navegador sem localStorage: segue normalmente */ }
+}
+
+/* =========================================================================
+   12 · RESUMO E TELA DE RESULTADO
+   -------------------------------------------------------------------------
+   Nenhuma linha aqui afirma direito, percentual ou valor a receber. O texto
+   apenas devolve ao usuario o que ele mesmo informou e indica que o caso
+   precisa ser analisado a partir do contrato e dos documentos.
+   ========================================================================= */
+function montarResumo() {
+  var a = state.answers;
+  var itens = [];
+  var local = tituloCidade(a.cidade) + '/' + (a.uf || '');
+
+  /* --- Linha de contexto do problema ------------------------------------ */
+  if (a.problema === 'atraso')         itens.push('a obra está atrasada e a situação segue sem solução definida;');
+  else if (a.problema === 'desistir')  itens.push('pretende rescindir o contrato com a construtora;');
+  else if (a.problema === 'retencao')  itens.push('a construtora pretende reter parte dos valores já pagos;');
+  else if (a.problema === 'devolucao') itens.push('a construtora não devolveu os valores já pagos;');
+  else if (a.problema === 'documento') itens.push('recebeu um distrato ou documento para assinar;');
+  else if (a.problema === 'outro')     itens.push('enfrenta um problema com a construtora relacionado ao imóvel;');
+
+  itens.push('o imóvel está em ' + local + ', com valor aproximado de ' + inicialMinuscula(rotuloDe('valorImovel')) + ';');
+
+  /* --- Rota atraso ------------------------------------------------------- */
+  if (a.problema === 'atraso') {
+    if (mesAno('prazo')) itens.push('a entrega estava prevista para ' + mesAno('prazo') + ';');
+    itens.push(a.chaves === 'sim'
+      ? 'as chaves já foram recebidas, após o prazo previsto;'
+      : 'as chaves ainda não foram entregues;');
+    if (a.tempoAtraso && a.tempoAtraso !== 'naosei') {
+      itens.push('o atraso está na faixa de ' + inicialMinuscula(rotuloDe('tempoAtraso')) + ';');
+    }
+    if (a.aluguel === 'sim') {
+      itens.push('continua pagando aluguel enquanto aguarda, na faixa de ' +
+                 inicialMinuscula(rotuloDe('valorAluguel')) + ' por mês;');
+    }
+    itens.push(a.novaPrevisao === 'sim'
+      ? 'a construtora informou nova previsão de entrega' + (mesAno('previsao') ? ' para ' + mesAno('previsao') : '') + ';'
+      : 'a construtora ainda não informou uma nova previsão de entrega;');
+  }
+
+  /* --- Rota distrato / retencao / devolucao ------------------------------ */
+  if (rotaDistrato(a)) {
+    if (a.valorPago) itens.push('já pagou aproximadamente ' + inicialMinuscula(rotuloDe('valorPago')) + ' pelo imóvel;');
+    if (a.pediuDistrato === 'sim') {
+      var r = a.respostaDistrato;
+      if (r === 'aceitou')          itens.push('pediu o distrato e a construtora aceitou;');
+      else if (r === 'parcial')     itens.push('pediu o distrato e a construtora informou que devolverá apenas parte dos valores;');
+      else if (r === 'percentual')  itens.push('pediu o distrato e a construtora informou que pretende reter um percentual;');
+      else if (r === 'recusou')     itens.push('pediu o distrato e a construtora recusou;');
+      else if (r === 'semResposta') itens.push('pediu o distrato e ainda não obteve resposta;');
+      else                          itens.push('já pediu formalmente o distrato à construtora;');
+    } else {
+      itens.push('ainda não pediu formalmente o distrato à construtora;');
+    }
+    if (a.percentualRetencao) {
+      itens.push('a retenção informada está na faixa de ' + inicialMinuscula(rotuloDe('percentualRetencao')) + ';');
+    }
+    if (a.assinouDistrato === 'sim') {
+      itens.push('já assinou um documento de distrato' +
+        (a.quitacao === 'sim' ? ', incluindo documento de quitação à construtora' :
+         a.quitacao === 'naosei' ? ', sem ter certeza se havia quitação no documento' : '') + ';');
+    }
+  }
+
+  /* --- Rota outro -------------------------------------------------------- */
+  if (a.problema === 'outro' && a.descricao) {
+    itens.push('relatou a seguinte situação: “' + String(a.descricao).trim().slice(0, 180) + '”;');
+  }
+
+  /* --- Comuns ------------------------------------------------------------ */
+  itens.push(a.tentouResolver === 'sim'
+    ? 'já tentou resolver a situação diretamente com a construtora;'
+    : 'ainda não tentou resolver a situação diretamente com a construtora;');
+
+  var docs = [];
+  if (temDoc('contrato')) docs.push('o contrato de compra e venda');
+  if (temDoc('comprovantes')) docs.push('comprovantes dos valores pagos');
+  if (temDoc('conversas')) docs.push('conversas ou documentos trocados com a construtora');
+  itens.push(docs.length
+    ? 'possui ' + listar(docs) + '.'
+    : 'ainda não reuniu o contrato e os comprovantes relacionados ao imóvel.');
+
+  return itens;
+}
+
+/* Junta itens de lista com virgulas e "e". */
+function listar(arr) {
+  if (arr.length === 1) return arr[0];
+  return arr.slice(0, -1).join(', ') + ' e ' + arr[arr.length - 1];
+}
+
+/* Titulo do resultado, adequado a rota e sem promessa de resultado. */
+function tituloResultado() {
+  var a = state.answers;
+  var fraco = state.lead && state.lead.classificacao === 'COLD';
+
+  if (fraco) return 'Sua situação precisa ser analisada a partir do contrato e dos documentos.';
+  if (rotaDistrato(a)) return 'Seu caso apresenta elementos que justificam uma análise jurídica antes de aceitar a proposta da construtora.';
+  if (a.problema === 'atraso') return 'Seu caso apresenta elementos que justificam uma análise jurídica.';
+  return 'Seu relato apresenta elementos que justificam uma análise jurídica.';
+}
+
+/* Observacao adicional para situacoes que envolvem assinatura de documento. */
+function alertaDocumento() {
+  var a = state.answers;
+  if (a.quitacao === 'sim' || a.assinouDistrato === 'sim') {
+    return 'Documentos de distrato costumam conter cláusula de quitação. Como você informou que já houve assinatura, ' +
+           'a leitura do que foi assinado é parte necessária da análise.';
+  }
+  if (a.problema === 'documento') {
+    return 'Documentos enviados pela construtora para assinatura costumam definir valores e quitação. ' +
+           'A leitura do documento antes da assinatura é parte necessária da análise.';
+  }
+  return '';
+}
+
+function renderResult() {
+  byId('progress').hidden = true;
+
+  var tela = el('div');
+  var itens = montarResumo();
+  var alerta = alertaDocumento();
+  var nome = primeiroNome(state.answers.nome);
+
+  var html =
+    '<span class="selo"><span></span>Avaliação preliminar</span>' +
+    '<h2 class="title">' + escapar(tituloResultado()) + '</h2>' +
+    (nome ? '<p class="sub">' + escapar(nome) + ', este é o resumo do que você informou, ' +
+            'organizado para a equipe da BGL analisar seu caso.</p>' : '') +
+    '<div class="painel">' +
+      '<p class="painel__titulo">Você informou que</p><ul>' +
+      itens.map(function (t) { return '<li>' + escapar(t) + '</li>'; }).join('') +
+      '</ul></div>' +
+    '<p class="nota">Essas informações podem indicar questões jurídicas que precisam ser avaliadas ' +
+      'a partir do contrato e dos documentos. Cada caso é analisado individualmente e esta avaliação ' +
+      'preliminar não representa promessa ou garantia de resultado.</p>' +
+    (alerta ? '<p class="nota">' + escapar(alerta) + '</p>' : '') +
+    '<div class="cta">' +
+      '<h3 class="title">Quer entender o que pode ser feito no seu caso?</h3>' +
+      '<p class="cta__texto">A equipe da BGL Advogados poderá analisar as informações fornecidas ' +
+        'e orientar você sobre os próximos passos.</p>' +
+      '<div class="cta__acoes">' +
+        '<a class="btn btn--wa btn--block" id="btnWhats" href="#" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg>' +
+          'Falar com a BGL pelo WhatsApp</a>' +
+        '<p class="cta__ref">O resumo acima vai junto na mensagem. Referência: ' + escapar(state.ref) + '</p>' +
+        '<button class="refazer" type="button" id="btnRestart">Refazer a avaliação</button>' +
+      '</div>' +
+    '</div>' +
+    '<p class="consent">' +
+      (capturaAtiva()
+        ? 'Suas respostas foram registradas e a equipe da BGL Advogados poderá entrar em contato para tratar da sua solicitação. '
+        : 'Ao enviar, você concorda que a BGL Advogados entre em contato para tratar da sua solicitação. ') +
+      '<a href="' + urlPrivacidade() + '" target="_blank" rel="noopener">Política de Privacidade</a>.</p>';
+
+  tela.innerHTML = html;
+  pintar(tela);
+
+  var botao = byId('btnWhats');
+  botao.href = linkWhatsApp();
+  if (CONFIG.WHATSAPP_NOVA_ABA) botao.target = '_blank';
+  botao.addEventListener('click', function () {
+    trackWhatsAppClick(state.lead ? state.lead.classificacao : '');
+    /* Segundo registro: marca no destino quem realmente seguiu para o
+       WhatsApp, separando-o de quem parou na tela de resultado. */
+    enviarLead('whatsapp_clique');
+  });
+
+  byId('btnRestart').addEventListener('click', function () {
+    state.answers = {};
+    state.lead = null;
+    state.ref = gerarRef();
+    state.screen = 'intro';
+    state.idx = 0;
+    renderIntro();
+    subir();
+  });
+}
+
+/* Escapa texto antes de injetar em HTML. */
+function escapar(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+/* =========================================================================
+   13 · MENSAGEM E LINK DO WHATSAPP
+   -------------------------------------------------------------------------
+   A mensagem e curta e estruturada de proposito: o advogado precisa saber
+   em poucos segundos quem e a pessoa, qual o problema, o valor envolvido,
+   o estagio do caso, se ja houve tratativa e se ha documentacao.
+   Para incluir uma informacao nova, acrescente uma linha em "linhas".
+   ========================================================================= */
+function montarMensagemWhatsApp() {
+  var a = state.answers;
+  var linhas = [];
+
+  linhas.push('Olá, equipe BGL. Fiz a avaliação imobiliária pelo site e gostaria de analisar meu caso.');
+  linhas.push('');
+  linhas.push('Nome: ' + String(a.nome || '').trim());
+  linhas.push('Problema principal: ' + rotuloDe('problema'));
+  linhas.push('Cidade/UF do imóvel: ' + tituloCidade(a.cidade) + '/' + (a.uf || ''));
+  linhas.push('Valor aproximado do imóvel: ' + rotuloDe('valorImovel'));
+
+  /* --- Rota atraso ------------------------------------------------------- */
+  if (a.problema === 'atraso') {
+    if (mesAno('prazo')) linhas.push('Entrega prevista para: ' + mesAno('prazo'));
+    linhas.push('Chaves recebidas: ' + rotuloDe('chaves'));
+    if (a.tempoAtraso) linhas.push('Tempo de atraso: ' + rotuloDe('tempoAtraso'));
+    linhas.push('Pagando aluguel: ' + rotuloDe('aluguel') +
+      (a.aluguel === 'sim' && a.valorAluguel ? ' (' + rotuloDe('valorAluguel') + ')' : ''));
+    linhas.push('Nova previsão informada: ' + rotuloDe('novaPrevisao') +
+      (a.novaPrevisao === 'sim' && mesAno('previsao') ? ' (' + mesAno('previsao') + ')' : ''));
+  }
+
+  /* --- Rota distrato / retencao / devolucao ------------------------------ */
+  if (rotaDistrato(a)) {
+    if (a.valorPago) linhas.push('Valor já pago: ' + rotuloDe('valorPago'));
+    linhas.push('Distrato pedido formalmente: ' + rotuloDe('pediuDistrato') +
+      (a.pediuDistrato === 'sim' && a.respostaDistrato ? ' — ' + rotuloDe('respostaDistrato') : ''));
+    if (a.percentualRetencao) linhas.push('Retenção informada: ' + rotuloDe('percentualRetencao'));
+    linhas.push('Documento de distrato assinado: ' + rotuloDe('assinouDistrato') +
+      (a.assinouDistrato === 'sim' && a.quitacao ? ' — quitação: ' + rotuloDe('quitacao') : ''));
+  }
+
+  /* --- Rota outro -------------------------------------------------------- */
+  if (a.problema === 'outro' && a.descricao) {
+    linhas.push('Resumo do problema: ' + String(a.descricao).trim().slice(0, 240));
+  }
+
+  /* --- Comuns ------------------------------------------------------------ */
+  linhas.push('Já tentei resolver com a construtora: ' + rotuloDe('tentouResolver') +
+    (a.tentouResolver === 'sim' && a.respostaConstrutora
+      ? ' — resposta: ' + String(a.respostaConstrutora).trim().slice(0, 140) : ''));
+  linhas.push('Documentos: contrato ' + docSimNao('contrato') +
+    ', comprovantes ' + docSimNao('comprovantes') +
+    ', conversas ' + docSimNao('conversas'));
+  if (a.email && String(a.email).trim()) linhas.push('E-mail: ' + String(a.email).trim());
+
+  linhas.push('');
+  linhas.push('Gostaria de saber como funciona a análise do meu caso.');
+
+  /* --- Rodape tecnico, discreto: referencia e origem do lead ------------- */
+  var rodape = 'Ref.: ' + state.ref;
+  var origem = origemResumida();
+  if (origem) rodape += ' · Origem: ' + origem;
+  linhas.push('');
+  linhas.push(rodape);
+
+  return linhas.join('\n');
+}
+
+function linkWhatsApp() {
+  var numero = String(CONFIG.WHATSAPP_NUMBER || '').replace(/\D/g, '');
+  var texto = encodeURIComponent(montarMensagemWhatsApp());
+  if (!numero) {
+    /* Sem numero configurado, o link ainda abre o WhatsApp com o texto pronto. */
+    return 'https://wa.me/?text=' + texto;
+  }
+  return 'https://wa.me/' + numero + '?text=' + texto;
+}
+
+/* =========================================================================
+   14 · INICIALIZACAO
+   ========================================================================= */
+function init() {
+  /* Tema */
+  document.documentElement.setAttribute('data-tema',
+    CONFIG.TEMA === 'claro' ? 'claro' : 'escuro');
+
+  /* Marca: a imagem so substitui o lettering se realmente carregar. */
+  if (CONFIG.LOGO_URL) {
+    var logo = byId('brandLogo');
+    logo.onload = function () {
+      logo.hidden = false;
+      byId('brandWord').style.display = 'none';
+    };
+    logo.onerror = function () { logo.removeAttribute('src'); };
+    logo.src = CONFIG.LOGO_URL;
+  }
+
+  /* Rodape */
+  byId('footPrivacy').href = urlPrivacidade();
+
+  /* Origem e referencia do lead */
+  state.origem = capturarOrigem();
+  state.ref = gerarRef();
+
+  /* Tags de medicao (so carregam se CONFIG.CARREGAR_TAGS_PROPRIAS = true
+     e se ainda nao existirem na pagina hospedeira) */
+  carregarPixelSeNecessario();
+  carregarGtagSeNecessario();
+
+  /* Leads que ficaram na fila em visitas anteriores (rede caiu, aba
+     fechada antes da hora) saem agora. */
+  descarregarFila();
+
+  /* Ultima janela de entrega: troca de aba, minimizar, fechar. */
+  window.addEventListener('pagehide', descarregarComBeacon);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') descarregarComBeacon();
+    else descarregarFila();
+  });
+
+  /* Primeira tela */
+  renderIntro();
+
+  /* Ponto de inspecao para depuracao no console do navegador:
+     BGL_AVALIACAO.estado() mostra respostas, origem e classificacao. */
+  window.BGL_AVALIACAO = {
+    estado: function () { return { respostas: state.answers, origem: state.origem, lead: state.lead, ref: state.ref }; },
+    config: CONFIG,
+    mensagem: montarMensagemWhatsApp,
+    fila: filaLer,
+    reenviar: descarregarFila
+  };
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+})();
+</script>
+</body>
+</html>
