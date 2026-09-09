@@ -1149,19 +1149,9 @@ function origemResumida() {
 
 /* Carrega o Meta Pixel somente se ele ainda nao existir na pagina. */
 function carregarPixelSeNecessario() {
-  if (!CONFIG.CARREGAR_TAGS_PROPRIAS || !CONFIG.META_PIXEL_ID) return;
-  if (typeof window.fbq === 'function') return;   /* ja existe: nao duplicar */
-  /* Snippet oficial do Meta, em versao compacta. */
-  !function (f, b, e, v, n, t, s) {
-    if (f.fbq) return; n = f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    };
-    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
-    t = b.createElement(e); t.async = !0; t.src = v;
-    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-  }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-  window.fbq('init', CONFIG.META_PIXEL_ID);
-  window.fbq('track', 'PageView');
+  /* O Meta Pixel já é instalado uma única vez no <head>.
+     Esta função é mantida apenas por compatibilidade com a inicialização. */
+  return;
 }
 
 /* Carrega o gtag (GA4 / Google Ads) somente se ainda nao existir. */
@@ -1222,13 +1212,27 @@ function trackStepCompleted(stepId, posicao, total) {
 
 /* Disparada quando os dados de contato sao validados (lead formado).
    >>> Este e o evento a usar como CONVERSAO de lead no Meta e no GA4. */
+var metaLeadDisparado = false;
+
 function trackLeadQualified(classificacao, pontuacao, problema) {
-  enviarEvento('bgl_avaliacao_lead', {
+  var dadosLead = {
     classificacao: classificacao,     /* HOT | WARM | COLD - uso interno */
     pontuacao: pontuacao,
     problema: problema,
     origem: origemResumida()
-  }, 'Lead');   /* Meta: evento padrao "Lead" */
+  };
+
+  /* Meta Pixel: evento padrão Lead, disparado UMA vez somente quando o
+     usuário conclui e valida o formulário de contato. */
+  if (!metaLeadDisparado && typeof window.fbq === 'function') {
+    try {
+      window.fbq('track', 'Lead', dadosLead);
+      metaLeadDisparado = true;
+    } catch (e) { /* ignora */ }
+  }
+
+  /* Mantém o evento próprio do funil para GA4/GTM. */
+  enviarEvento('bgl_avaliacao_lead', dadosLead);
 }
 
 /* Disparada no clique do botao do WhatsApp. */
@@ -2365,6 +2369,7 @@ function renderResult() {
     state.answers = {};
     state.lead = null;
     state.ref = gerarRef();
+    metaLeadDisparado = false;
     state.screen = 'intro';
     state.idx = 0;
     renderIntro();
