@@ -169,10 +169,6 @@ a { color: var(--accent) }
   background: linear-gradient(90deg, var(--accent-soft), var(--accent));
   transition: width .45s var(--ease);
 }
-.progress__meta {
-  margin-top: 8px; text-align: right;
-  font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mute);
-}
 
 /* =========================================================================
    05 · TIPOGRAFIA
@@ -417,7 +413,6 @@ src="https://www.facebook.com/tr?id=1791041548696543&ev=PageView&noscript=1"
     <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progTrack">
       <div class="progress__bar" id="progBar"></div>
     </div>
-    <p class="progress__meta">Etapa <span id="progNow">1</span> de <span id="progTotal">10</span></p>
   </div>
 
   <main class="col stage" id="stage" aria-live="polite">
@@ -584,7 +579,13 @@ var CONFIG = {
   /* Avanca sozinho quando a etapa tem uma unica pergunta de multipla escolha.
      Aumenta muito a conclusao no mobile. Coloque false para exigir sempre o
      clique em "Continuar".                                                  */
-  AVANCO_AUTOMATICO: true
+  AVANCO_AUTOMATICO: true,
+
+  /* Ao tocar no botao da ultima etapa, o WhatsApp ja abre com o resumo do
+     caso - sem parar na tela de resultado. A tela de resultado continua por
+     tras, com o botao, caso o navegador bloqueie a abertura. Coloque false
+     para voltar ao fluxo antigo (resultado primeiro, WhatsApp no botao).   */
+  ABRIR_WHATSAPP_AO_CONCLUIR: true
 };
 
 /* =========================================================================
@@ -661,13 +662,6 @@ var TEMPO_ATRASO = [
   { v: '12a18',  t: '12 a 18 meses' },
   { v: 'mais18', t: 'Mais de 18 meses' },
   { v: 'naosei', t: 'Não sei' }
-];
-
-var VALOR_ALUGUEL = [
-  { v: 'ate1000', t: 'Até R$ 1.000' },
-  { v: '1a2',     t: 'R$ 1.000 a R$ 2.000' },
-  { v: '2a3',     t: 'R$ 2.000 a R$ 3.000' },
-  { v: 'acima3',  t: 'Acima de R$ 3.000' }
 ];
 
 var VALOR_PAGO = [
@@ -756,31 +750,12 @@ var STEPS = [
     }]
   },
 
-  /* --- 2. Valor do imovel ------------------------------------------------ */
-  {
-    id: 'valor',
-    fields: [{
-      id: 'valorImovel',
-      type: 'cards',
-      label: 'Qual é o valor aproximado do imóvel?',
-      options: VALOR_IMOVEL
-    }]
-  },
-
-  /* --- 3. Localizacao ---------------------------------------------------- */
-  {
-    id: 'local',
-    fields: [{
-      id: 'cidadeuf',
-      type: 'cityuf',
-      label: 'Onde fica o imóvel?'
-    }]
-  },
+  /* --- 2. Situacao do caso: UMA tela por rota (so uma delas aparece) ----- */
 
   /* ====================== ROTA A · ATRASO DE OBRA ======================== */
 
   {
-    id: 'atraso_chaves',
+    id: 'situacao_atraso',
     when: rotaAtraso,
     fields: [
       {
@@ -796,59 +771,13 @@ var STEPS = [
         label: 'Há quanto tempo o imóvel está atrasado?',
         options: TEMPO_ATRASO,
         showIf: function (a) { return a.chaves === 'nao'; }
-      }
-    ]
-  },
-
-  {
-    id: 'atraso_prazo',
-    when: rotaAtraso,
-    fields: [{
-      id: 'prazo',
-      type: 'monthyear',
-      required: false,
-      label: 'Quando o imóvel deveria ter sido entregue?',
-      hint: 'A data prevista no contrato. Se não lembrar, siga sem preencher.'
-    }]
-  },
-
-  {
-    id: 'atraso_aluguel',
-    when: rotaAtraso,
-    fields: [
+      },
       {
         id: 'aluguel',
         type: 'cards',
         cols: 'two',
         label: 'Você está pagando aluguel enquanto aguarda a entrega?',
         options: SIM_NAO
-      },
-      {
-        id: 'valorAluguel',
-        type: 'cards',
-        label: 'Qual é aproximadamente o valor do aluguel mensal?',
-        options: VALOR_ALUGUEL,
-        showIf: function (a) { return a.aluguel === 'sim'; }
-      }
-    ]
-  },
-
-  {
-    id: 'atraso_previsao',
-    when: rotaAtraso,
-    fields: [
-      {
-        id: 'novaPrevisao',
-        type: 'cards',
-        cols: 'two',
-        label: 'A construtora já informou uma nova previsão de entrega?',
-        options: SIM_NAO
-      },
-      {
-        id: 'previsao',
-        type: 'monthyear',
-        label: 'Qual foi a nova previsão?',
-        showIf: function (a) { return a.novaPrevisao === 'sim'; }
       }
     ]
   },
@@ -856,19 +785,7 @@ var STEPS = [
   /* ============== ROTA B · DISTRATO / RETENCAO / DEVOLUCAO =============== */
 
   {
-    id: 'distrato_pago',
-    when: rotaDistrato,
-    fields: [{
-      id: 'valorPago',
-      type: 'cards',
-      label: 'Quanto você já pagou aproximadamente pelo imóvel?',
-      hint: 'Some entrada, parcelas e demais valores pagos à construtora.',
-      options: VALOR_PAGO
-    }]
-  },
-
-  {
-    id: 'distrato_pedido',
+    id: 'situacao_distrato',
     when: rotaDistrato,
     fields: [
       {
@@ -898,14 +815,7 @@ var STEPS = [
                  a.respostaDistrato === 'parcial' ||
                  a.problema === 'retencao';
         }
-      }
-    ]
-  },
-
-  {
-    id: 'distrato_assinatura',
-    when: rotaDistrato,
-    fields: [
+      },
       {
         id: 'assinouDistrato',
         type: 'cards',
@@ -941,45 +851,42 @@ var STEPS = [
 
   /* ============ ETAPAS COMUNS A TODAS AS ROTAS (A, B e C) ================ */
 
+  /* --- 3. Valores e documentos ------------------------------------------- */
   {
-    id: 'tentativa',
+    id: 'imovel',
     fields: [
       {
-        id: 'tentouResolver',
+        id: 'valorImovel',
         type: 'cards',
-        cols: 'two',
-        label: 'Você já tentou resolver a situação diretamente com a construtora?',
-        options: SIM_NAO
+        label: 'Qual é o valor aproximado do imóvel?',
+        options: VALOR_IMOVEL
       },
       {
-        id: 'respostaConstrutora',
-        type: 'text',
+        id: 'valorPago',
+        type: 'cards',
+        label: 'Quanto você já pagou aproximadamente pela compra?',
+        hint: 'Some entrada, parcelas e demais valores pagos à construtora.',
+        options: VALOR_PAGO,
+        showIf: rotaDistrato
+      },
+      {
+        id: 'docs',
+        type: 'multi',
         required: false,
-        label: 'Qual foi a resposta da construtora?',
-        hint: 'Em poucas palavras. Opcional.',
-        placeholder: 'Ex.: disse que o atraso está dentro do prazo de tolerância',
-        maxlength: 180,
-        showIf: function (a) { return a.tentouResolver === 'sim'; }
+        label: 'O que você já tem em mãos?',
+        hint: 'Marque o que tiver. Se ainda não tiver nada, é só continuar.',
+        options: DOCUMENTOS
       }
     ]
   },
 
-  {
-    id: 'documentos',
-    fields: [{
-      id: 'docs',
-      type: 'multi',
-      required: false,
-      label: 'O que você já tem em mãos?',
-      hint: 'Marque tudo que se aplica. Se não tiver nada ainda, é só continuar.',
-      options: DOCUMENTOS
-    }]
-  },
-
+  /* --- 4. Contato: ultima tela, leva direto ao WhatsApp ------------------ */
   {
     id: 'contato',
-    title: 'Para onde enviamos sua avaliação?',
-    subtitle: 'A equipe da BGL usa esses dados apenas para retornar sobre o seu caso.',
+    title: 'Falta pouco. Qual é o seu WhatsApp?',
+    subtitle: CONFIG.ABRIR_WHATSAPP_AO_CONCLUIR
+      ? 'Ao continuar, o WhatsApp abre com o resumo do seu caso pronto para enviar à equipe da BGL.'
+      : 'A equipe da BGL usa esses dados apenas para retornar sobre o seu caso.',
     fields: [{ id: 'contato', type: 'contato' }]
   }
 ];
@@ -1009,10 +916,10 @@ function etapasVisiveis() {
   return out;
 }
 
-/* Total projetado de etapas, apenas para o contador de progresso.
-   Enquanto o problema principal nao foi escolhido, assume a rota mais comum
-   (atraso de obra). Dentro de cada rota o total e fixo - atraso 10, distrato
-   9, outro 7 -, entao o contador nunca aumenta durante o preenchimento. */
+/* Total projetado de etapas, apenas para a barra de progresso (o numero de
+   etapas nao aparece na tela, de proposito). Enquanto o problema principal
+   nao foi escolhido, assume a rota mais comum (atraso de obra). Todas as
+   rotas tem 4 etapas, entao a barra nunca recua durante o preenchimento. */
 function etapasProjetadas() {
   if (state.answers.problema) return etapasVisiveis();
   var hipotese = {}, k;
@@ -1496,9 +1403,9 @@ function renderIntro() {
     '<h1 class="title title--big">Descubra se o problema do seu imóvel merece uma análise jurídica</h1>' +
     '<p class="sub">Responda algumas perguntas sobre o imóvel e sua relação com a construtora. ' +
     (capturaAtiva()
-      ? 'Ao final, você recebe um resumo do seu caso e a equipe da BGL Advogados pode retornar o contato.'
+      ? 'Ao final, você fala direto com a equipe da BGL Advogados pelo WhatsApp, com o resumo do seu caso pronto.'
       : 'Ao final, você decide se envia as informações para a equipe da BGL Advogados.') + '</p>' +
-    '<p class="hint">Leva cerca de 2 minutos. Não é preciso cadastro para começar.</p>' +
+    '<p class="hint">Leva menos de 1 minuto. Não é preciso cadastro para começar.</p>' +
     '<div class="nav">' +
       '<button class="btn btn--primary btn--block" id="btnStart" type="button">Começar avaliação</button>' +
     '</div>';
@@ -1545,8 +1452,9 @@ function renderStep() {
   /* Navegacao: acao principal em destaque, "Voltar" discreto abaixo. */
   var nav = el('div', 'nav');
 
-  var avancar = el('button', 'btn btn--primary btn--block',
-    step.id === 'contato' ? 'Ver minha avaliação' : 'Continuar');
+  var paraWhats = step.id === 'contato' && CONFIG.ABRIR_WHATSAPP_AO_CONCLUIR;
+  var avancar = el('button', 'btn btn--block ' + (paraWhats ? 'btn--wa' : 'btn--primary'),
+    paraWhats ? 'Enviar pelo WhatsApp' : (step.id === 'contato' ? 'Ver minha avaliação' : 'Continuar'));
   avancar.type = 'button';
   avancar.id = 'btnNext';
   avancar.addEventListener('click', irParaProxima);
@@ -1828,7 +1736,7 @@ function montarContato(body) {
   var nome = el('input', 'inp');
   nome.type = 'text';
   nome.id = 'f-nome';
-  nome.placeholder = 'Nome completo';
+  nome.placeholder = 'Seu nome';
   nome.autocomplete = 'name';
   nome.value = state.answers.nome || '';
   nome.addEventListener('input', function () {
@@ -1850,38 +1758,24 @@ function montarContato(body) {
     limparErro('contato');
   });
 
-  var mail = el('input', 'inp');
-  mail.type = 'email';
-  mail.id = 'f-email';
-  mail.placeholder = 'E-mail (opcional)';
-  mail.autocomplete = 'email';
-  mail.value = state.answers.email || '';
-  mail.addEventListener('input', function () {
-    state.answers.email = mail.value;
-    limparErro('contato');
-  });
-
   /* Captura parcial (CONFIG.CAPTURAR_ANTES_DO_ENVIO): quem digita nome e
      WhatsApp validos e desiste antes de clicar tambem chega ate a equipe.
      Desligada por padrao - ler a nota da CONFIG antes de ativar. */
   function talvezCapturarParcial() {
     if (!CONFIG.CAPTURAR_ANTES_DO_ENVIO) return;
     var a = state.answers;
-    var completo = String(a.nome || '').trim();
-    if (completo.split(/\s+/).length < 2 || completo.length < 5) return;
+    if (String(a.nome || '').trim().length < 2) return;
     if (!telefoneValido(a.whatsapp)) return;
     enviarLead('contato_preenchido');
   }
   nome.addEventListener('blur', talvezCapturarParcial);
   zap.addEventListener('blur', talvezCapturarParcial);
-  mail.addEventListener('blur', talvezCapturarParcial);
 
   var box = el('div');
   box.style.display = 'grid';
   box.style.gap = '10px';
   box.appendChild(nome);
   box.appendChild(zap);
-  box.appendChild(mail);
   body.appendChild(box);
 
   var consent = el('p', 'consent');
@@ -1905,9 +1799,8 @@ function urlPrivacidade() {
 function atualizarProgresso(posicao, total) {
   var box = byId('progress');
   box.hidden = false;
-  byId('progNow').textContent = posicao;
-  byId('progTotal').textContent = total;
-  var pct = Math.round((posicao - 1) / total * 100);
+  /* So a barra: o numero de etapas fica escondido de proposito. */
+  var pct = Math.round(posicao / (total + 1) * 100);
   byId('progBar').style.width = Math.max(5, pct) + '%';
   byId('progTrack').setAttribute('aria-valuenow', String(pct));
 }
@@ -1932,7 +1825,11 @@ function irParaProxima() {
        responde ate o fim ja chega para a equipe, clicando ou nao. */
     enviarLead('formulario_concluido');
     state.screen = 'result';
-    renderResult();
+    /* Objetivo do funil: levar a pessoa ao WhatsApp. Abre ja neste clique
+       (fora dele o navegador bloqueia a nova aba); a tela de resultado fica
+       por tras, com o botao, caso o WhatsApp nao abra. */
+    var abriu = CONFIG.ABRIR_WHATSAPP_AO_CONCLUIR ? abrirWhatsApp() : false;
+    renderResult(abriu);
     subir();
     return;
   }
@@ -2032,8 +1929,8 @@ function validarEtapa(step) {
 
     if (f.type === 'contato') {
       var nome = String(a.nome || '').trim();
-      if (nome.split(/\s+/).length < 2 || nome.length < 5) {
-        mostrarErro('contato', 'Informe seu nome completo.');
+      if (nome.length < 2) {
+        mostrarErro('contato', 'Informe seu nome.');
         return false;
       }
       if (!telefoneValido(a.whatsapp)) {
@@ -2099,12 +1996,14 @@ function validarEtapa(step) {
    Logica: cada resposta que indica um caso mais maduro, mais documentado ou
    economicamente mais relevante soma pontos. A ausencia de contrato subtrai.
 
-   Faixas:  HOT  >= 32   |   WARM 16 a 31   |   COLD < 16
+   Faixas:  HOT  >= 28   |   WARM 14 a 27   |   COLD < 14
+   (Reduzidas de 32/16 quando o funil passou a 4 etapas e deixou de
+   perguntar tentativa de acordo e valor do aluguel.)
    Para calibrar, mude apenas os pesos da tabela PESOS e os limites em
    LIMITE_HOT / LIMITE_WARM.
    ========================================================================= */
-var LIMITE_HOT = 32;
-var LIMITE_WARM = 16;
+var LIMITE_HOT = 28;
+var LIMITE_WARM = 14;
 
 var PESOS = {
   /* Valor economico envolvido */
@@ -2113,7 +2012,6 @@ var PESOS = {
 
   /* Gravidade do atraso */
   tempoAtraso:  { menos3: 2, '3a6': 5, '6a12': 7, '12a18': 9, mais18: 10, naosei: 2 },
-  valorAluguel: { ate1000: 1, '1a2': 2, '2a3': 3, acima3: 4 },
 
   /* Estagio da negociacao do distrato */
   respostaDistrato:   { aceitou: 3, parcial: 6, percentual: 6, recusou: 8, semResposta: 4, outro: 2 },
@@ -2143,10 +2041,7 @@ function qualificarLead() {
   /* --- Rota atraso de obra ---------------------------------------------- */
   if (a.chaves === 'nao') somar(3, 'Chaves ainda não entregues');
   tabela('tempoAtraso', 'tempoAtraso', 'Tempo de atraso');
-  if (a.aluguel === 'sim') {
-    somar(6, 'Paga aluguel enquanto aguarda');
-    tabela('valorAluguel', 'valorAluguel', 'Aluguel mensal');
-  }
+  if (a.aluguel === 'sim') somar(6, 'Paga aluguel enquanto aguarda');
 
   /* --- Rota distrato / retencao ----------------------------------------- */
   if (a.pediuDistrato === 'sim') somar(4, 'Distrato já pedido formalmente');
@@ -2155,9 +2050,6 @@ function qualificarLead() {
   if (a.assinouDistrato === 'sim') somar(5, 'Já assinou documento de distrato');
   tabela('quitacao', 'quitacao', 'Quitação');
   if (a.problema === 'documento') somar(6, 'Recebeu documento para assinar');
-
-  /* --- Maturidade do caso ----------------------------------------------- */
-  if (a.tentouResolver === 'sim') somar(5, 'Já tentou resolver com a construtora');
 
   /* --- Documentacao ------------------------------------------------------ */
   if (temDoc('contrato')) somar(5, 'Possui contrato');
@@ -2217,7 +2109,8 @@ function montarResumo() {
   else if (a.problema === 'documento') itens.push('recebeu um distrato ou documento para assinar;');
   else if (a.problema === 'outro')     itens.push('enfrenta um problema com a construtora relacionado ao imóvel;');
 
-  itens.push('o imóvel está em ' + local + ', com valor aproximado de ' + inicialMinuscula(rotuloDe('valorImovel')) + ';');
+  itens.push('o imóvel tem valor aproximado de ' + inicialMinuscula(rotuloDe('valorImovel')) +
+             (a.cidade ? ' e fica em ' + local : '') + ';');
 
   /* --- Rota atraso ------------------------------------------------------- */
   if (a.problema === 'atraso') {
@@ -2228,13 +2121,7 @@ function montarResumo() {
     if (a.tempoAtraso && a.tempoAtraso !== 'naosei') {
       itens.push('o atraso está na faixa de ' + inicialMinuscula(rotuloDe('tempoAtraso')) + ';');
     }
-    if (a.aluguel === 'sim') {
-      itens.push('continua pagando aluguel enquanto aguarda, na faixa de ' +
-                 inicialMinuscula(rotuloDe('valorAluguel')) + ' por mês;');
-    }
-    itens.push(a.novaPrevisao === 'sim'
-      ? 'a construtora informou nova previsão de entrega' + (mesAno('previsao') ? ' para ' + mesAno('previsao') : '') + ';'
-      : 'a construtora ainda não informou uma nova previsão de entrega;');
+    if (a.aluguel === 'sim') itens.push('continua pagando aluguel enquanto aguarda a entrega;');
   }
 
   /* --- Rota distrato / retencao / devolucao ------------------------------ */
@@ -2267,10 +2154,6 @@ function montarResumo() {
   }
 
   /* --- Comuns ------------------------------------------------------------ */
-  itens.push(a.tentouResolver === 'sim'
-    ? 'já tentou resolver a situação diretamente com a construtora;'
-    : 'ainda não tentou resolver a situação diretamente com a construtora;');
-
   var docs = [];
   if (temDoc('contrato')) docs.push('o contrato de compra e venda');
   if (temDoc('comprovantes')) docs.push('comprovantes dos valores pagos');
@@ -2313,7 +2196,8 @@ function alertaDocumento() {
   return '';
 }
 
-function renderResult() {
+/* abriu = o WhatsApp ja foi aberto automaticamente ao concluir. */
+function renderResult(abriu) {
   byId('progress').hidden = true;
 
   var tela = el('div');
@@ -2335,9 +2219,12 @@ function renderResult() {
       'preliminar não representa promessa ou garantia de resultado.</p>' +
     (alerta ? '<p class="nota">' + escapar(alerta) + '</p>' : '') +
     '<div class="cta">' +
-      '<h3 class="title">Quer entender o que pode ser feito no seu caso?</h3>' +
-      '<p class="cta__texto">A equipe da BGL Advogados poderá analisar as informações fornecidas ' +
-        'e orientar você sobre os próximos passos.</p>' +
+      (abriu
+        ? '<h3 class="title">O WhatsApp não abriu?</h3>' +
+          '<p class="cta__texto">Toque no botão abaixo para enviar o resumo do seu caso à equipe da BGL Advogados.</p>'
+        : '<h3 class="title">Quer entender o que pode ser feito no seu caso?</h3>' +
+          '<p class="cta__texto">A equipe da BGL Advogados poderá analisar as informações fornecidas ' +
+            'e orientar você sobre os próximos passos.</p>') +
       '<div class="cta__acoes">' +
         '<a class="btn btn--wa btn--block" id="btnWhats" href="#" rel="noopener">' +
           '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2z"/></svg>' +
@@ -2358,18 +2245,14 @@ function renderResult() {
   var botao = byId('btnWhats');
   botao.href = linkWhatsApp();
   if (CONFIG.WHATSAPP_NOVA_ABA) botao.target = '_blank';
-  botao.addEventListener('click', function () {
-    trackWhatsAppClick(state.lead ? state.lead.classificacao : '');
-    /* Segundo registro: marca no destino quem realmente seguiu para o
-       WhatsApp, separando-o de quem parou na tela de resultado. */
-    enviarLead('whatsapp_clique');
-  });
+  botao.addEventListener('click', registrarCliqueWhatsApp);
 
   byId('btnRestart').addEventListener('click', function () {
     state.answers = {};
     state.lead = null;
     state.ref = gerarRef();
     metaLeadDisparado = false;
+    whatsappRegistrado = false;
     state.screen = 'intro';
     state.idx = 0;
     renderIntro();
@@ -2400,7 +2283,7 @@ function montarMensagemWhatsApp() {
   linhas.push('');
   linhas.push('Nome: ' + String(a.nome || '').trim());
   linhas.push('Problema principal: ' + rotuloDe('problema'));
-  linhas.push('Cidade/UF do imóvel: ' + tituloCidade(a.cidade) + '/' + (a.uf || ''));
+  if (a.cidade) linhas.push('Cidade/UF do imóvel: ' + tituloCidade(a.cidade) + '/' + (a.uf || ''));
   linhas.push('Valor aproximado do imóvel: ' + rotuloDe('valorImovel'));
 
   /* --- Rota atraso ------------------------------------------------------- */
@@ -2408,10 +2291,7 @@ function montarMensagemWhatsApp() {
     if (mesAno('prazo')) linhas.push('Entrega prevista para: ' + mesAno('prazo'));
     linhas.push('Chaves recebidas: ' + rotuloDe('chaves'));
     if (a.tempoAtraso) linhas.push('Tempo de atraso: ' + rotuloDe('tempoAtraso'));
-    linhas.push('Pagando aluguel: ' + rotuloDe('aluguel') +
-      (a.aluguel === 'sim' && a.valorAluguel ? ' (' + rotuloDe('valorAluguel') + ')' : ''));
-    linhas.push('Nova previsão informada: ' + rotuloDe('novaPrevisao') +
-      (a.novaPrevisao === 'sim' && mesAno('previsao') ? ' (' + mesAno('previsao') + ')' : ''));
+    linhas.push('Pagando aluguel: ' + rotuloDe('aluguel'));
   }
 
   /* --- Rota distrato / retencao / devolucao ------------------------------ */
@@ -2430,9 +2310,6 @@ function montarMensagemWhatsApp() {
   }
 
   /* --- Comuns ------------------------------------------------------------ */
-  linhas.push('Já tentei resolver com a construtora: ' + rotuloDe('tentouResolver') +
-    (a.tentouResolver === 'sim' && a.respostaConstrutora
-      ? ' — resposta: ' + String(a.respostaConstrutora).trim().slice(0, 140) : ''));
   linhas.push('Documentos: contrato ' + docSimNao('contrato') +
     ', comprovantes ' + docSimNao('comprovantes') +
     ', conversas ' + docSimNao('conversas'));
@@ -2459,6 +2336,40 @@ function linkWhatsApp() {
     return 'https://wa.me/?text=' + texto;
   }
   return 'https://wa.me/' + numero + '?text=' + texto;
+}
+
+/* Conversao do WhatsApp (Meta Contact, GA4, Google Ads e planilha).
+   Registrada uma vez por lead: a abertura automatica e o botao da tela de
+   resultado nao contam duas vezes. */
+var whatsappRegistrado = false;
+
+function registrarCliqueWhatsApp() {
+  if (whatsappRegistrado) return;
+  whatsappRegistrado = true;
+  trackWhatsAppClick(state.lead ? state.lead.classificacao : '');
+  /* Segundo registro: marca no destino quem realmente seguiu para o
+     WhatsApp, separando-o de quem parou na tela de resultado. */
+  enviarLead('whatsapp_clique');
+}
+
+/* Abre a conversa com o resumo pronto. Precisa rodar dentro do clique do
+   usuario. Devolve false quando o navegador bloqueia a nova aba - nesse
+   caso a tela de resultado mostra o botao. */
+function abrirWhatsApp() {
+  var link = linkWhatsApp();
+
+  if (!CONFIG.WHATSAPP_NOVA_ABA) {
+    registrarCliqueWhatsApp();
+    window.location.href = link;
+    return true;
+  }
+
+  var janela = null;
+  try { janela = window.open(link, '_blank'); } catch (e) { /* bloqueado */ }
+  if (!janela) return false;
+  try { janela.opener = null; } catch (e) { /* ignora */ }
+  registrarCliqueWhatsApp();
+  return true;
 }
 
 /* =========================================================================
