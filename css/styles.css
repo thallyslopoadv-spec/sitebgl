@@ -1468,7 +1468,7 @@ html.js .review-card__stars svg { opacity: 0; }
 /* Cards compactos dos sócios */
 .partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
 .partner {
-  display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+  display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
   background: #fff;
   border: 1px solid var(--cream-dim);
   border-radius: var(--radius);
@@ -1655,7 +1655,7 @@ p { margin-bottom: 1em; }
 
 /* Sócios */
 .partners { gap: 1rem; }
-.partner__photo img { min-height: 230px; max-height: 300px; }
+.partner__photo img { min-height: 330px; max-height: 390px; }
 .partner__body { padding: 1.2rem 1.25rem 1.1rem; }
 .partner__name { font-size: 1.28rem; margin-bottom: .2rem; }
 .partner__role { font-size: .66rem; margin-bottom: .6rem; }
@@ -1799,13 +1799,31 @@ p { margin-bottom: 1em; }
 
 /* Celular: foto e nome lado a lado, com o texto na largura inteira do card */
 @media (max-width: 520px) {
-  .partner { grid-template-columns: 84px minmax(0, 1fr); column-gap: .9rem; padding: 1rem; }
+  .partner { grid-template-columns: min(42vw, 150px) minmax(0, 1fr); column-gap: .9rem; padding: 1rem; }
   .partner__body { display: contents; }
-  .partner__photo { grid-row: 1 / span 2; min-height: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); }
+  .partner__photo { grid-row: 1 / span 2; min-height: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 12px; }
   .partner__photo img { min-height: 0; max-height: none; }
-  .partner__name { grid-column: 2; align-self: end; font-size: 1.25rem; }
+  .partner__name { grid-column: 2; align-self: end; font-size: 1.15rem; line-height: 1.15; }
   .partner__role { grid-column: 2; align-self: start; margin-bottom: 0; }
   .partner__short, .partner__more, .partner .member__ig { grid-column: 1 / -1; }
   .partner__short { margin-top: .8rem; }
   .partner .member__ig { justify-self: start; }
+}
+
+/* ==========================================================================
+   Cantos arredondados
+   O token --radius já alimenta cards, imagens, mapa e perguntas frequentes.
+   ========================================================================== */
+:root { --radius: 16px; }
+.btn, .nav__cta .btn { border-radius: 12px; }
+.partner, .review-card { border-radius: 20px; }
+.gallery__item { border-radius: 12px; }
+.about__media .badge { border-radius: 0 10px 10px 0; }
+.skip-link { border-radius: 0 0 10px 0; }
+.area-card--priority { border-top: 1px solid var(--cream-dim); }
+
+/* Celular: a entrada lateral alargava a página antes de terminar */
+@media (max-width: 760px) {
+  html.js .reveal[data-anim="left"], html.js .reveal[data-anim="right"] { transform: translateY(20px); }
+  html.js .reveal[data-anim="left"].is-visible, html.js .reveal[data-anim="right"].is-visible { transform: none; }
 }
