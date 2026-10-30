@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /_build/
+Disallow: /ss/
 
-Sitemap: https://bgladvogados.com.br/sitemap.xml
+Sitemap: https://www.bgladvogados.com.br/sitemap.xml

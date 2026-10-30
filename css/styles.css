@@ -1390,3 +1390,113 @@ html.js .review-card__stars svg { opacity: 0; }
   .steps > li::before { padding-top: 0; padding-bottom: .35rem; border-top: 0; border-bottom: 2px solid var(--silver); width: 2.4rem; }
   .faq--boxed summary { padding-right: 2.8rem; }
 }
+
+/* ==========================================================================
+   Reposicionamento: três frentes prioritárias
+   Adições isoladas: reaproveitam os tokens e componentes já existentes.
+   ========================================================================== */
+
+/* Botão principal em destaque sobre o fundo escuro dos heróis */
+.hero .btn--primary, .pillar-hero .btn--primary {
+  background: var(--cream); background-image: linear-gradient(135deg, #ffffff 0%, var(--cream) 100%);
+  color: var(--navy); border-color: var(--cream);
+}
+.hero .btn--primary::before, .pillar-hero .btn--primary::before {
+  background: linear-gradient(90deg, transparent, rgba(22,36,61,.16), transparent);
+}
+
+/* Navegação com as três frentes: mais compacta em larguras intermediárias */
+@media (min-width: 861px) and (max-width: 1060px) {
+  .nav__links { gap: 1.2rem; }
+  .nav__menu { gap: 1.2rem; }
+  .nav__cta .btn { padding: .65rem .95rem; font-size: .84rem; }
+}
+
+/* Hero com acesso direto às frentes */
+.hero--fronts { padding-bottom: 3rem; }
+.hero--fronts .hero__inner { max-width: 50rem; }
+.hero--fronts h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); margin-bottom: 1.2rem; }
+.hero--fronts .hero__subtitle { font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 54ch; margin-bottom: .9rem; }
+.hero--fronts .hero__support { margin-bottom: 1.6rem; }
+.hero-fronts {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.hero-front {
+  display: flex; flex-direction: column; gap: .35rem;
+  padding: 1.25rem 1.35rem;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(201, 207, 217, .28);
+  border-radius: var(--radius);
+  color: var(--cream);
+  transition: transform .35s var(--ease), background-color .35s var(--ease), border-color .35s var(--ease);
+}
+.hero-front:hover { transform: translateY(-3px); background: rgba(255, 255, 255, .09); border-color: var(--silver-light); }
+.hero-front__num { font-size: .74rem; font-weight: 600; letter-spacing: .14em; color: var(--silver-light); }
+.hero-front__name { font-family: var(--font-serif); font-size: 1.28rem; line-height: 1.2; font-weight: 600; }
+.hero-front__text { font-size: .94rem; line-height: 1.45; color: rgba(244, 239, 230, .78); }
+.hero-fronts--404 { margin-top: 2rem; }
+@media (max-width: 760px) {
+  .hero-fronts { grid-template-columns: 1fr; gap: .7rem; }
+  .hero-front { padding: 1rem 1.15rem; }
+}
+
+/* Seção das três frentes */
+.fronts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; align-items: stretch; }
+.front {
+  display: flex; flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--cream-dim);
+  border-top: 3px solid var(--navy);
+  border-radius: var(--radius);
+  padding: 2rem 1.8rem 1.8rem;
+  box-shadow: var(--shadow-soft);
+}
+.front__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+.front__ico { width: 32px; height: 32px; color: var(--navy); }
+.front__num {
+  font-family: var(--font-serif); font-size: 2.3rem; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px var(--silver-dark);
+}
+.front h3 { font-size: clamp(1.45rem, 2.2vw, 1.75rem); color: var(--navy); margin-bottom: .75rem; }
+.front__intro { color: var(--ink-soft); font-size: 1rem; margin-bottom: 1.25rem; }
+.front__list { list-style: none; margin: 0 0 1.6rem; padding: 0; display: grid; gap: .95rem; }
+.front__list li { font-size: .95rem; line-height: 1.5; color: var(--ink-soft); padding-left: 1.05rem; border-left: 2px solid var(--silver); }
+.front__list strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
+.front__actions { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; padding-top: 1.2rem; border-top: 1px solid var(--cream-dim); }
+.front__wa {
+  font-size: .9rem; font-weight: 500; color: var(--ink-soft);
+  text-decoration: underline; text-underline-offset: .18em; text-decoration-color: var(--silver);
+}
+.front__wa:hover { color: var(--navy); }
+@media (max-width: 980px) {
+  .fronts { grid-template-columns: 1fr; }
+}
+
+/* Publicações organizadas por assunto */
+.posts__topic {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem;
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 1.4rem;
+  padding-bottom: .9rem;
+  border-bottom: 1px solid var(--navy-line);
+}
+.section-head + .posts__topic { margin-top: 0; }
+.posts__topic h3 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); color: var(--cream); }
+.posts__topic .link-arrow { font-size: .9rem; }
+.post-card h4 { font-size: 1.3rem; line-height: 1.22; margin-bottom: auto; color: var(--ink); }
+.band-navy .post-card h4, .band-navy-deep .post-card h4 { color: var(--cream); }
+.post-card--guide { min-height: 0; }
+
+/* Subtítulo dentro de uma seção de área */
+.subhead { font-size: clamp(1.5rem, 3vw, 2rem); color: var(--navy); margin: clamp(2.8rem, 5vw, 3.8rem) 0 1.6rem; }
+
+/* Evita ultrapassar a largura em telas muito estreitas */
+.posts__grid { grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); }
+.tiles { grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr)); }
+.tiles--wide { grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr)); }
+.risk-list { grid-template-columns: repeat(auto-fill, minmax(min(255px, 100%), 1fr)); }
+
+/* Sobre: a coluna acompanha a largura da tela mesmo abaixo de 360px */
+@media (max-width: 980px) {
+  .about__grid { grid-template-columns: minmax(0, 1fr); }
+}
