@@ -1413,7 +1413,7 @@ html.js .review-card__stars svg { opacity: 0; }
 }
 
 /* Hero com acesso direto às frentes */
-.hero--fronts { padding-bottom: 3rem; }
+.hero--fronts { padding-top: calc(var(--nav-h) + 1.25rem); padding-bottom: 2.5rem; }
 .hero--fronts .hero__inner { max-width: 50rem; }
 .hero--fronts h1 { font-size: clamp(2.3rem, 5vw, 3.9rem); margin-bottom: 1.2rem; }
 .hero--fronts .hero__subtitle { font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 54ch; margin-bottom: .9rem; }
@@ -1441,36 +1441,81 @@ html.js .review-card__stars svg { opacity: 0; }
   .hero-front { padding: 1rem 1.15rem; }
 }
 
-/* Seção das três frentes */
-.fronts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; align-items: stretch; }
-.front {
+/* Logo como abertura do hero */
+.hero__logo { width: clamp(200px, 20vw, 280px); height: auto; margin-bottom: clamp(1.2rem, 2.4vw, 1.6rem); }
+.hero--fronts .hero__claim {
+  font-style: italic; font-weight: 400;
+  font-size: clamp(1.35rem, 2.5vw, 1.95rem); line-height: 1.28;
+  color: var(--cream); max-width: 38ch; margin-bottom: .9rem;
+}
+/* A logo do hero abre a página; a marca do menu aparece ao rolar */
+html.js .nav--home:not(.is-scrolled):not(.is-open) .nav__brand { opacity: 0; pointer-events: none; }
+.nav--home .nav__brand { transition: opacity .35s var(--ease); }
+
+/* Cards de áreas de atuação */
+.area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; align-items: stretch; }
+.area-card {
   display: flex; flex-direction: column;
   background: #fff;
   border: 1px solid var(--cream-dim);
-  border-top: 3px solid var(--navy);
   border-radius: var(--radius);
-  padding: 2rem 1.8rem 1.8rem;
+  padding: 1.6rem 1.6rem 1.5rem;
+  transition: transform .4s var(--ease-soft), box-shadow .4s var(--ease-soft), border-color .4s var(--ease-soft);
+}
+.area-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); border-color: var(--silver); }
+.area-card--priority { border-top: 3px solid var(--navy); }
+.area-card__head { display: flex; align-items: center; gap: .75rem; margin-bottom: .7rem; }
+.area-card__ico { width: 26px; height: 26px; flex: 0 0 auto; color: var(--navy); }
+.area-card h3 { font-size: 1.32rem; line-height: 1.2; color: var(--navy); }
+.area-card > p { font-size: .98rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: 1rem; }
+.chips { list-style: none; margin: 0 0 1.25rem; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.chips li {
+  font-size: .78rem; font-weight: 600; line-height: 1.3; color: var(--navy);
+  background: var(--cream); border-radius: 999px; padding: .35rem .75rem;
+}
+.area-card .link-arrow { margin-top: auto; font-size: .92rem; }
+.area-card--dark { background: var(--navy); border-color: var(--navy); }
+.area-card--dark h3 { color: var(--cream); }
+.area-card--dark > p { color: var(--silver-light); }
+.area-card--dark .link-arrow { color: var(--cream); }
+@media (max-width: 980px) { .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .area-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Cards compactos dos sócios */
+.partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; align-items: start; }
+.partner {
+  display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+  background: #fff;
+  border: 1px solid var(--cream-dim);
+  border-radius: var(--radius);
+  overflow: hidden;
   box-shadow: var(--shadow-soft);
 }
-.front__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-.front__ico { width: 32px; height: 32px; color: var(--navy); }
-.front__num {
-  font-family: var(--font-serif); font-size: 2.3rem; line-height: 1;
-  color: transparent; -webkit-text-stroke: 1px var(--silver-dark);
+.partner__photo { background: var(--navy); min-height: 100%; }
+.partner__photo img { width: 100%; height: 100%; min-height: 300px; max-height: 420px; object-fit: cover; object-position: center top; }
+.partner__body { padding: 1.5rem 1.5rem 1.4rem; }
+.partner__name { font-size: 1.5rem; color: var(--navy); margin-bottom: .3rem; }
+.partner__role {
+  font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--silver-dark); margin-bottom: .8rem;
 }
-.front h3 { font-size: clamp(1.45rem, 2.2vw, 1.75rem); color: var(--navy); margin-bottom: .75rem; }
-.front__intro { color: var(--ink-soft); font-size: 1rem; margin-bottom: 1.25rem; }
-.front__list { list-style: none; margin: 0 0 1.6rem; padding: 0; display: grid; gap: .95rem; }
-.front__list li { font-size: .95rem; line-height: 1.5; color: var(--ink-soft); padding-left: 1.05rem; border-left: 2px solid var(--silver); }
-.front__list strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: .1rem; }
-.front__actions { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; padding-top: 1.2rem; border-top: 1px solid var(--cream-dim); }
-.front__wa {
-  font-size: .9rem; font-weight: 500; color: var(--ink-soft);
+.partner__short { font-size: .95rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: .9rem; }
+.partner__more { margin-bottom: .8rem; }
+.partner__more summary {
+  cursor: pointer; font-size: .9rem; font-weight: 600; color: var(--navy);
   text-decoration: underline; text-underline-offset: .18em; text-decoration-color: var(--silver);
 }
-.front__wa:hover { color: var(--navy); }
-@media (max-width: 980px) {
-  .fronts { grid-template-columns: 1fr; }
+.partner__full { margin-top: .8rem; }
+.partner__full p { font-size: .92rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: .75rem; }
+.partner .member__ig { font-size: .88rem; }
+@media (min-width: 981px) { .partner__short { min-height: 9.3em; } }
+@media (max-width: 980px) { .partners { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) {
+  .partner { grid-template-columns: 96px minmax(0, 1fr); }
+  .partner__photo { align-self: start; min-height: 0; aspect-ratio: 4 / 5; margin: 1.1rem 0 1.1rem 1.1rem; overflow: hidden; border-radius: var(--radius); }
+  .partner__photo img { min-height: 0; max-height: none; }
+  .partner__body { padding: 1.1rem 1.1rem 1.2rem; }
+  .partner__name { font-size: 1.3rem; }
 }
 
 /* Publicações organizadas por assunto */
