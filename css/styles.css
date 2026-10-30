@@ -1633,7 +1633,7 @@ p { margin-bottom: 1em; }
 .area-card h3 { font-size: 1.08rem; }
 .area-card > p { font-size: .86rem; line-height: 1.48; margin-bottom: .7rem; }
 .chips { gap: .28rem; margin-bottom: .8rem; }
-.chips li { font-size: .68rem; padding: .2rem .55rem; }
+.chips li { font-size: .68rem; padding: .2rem .55rem; background: var(--navy); color: var(--cream); }
 .area-card .link-arrow { font-size: .84rem; }
 
 /* Sobre */
@@ -1883,3 +1883,21 @@ p { margin-bottom: 1em; }
 .posts-page .posts__topic { border-bottom-color: var(--cream-dim); }
 .posts-page .container > .posts__topic:first-child { margin-top: 0; }
 .posts-page .posts__topic h2 { font-size: 1.15rem; color: var(--navy); }
+
+/* Galeria: foto ampliada ao clicar */
+.gallery__open { display: block; width: 100%; height: 100%; cursor: zoom-in; }
+.gallery__open:focus-visible { outline-offset: -4px; }
+.gallery__cap { pointer-events: none; }
+.lightbox {
+  width: fit-content; height: fit-content; margin: auto; max-width: 94vw; max-height: 94vh; padding: 0; overflow: visible;
+  border: 0; border-radius: var(--radius); background: transparent;
+}
+.lightbox::backdrop { background: rgba(8, 14, 26, .88); }
+.lightbox__img { display: block; width: auto; height: auto; max-width: 94vw; max-height: 94vh; border-radius: var(--radius); }
+.lightbox__close {
+  position: absolute; top: .6rem; right: .6rem; z-index: 1;
+  width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: rgba(14, 26, 46, .85); color: var(--cream);
+  font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.lightbox__close:hover { background: var(--navy); }

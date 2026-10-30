@@ -241,6 +241,34 @@
     }, false);
   }
 
+  /* --- Galeria: abre a foto ampliada --- */
+  var galleryLinks = document.querySelectorAll(".gallery__open");
+  if (galleryLinks.length && typeof HTMLDialogElement === "function") {
+    var lightbox = document.createElement("dialog");
+    lightbox.className = "lightbox";
+    lightbox.setAttribute("aria-label", "Foto ampliada");
+    lightbox.innerHTML = '<button class="lightbox__close" type="button" aria-label="Fechar foto">&times;</button><img class="lightbox__img" alt="">';
+    document.body.appendChild(lightbox);
+    var lightboxImg = lightbox.querySelector(".lightbox__img");
+
+    lightbox.querySelector(".lightbox__close").addEventListener("click", function () { lightbox.close(); });
+    // clique fora da foto fecha; ESC já é tratado pelo próprio dialog
+    lightbox.addEventListener("click", function (e) { if (e.target === lightbox) lightbox.close(); });
+    lightbox.addEventListener("close", function () { document.body.style.overflow = ""; });
+
+    galleryLinks.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        var thumb = link.querySelector("img");
+        lightboxImg.src = link.getAttribute("href");
+        lightboxImg.alt = thumb ? thumb.alt : "";
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+      });
+    });
+  }
+
   /* --- Ano dinâmico no rodapé (se houver placeholder) --- */
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
