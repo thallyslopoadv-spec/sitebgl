@@ -209,7 +209,7 @@
   <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- ====================== NAVEGAÇÃO ====================== -->
-  <header class="nav nav--home" id="topo">
+  <header class="nav" id="topo">
     <div class="nav__inner">
       <a class="nav__brand" href="#inicio" aria-label="BGL Advogados — início">
         <img src="assets/logo-mark.png" alt="BGL Advogados" width="63" height="40">
@@ -238,14 +238,20 @@
   <main id="conteudo">
 
     <!-- ====================== HERO ====================== -->
-    <section class="hero hero--fronts" id="inicio">
+    <section class="hero hero--art" id="inicio">
+      <div class="hero-art" aria-hidden="true">
+        <span class="hero-art__ghost" data-parallax="0.05"></span>
+        <span class="hero-art__glow"></span>
+        <span class="hero-art__mark"></span>
+      </div>
       <div class="container">
         <div class="hero__inner">
-          <img class="hero__logo" src="assets/logo-bgl.png" alt="BGL Advogados: Brito Galvão &amp; Lopo Advogados" width="760" height="546" fetchpriority="high" data-enter="1">
-          <h1 class="hero__claim" data-enter="2">Atuação cível, defesa trabalhista empresarial e soluções para conflitos imobiliários.</h1>
-          <p class="hero__support" data-enter="3">Em Goiânia/GO, assessoria jurídica conduzida diretamente pelos sócios, com análise individual de cada caso.</p>
+          <span class="eyebrow" data-enter="1">Brito Galvão &amp; Lopo Advogados · Goiânia/GO</span>
+          <h1 data-enter="2">Atuação cível, defesa trabalhista empresarial <em>e soluções para conflitos imobiliários.</em></h1>
+          <p class="hero__support" data-enter="3">Assessoria jurídica conduzida diretamente pelos sócios, com análise individual de cada caso.</p>
           <div class="hero__actions" data-enter="4">
             <a class="btn btn--primary" href="https://wa.me/5562992509988" target="_blank" rel="noopener">Agendar uma conversa</a>
+            <a class="link-arrow" href="#areas">Ver áreas de atuação <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
         <nav class="hero-fronts" aria-label="Frentes de atuação" data-enter="5">
@@ -477,7 +483,9 @@
               </div>
             </article>
         </div>
-<div class="posts__topic reveal">
+<div class="posts__split">
+          <div class="posts__col">
+        <div class="posts__topic reveal">
           <h3>Trabalhista Empresarial</h3>
           <a class="link-arrow" href="trabalhista-empresarial/">Ver a área de atuação <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
@@ -505,7 +513,9 @@
               </div>
             </article>
         </div>
-<div class="posts__topic reveal">
+          </div>
+          <div class="posts__col">
+        <div class="posts__topic reveal">
           <h3>Direito Imobiliário</h3>
           <a class="link-arrow" href="direito-imobiliario/">Ver a área de atuação <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
@@ -526,6 +536,8 @@
                 <span class="post-card__more">Ler o guia <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               </div>
             </article>
+        </div>
+          </div>
         </div>
       </div>
     </section>
