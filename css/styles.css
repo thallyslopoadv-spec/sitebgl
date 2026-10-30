@@ -1838,19 +1838,23 @@ p { margin-bottom: 1em; }
    Foto do escritório e números logo abaixo do hero
    ========================================================================== */
 .office-intro { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
-.office-photo { position: relative; margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-card); }
-/* A foto ocupa toda a largura do conteúdo, sem corte */
-.office-photo img { display: block; width: 100%; height: auto; }
+.office-photo {
+  position: relative; margin: 0; overflow: hidden;
+  height: clamp(220px, 32vw, 420px);
+  border-radius: var(--radius); box-shadow: var(--shadow-card);
+}
+/* Faixa horizontal: o enquadramento mostra a TV e a mesa */
+.office-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
 .office-photo__badge {
-  position: absolute; left: 0; bottom: 1rem;
+  position: absolute; left: 0; bottom: 2.6rem;
   background: rgba(14, 26, 46, .82); color: var(--cream);
   font-family: var(--font-serif); font-size: .78rem;
   padding: .45rem .85rem; border-radius: 0 10px 10px 0;
 }
 .stats.office-stats {
   position: relative; z-index: 2;
-  width: 100%;
-  margin: .9rem 0 0; padding: 1.05rem 1.25rem;
+  width: min(720px, 100% - 2rem);
+  margin: -1.6rem auto 0; padding: 1.05rem 1.25rem;
   border: 0; border-radius: var(--radius); box-shadow: var(--shadow-card);
   text-align: center;
   background:
@@ -1862,8 +1866,8 @@ p { margin-bottom: 1em; }
 .office-stats .stat__label { margin-left: 0; color: rgba(244, 239, 230, .78); }
 
 @media (max-width: 760px) {
-  .office-photo__badge { bottom: .75rem; }
-  .stats.office-stats { margin-top: .7rem; padding: .85rem .5rem; gap: 0; }
+  .office-photo__badge { bottom: 2.2rem; }
+  .stats.office-stats { margin-top: -1.4rem; padding: .85rem .5rem; gap: 0; }
   .office-stats .stat { padding-inline: .35rem; }
 }
 
