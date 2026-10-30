@@ -1494,13 +1494,6 @@ html.js .review-card__stars svg { opacity: 0; }
 .partner .member__ig { font-size: .88rem; }
 @media (min-width: 981px) { .partner__short { min-height: 9.3em; } }
 @media (max-width: 980px) { .partners { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 520px) {
-  .partner { grid-template-columns: 96px minmax(0, 1fr); }
-  .partner__photo { align-self: start; min-height: 0; aspect-ratio: 4 / 5; margin: 1.1rem 0 1.1rem 1.1rem; overflow: hidden; border-radius: var(--radius); }
-  .partner__photo img { min-height: 0; max-height: none; }
-  .partner__body { padding: 1.1rem 1.1rem 1.2rem; }
-  .partner__name { font-size: 1.3rem; }
-}
 
 /* Publicações organizadas por assunto */
 .posts__topic {
@@ -1585,7 +1578,7 @@ html.js .review-card__stars svg { opacity: 0; }
 @media (max-width: 860px) {
   .hero--art { display: block; min-height: 0; padding-top: calc(var(--nav-h) + .75rem); }
   .hero-art { position: relative; inset: auto; height: clamp(112px, 30vw, 190px); margin-top: .75rem; overflow: visible; }
-  .hero-art__mark { --mark-w: clamp(170px, 46vw, 300px); left: 1.5rem; right: auto; top: 0; bottom: auto; margin-block: 0; }
+  .hero-art__mark { --mark-w: clamp(170px, 46vw, 300px); left: 1.25rem; right: auto; top: 0; bottom: auto; margin-block: 0; }
   .hero-art__ghost { display: none; }
   .hero-art__glow { top: -30%; right: auto; left: -10%; width: 80vw; }
   .hero--art .hero__inner { padding-top: 1rem; }
@@ -1796,4 +1789,23 @@ p { margin-bottom: 1em; }
   .area-grid { gap: .7rem; }
   .tiles { gap: .7rem; }
   .contact__map, .contact__map iframe { min-height: 230px; }
+}
+
+/* Celular: restaura a largura total do contêiner, cuja margem já vem do padding */
+@media (max-width: 620px) {
+  .container { width: 100%; }
+  .quote-band .container { padding-inline: 1.25rem; }
+}
+
+/* Celular: foto e nome lado a lado, com o texto na largura inteira do card */
+@media (max-width: 520px) {
+  .partner { grid-template-columns: 84px minmax(0, 1fr); column-gap: .9rem; padding: 1rem; }
+  .partner__body { display: contents; }
+  .partner__photo { grid-row: 1 / span 2; min-height: 0; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); }
+  .partner__photo img { min-height: 0; max-height: none; }
+  .partner__name { grid-column: 2; align-self: end; font-size: 1.25rem; }
+  .partner__role { grid-column: 2; align-self: start; margin-bottom: 0; }
+  .partner__short, .partner__more, .partner .member__ig { grid-column: 1 / -1; }
+  .partner__short { margin-top: .8rem; }
+  .partner .member__ig { justify-self: start; }
 }
