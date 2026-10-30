@@ -1827,3 +1827,10 @@ p { margin-bottom: 1em; }
   html.js .reveal[data-anim="left"], html.js .reveal[data-anim="right"] { transform: translateY(20px); }
   html.js .reveal[data-anim="left"].is-visible, html.js .reveal[data-anim="right"].is-visible { transform: none; }
 }
+
+/* Direito Empresarial ocupa duas colunas, completando a grade com o card de contato */
+.area-card--wide { grid-column: span 2; }
+@media (max-width: 980px) {
+  .area-card--wide { grid-column: auto; }
+  .area-card--dark { grid-column: 1 / -1; }
+}
