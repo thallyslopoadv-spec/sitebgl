@@ -269,6 +269,25 @@
     });
   }
 
+  /* --- Publicações: filtro por assunto --- */
+  var pubButtons = document.querySelectorAll(".pub-filter__btn");
+  if (pubButtons.length) {
+    var pubItems = document.querySelectorAll(".pub-item");
+    var pubBlocks = document.querySelectorAll(".pub-block");
+    pubButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var topic = btn.getAttribute("data-filter");
+        pubButtons.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+        pubItems.forEach(function (item) {
+          item.hidden = topic !== "todos" && item.getAttribute("data-topic") !== topic;
+        });
+        pubBlocks.forEach(function (block) {
+          block.hidden = !block.querySelector(".pub-item:not([hidden])");
+        });
+      });
+    });
+  }
+
   /* --- Ano dinâmico no rodapé (se houver placeholder) --- */
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
