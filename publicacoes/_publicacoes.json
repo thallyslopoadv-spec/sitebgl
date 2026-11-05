@@ -80,6 +80,16 @@
       "slug": "fim-da-escala-6x1-empresas",
       "titulo": "Fim da escala 6x1: o que muda para quem emprega a partir de dezembro",
       "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx"
+    },
+    {
+      "data": "2026-11-05",
+      "turno": "extra",
+      "dupla": "A",
+      "area": "imobiliario",
+      "slug": "ja-assinei-o-distrato",
+      "titulo": "Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?",
+      "origem": "Artigos_Imobiliario_BGL_completo.docx",
+      "observacao": "publicacao antecipada pedida pelo escritorio; nao altera a alternancia das duplas"
     }
   ],
   "fila": {
@@ -111,10 +121,6 @@
       },
       {
         "titulo": "Imóvel com preço abaixo do mercado em Goiânia: o que pode estar por trás da oportunidade",
-        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
-      },
-      {
-        "titulo": "Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?",
         "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
       },
       {
