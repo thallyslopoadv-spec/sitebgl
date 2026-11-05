@@ -1,0 +1,23 @@
+{
+  "descricao": "Registro das publicacoes do blog da BGL. A tarefa agendada le este arquivo para saber qual dupla de areas foi publicada por ultimo, qual area vem a seguir e quais artigos da pasta do Drive ja foram publicados. Toda publicacao nova deve acrescentar uma entrada ao final de publicacoes.",
+  "duplas": {
+    "A": { "manha": "imobiliario", "tarde": "trabalhista" },
+    "B": { "manha": "civil", "tarde": "empresarial" }
+  },
+  "pasta_drive_artigos": "1FeDRpEb1KCF54pxod-RiXJf8l1CbzRgn",
+  "capas_padrao": {
+    "imobiliario": "assets/cover-imobiliario.jpg",
+    "trabalhista": "assets/cover-trabalhista.jpg",
+    "civil": "assets/cover-civil.jpg",
+    "empresarial": "assets/cover-duediligence.jpg"
+  },
+  "publicacoes": [
+    { "data": "2025-10-14", "turno": "", "dupla": "", "area": "empresarial", "slug": "decisoes-juridicas-nas-empresas", "titulo": "2 Decisoes Juridicas que Mantem uma Empresa Viva", "origem": "historico" },
+    { "data": "2025-10-23", "turno": "", "dupla": "", "area": "empresarial", "slug": "acordo-de-socios-empresas-familiares", "titulo": "Acordo de Socios nas Empresas Familiares", "origem": "historico" },
+    { "data": "2025-10-28", "turno": "", "dupla": "", "area": "empresarial", "slug": "como-formalizar-parcerias", "titulo": "Como Formalizar Parcerias sem Abrir Mao do Controle do Seu Negocio", "origem": "historico" },
+    { "data": "2025-11-26", "turno": "", "dupla": "", "area": "empresarial", "slug": "o-socio-morreu", "titulo": "O Socio Morreu. O que Acontece quando Ninguem Preparou a Empresa para Isso?", "origem": "historico" },
+    { "data": "2026-02-02", "turno": "", "dupla": "", "area": "empresarial", "slug": "due-diligence", "titulo": "Due Diligence: a Analise que Protege Empresas de Medio Porte", "origem": "historico" },
+    { "data": "2026-08-10", "turno": "", "dupla": "", "area": "trabalhista", "slug": "o-que-a-empresa-pode-exigir-do-funcionario", "titulo": "O que a empresa pode (e o que nao pode) exigir do funcionario", "origem": "historico" },
+    { "data": "2026-11-05", "turno": "tarde", "dupla": "A", "area": "trabalhista", "slug": "fim-da-escala-6x1-empresas", "titulo": "Fim da escala 6x1: o que muda para quem emprega a partir de dezembro", "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx" }
+  ]
+}
