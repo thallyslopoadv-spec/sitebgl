@@ -1,8 +1,14 @@
 {
   "descricao": "Registro das publicacoes do blog da BGL. A tarefa agendada le este arquivo para saber qual dupla de areas foi publicada por ultimo, qual area vem a seguir e quais artigos da pasta do Drive ja foram publicados. Toda publicacao nova deve acrescentar uma entrada ao final de publicacoes.",
   "duplas": {
-    "A": { "manha": "imobiliario", "tarde": "trabalhista" },
-    "B": { "manha": "civil", "tarde": "empresarial" }
+    "A": {
+      "manha": "imobiliario",
+      "tarde": "trabalhista"
+    },
+    "B": {
+      "manha": "civil",
+      "tarde": "empresarial"
+    }
   },
   "pasta_drive_artigos": "1FeDRpEb1KCF54pxod-RiXJf8l1CbzRgn",
   "capas_padrao": {
@@ -12,12 +18,206 @@
     "empresarial": "assets/cover-duediligence.jpg"
   },
   "publicacoes": [
-    { "data": "2025-10-14", "turno": "", "dupla": "", "area": "empresarial", "slug": "decisoes-juridicas-nas-empresas", "titulo": "2 Decisoes Juridicas que Mantem uma Empresa Viva", "origem": "historico" },
-    { "data": "2025-10-23", "turno": "", "dupla": "", "area": "empresarial", "slug": "acordo-de-socios-empresas-familiares", "titulo": "Acordo de Socios nas Empresas Familiares", "origem": "historico" },
-    { "data": "2025-10-28", "turno": "", "dupla": "", "area": "empresarial", "slug": "como-formalizar-parcerias", "titulo": "Como Formalizar Parcerias sem Abrir Mao do Controle do Seu Negocio", "origem": "historico" },
-    { "data": "2025-11-26", "turno": "", "dupla": "", "area": "empresarial", "slug": "o-socio-morreu", "titulo": "O Socio Morreu. O que Acontece quando Ninguem Preparou a Empresa para Isso?", "origem": "historico" },
-    { "data": "2026-02-02", "turno": "", "dupla": "", "area": "empresarial", "slug": "due-diligence", "titulo": "Due Diligence: a Analise que Protege Empresas de Medio Porte", "origem": "historico" },
-    { "data": "2026-08-10", "turno": "", "dupla": "", "area": "trabalhista", "slug": "o-que-a-empresa-pode-exigir-do-funcionario", "titulo": "O que a empresa pode (e o que nao pode) exigir do funcionario", "origem": "historico" },
-    { "data": "2026-11-05", "turno": "tarde", "dupla": "A", "area": "trabalhista", "slug": "fim-da-escala-6x1-empresas", "titulo": "Fim da escala 6x1: o que muda para quem emprega a partir de dezembro", "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx" }
-  ]
+    {
+      "data": "2025-10-14",
+      "turno": "",
+      "dupla": "",
+      "area": "empresarial",
+      "slug": "decisoes-juridicas-nas-empresas",
+      "titulo": "2 Decisoes Juridicas que Mantem uma Empresa Viva",
+      "origem": "historico"
+    },
+    {
+      "data": "2025-10-23",
+      "turno": "",
+      "dupla": "",
+      "area": "empresarial",
+      "slug": "acordo-de-socios-empresas-familiares",
+      "titulo": "Acordo de Socios nas Empresas Familiares",
+      "origem": "historico"
+    },
+    {
+      "data": "2025-10-28",
+      "turno": "",
+      "dupla": "",
+      "area": "empresarial",
+      "slug": "como-formalizar-parcerias",
+      "titulo": "Como Formalizar Parcerias sem Abrir Mao do Controle do Seu Negocio",
+      "origem": "historico"
+    },
+    {
+      "data": "2025-11-26",
+      "turno": "",
+      "dupla": "",
+      "area": "empresarial",
+      "slug": "o-socio-morreu",
+      "titulo": "O Socio Morreu. O que Acontece quando Ninguem Preparou a Empresa para Isso?",
+      "origem": "historico"
+    },
+    {
+      "data": "2026-02-02",
+      "turno": "",
+      "dupla": "",
+      "area": "empresarial",
+      "slug": "due-diligence",
+      "titulo": "Due Diligence: a Analise que Protege Empresas de Medio Porte",
+      "origem": "historico"
+    },
+    {
+      "data": "2026-08-10",
+      "turno": "",
+      "dupla": "",
+      "area": "trabalhista",
+      "slug": "o-que-a-empresa-pode-exigir-do-funcionario",
+      "titulo": "O que a empresa pode (e o que nao pode) exigir do funcionario",
+      "origem": "historico"
+    },
+    {
+      "data": "2026-11-05",
+      "turno": "tarde",
+      "dupla": "A",
+      "area": "trabalhista",
+      "slug": "fim-da-escala-6x1-empresas",
+      "titulo": "Fim da escala 6x1: o que muda para quem emprega a partir de dezembro",
+      "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx"
+    }
+  ],
+  "fila": {
+    "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada deve consultar esta fila, publicar o primeiro item da area da vez e remove-lo daqui ao acrescentar a entrada em publicacoes.",
+    "imobiliario": [
+      {
+        "titulo": "A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Comprei o imóvel, paguei tudo e o vendedor sumiu sem passar a escritura",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "A construtora mandou um aditivo com nova data de entrega. Devo assinar?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Imóvel na planta em Goiânia: o contrato que você assina no estande vale mais do que o apartamento decorado",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Moro há anos no imóvel, pago o IPTU, mas ele não está no meu nome: o que fazer",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "A construtora ofereceu devolver só parte do que paguei. Sou obrigado a aceitar?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Imóvel com preço abaixo do mercado em Goiânia: o que pode estar por trás da oportunidade",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Quero vender ou financiar, mas só tenho contrato de compra e venda",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Parecer jurídico antes de comprar imóvel: o que é, quanto custa e quando vale a pena",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Passaram os 180 dias e as chaves não vieram: o que muda a partir de agora",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Perguntei sobre o saldo e a construtora tratou como pedido de distrato: isso é permitido?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Usucapião no cartório em Goiânia: quanto custa, quanto demora e quando não dá para fazer",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Vou assinar o contrato de compra e venda: as cláusulas que mais causam prejuízo ao comprador",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Pagando aluguel e parcela ao mesmo tempo por causa do atraso: quem deve arcar com isso",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "A construtora rescindiu meu contrato sem me notificar antes. A rescisão vale?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "O vendedor tem dívidas e processos: quando isso pode atingir o imóvel que você comprou",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "O vendedor morreu antes de assinar a escritura: ainda consigo passar o imóvel para o meu nome?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Os juros de obra continuam sendo cobrados depois do prazo de entrega. E agora?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Dei o sinal e o negócio desandou: o que acontece com o dinheiro",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Comprar imóvel de pessoa casada, de espólio ou de empresa: os cuidados que quase ninguém toma",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Obra parada em Goiânia: sinais de alerta e o que fazer antes que o prejuízo aumente",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Sua empresa vai comprar um galpão ou imóvel comercial: o que analisar antes de fechar",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Vai comprar um imóvel em Goiânia? O que conferir na matrícula antes de dar o sinal",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Vou vender meu imóvel parcelado direto ao comprador: como me proteger se ele parar de pagar",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "O financiamento foi aprovado: isso significa que o imóvel está regular?",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      },
+      {
+        "titulo": "Comprou imóvel em Goiânia? Você pode ter pago ITBI a mais",
+        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
+      }
+    ],
+    "trabalhista": [
+      {
+        "titulo": "Auditoria trabalhista: o que sua empresa precisa descobrir antes de ter um problema",
+        "arquivo": "Artigos Setembro - Revisar.docx",
+        "situacao": "pendente de revisao do escritorio"
+      }
+    ],
+    "empresarial": [
+      {
+        "titulo": "Revisao de contrato bancario: o que pode ser questionado na divida da sua empresa",
+        "arquivo": "Artigos Setembro - Revisar.docx",
+        "situacao": "pendente de revisao do escritorio"
+      },
+      {
+        "titulo": "Gestao de passivo bancario: quando a divida comeca a comprometer a empresa",
+        "arquivo": "Artigos Setembro - Revisar.docx",
+        "situacao": "pendente de revisao do escritorio"
+      },
+      {
+        "titulo": "Quando uma contestacao de pagamento bloqueia o dinheiro da empresa",
+        "arquivo": "Artigos Setembro - Revisar.docx",
+        "situacao": "pendente de revisao do escritorio"
+      }
+    ],
+    "civil": []
+  }
 }
