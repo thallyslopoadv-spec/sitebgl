@@ -83,7 +83,7 @@
     }
   ],
   "fila": {
-    "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada deve consultar esta fila, publicar o primeiro item da area da vez e remove-lo daqui ao acrescentar a entrada em publicacoes.",
+    "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada publica o primeiro item da area da vez e o remove daqui ao acrescentar a entrada em publicacoes. Itens com o campo situacao indicando pendencia de revisao nao vao ao ar. Itens em fora_de_escopo nunca sao publicados.",
     "imobiliario": [
       {
         "titulo": "A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor",
@@ -201,23 +201,31 @@
         "situacao": "pendente de revisao do escritorio"
       }
     ],
-    "empresarial": [
+    "empresarial": [],
+    "civil": [],
+    "fora_de_escopo": [
       {
         "titulo": "Revisao de contrato bancario: o que pode ser questionado na divida da sua empresa",
         "arquivo": "Artigos Setembro - Revisar.docx",
-        "situacao": "pendente de revisao do escritorio"
+        "motivo": "tema bancario, fora das areas do site"
       },
       {
         "titulo": "Gestao de passivo bancario: quando a divida comeca a comprometer a empresa",
         "arquivo": "Artigos Setembro - Revisar.docx",
-        "situacao": "pendente de revisao do escritorio"
+        "motivo": "tema bancario, fora das areas do site"
       },
       {
         "titulo": "Quando uma contestacao de pagamento bloqueia o dinheiro da empresa",
         "arquivo": "Artigos Setembro - Revisar.docx",
-        "situacao": "pendente de revisao do escritorio"
+        "motivo": "tema bancario, fora das areas do site"
       }
-    ],
-    "civil": []
+    ]
+  },
+  "areas_do_site": {
+    "observacao": "Somente estas quatro areas existem no site e podem ser publicadas. Artigo cujo tema nao se enquadre em uma delas, como divida e passivo bancario, nao vai ao ar.",
+    "civil": "Direito Civil",
+    "imobiliario": "Direito Imobiliario",
+    "empresarial": "Direito Empresarial",
+    "trabalhista": "Trabalhista Empresarial"
   }
 }
