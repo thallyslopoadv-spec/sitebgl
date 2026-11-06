@@ -1044,6 +1044,7 @@ html.js .stats[data-stagger] > * { opacity: 1 !important; transform: none !impor
 .author-box .name { font-family: var(--font-serif); font-size: 1.2rem; color: var(--navy); }
 .author-box .role { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--silver-dark); margin-top: .25rem; }
 .author-box .note { font-size: .95rem; color: var(--ink-soft); margin-top: .55rem; }
+.article-body > .container--narrow > .note { font-size: .88rem; color: var(--ink-soft); margin-top: 1.5rem; text-align: left; }
 
 /* relacionados */
 .related { padding: clamp(3rem, 6vw, 5rem) 0; background: var(--cream); border-top: 1px solid var(--cream-dim); }
