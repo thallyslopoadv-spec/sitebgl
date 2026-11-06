@@ -90,15 +90,22 @@
       "titulo": "Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?",
       "origem": "Artigos_Imobiliario_BGL_completo.docx",
       "observacao": "publicacao antecipada pedida pelo escritorio; nao altera a alternancia das duplas"
+    },
+    {
+      "data": "2026-11-06",
+      "turno": "manha",
+      "dupla": "B",
+      "area": "imobiliario",
+      "area_prevista": "civil",
+      "slug": "construtora-rescindiu-contrato-saldo-devedor",
+      "titulo": "A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor",
+      "origem": "Artigos_Imobiliario_BGL_completo.docx",
+      "observacao": "substituicao: a fila de civil (area prevista da dupla B pela manha) estava vazia; publicado o primeiro item da area com a maior fila"
     }
   ],
   "fila": {
     "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada publica o primeiro item da area da vez e o remove daqui ao acrescentar a entrada em publicacoes. Itens com o campo situacao indicando pendencia de revisao nao vao ao ar. Itens em fora_de_escopo nunca sao publicados.",
     "imobiliario": [
-      {
-        "titulo": "A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor",
-        "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
-      },
       {
         "titulo": "Comprei o imóvel, paguei tudo e o vendedor sumiu sem passar a escritura",
         "arquivo": "Artigos_Imobiliario_BGL_completo.docx"
