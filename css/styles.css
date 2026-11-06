@@ -1033,6 +1033,10 @@ html.js .stats[data-stagger] > * { opacity: 1 !important; transform: none !impor
 }
 .article-body blockquote p { font-size: inherit; margin: 0; color: inherit; }
 .article-body blockquote p::first-letter { font-size: inherit; float: none; padding: 0; color: inherit; font-family: inherit; }
+/* a capitular da citacao usa o desenho reto da Playfair: no italico, o Q sai com
+   floreio e destoa das demais iniciais. Especificidade maior que a regra da
+   capitular em .article-body p:first-of-type::first-letter. */
+.article-body blockquote p:first-of-type::first-letter { font-style: normal; }
 
 /* box do autor */
 .author-box {
