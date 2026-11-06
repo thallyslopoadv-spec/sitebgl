@@ -1,0 +1,60 @@
+{
+  "descricao": "Registro das verificacoes pos-publicacao do blog da BGL. A tarefa agendada de verificacao le este arquivo para saber quais artigos ja foram conferidos e quando, de modo a escolher o escopo do dia: os artigos publicados nas ultimas 24 horas mais os dois artigos do acervo com verificacao mais antiga ou nunca verificados, nunca passando de quatro por execucao. Toda execucao deve acrescentar uma entrada ao final de auditorias.",
+  "auditorias": [
+    {
+      "data": "2026-11-06",
+      "commit_mensagem": "Verificação 2026-11-06",
+      "commit_observacao": "o codigo do commit consta do relatorio enviado ao escritorio e pode ser recuperado com git log --grep=\"Verificação 2026-11-06\"; um commit nao pode conter o proprio codigo",
+      "artigos_verificados": [
+        {
+          "slug": "construtora-rescindiu-contrato-saldo-devedor",
+          "motivo_do_escopo": "publicado nas ultimas 24 horas",
+          "dias_no_ar": 0,
+          "indexado": false,
+          "observacao": "ainda nao aparece na busca; prazo normal para artigo do mesmo dia"
+        },
+        {
+          "slug": "ja-assinei-o-distrato",
+          "motivo_do_escopo": "publicado nas ultimas 24 horas",
+          "dias_no_ar": 1,
+          "indexado": false,
+          "observacao": "ainda nao aparece na busca; prazo normal"
+        },
+        {
+          "slug": "fim-da-escala-6x1-empresas",
+          "motivo_do_escopo": "publicado nas ultimas 24 horas pelo registro de publicacoes",
+          "dias_no_ar": 3,
+          "indexado": false,
+          "observacao": "ainda nao aparece na busca; prazo normal. Data divergente entre o registro de publicacoes (2026-11-05) e a pagina, o indice e o sitemap (2026-11-03)"
+        },
+        {
+          "slug": "decisoes-juridicas-nas-empresas",
+          "motivo_do_escopo": "artigo do acervo nunca verificado, o mais antigo do registro",
+          "dias_no_ar": 388,
+          "indexado": false,
+          "observacao": "mais de dez dias no ar sem aparecer na busca; sinalizado no relatorio"
+        }
+      ],
+      "alterado": [
+        "publicacoes/decisoes-juridicas-nas-empresas.html: oito travessoes de texto corrido substituidos por virgula, e um par de travessoes substituido por parenteses",
+        "publicacoes/*.html (nove artigos): separador do title trocado de travessao para barra vertical, no padrao do modelo atual",
+        "publicacoes/*.html (nove artigos): travessao retirado do aria-label da marca e do alt do logotipo, e o e comercial do alt passou a ser escrito como entidade HTML",
+        "publicacoes/*.html (sete artigos): travessao retirado da linha de chamada final sobre o primeiro contato",
+        "publicacoes/*.html (oito artigos): travessao retirado do comentario interno sobre a conta do Google Ads",
+        "publicacoes/ja-assinei-o-distrato.html: cartao de Leia tambem do artigo trabalhista substituido pelo artigo imobiliario novo sobre rescisao sem informacao de saldo devedor, por proximidade de area e para criar a remissao reciproca",
+        "publicacoes/ja-assinei-o-distrato.html: dateModified atualizado para 2026-11-06 por causa da alteracao de conteudo",
+        "sitemap.xml: lastmod de ja-assinei-o-distrato atualizado para 2026-11-06",
+        "publicacoes/_auditorias.json: criado neste registro"
+      ],
+      "apenas_apontado": [
+        "decisoes-juridicas-nas-empresas esta ha 388 dias no ar e nao aparece na busca; a pagina de publicacoes tambem nao aparece. O unico artigo indexado do dominio e due-diligence",
+        "travessoes de texto corrido ainda presentes em quatro artigos do acervo fora do escopo do dia: acordo-de-socios-empresas-familiares, como-formalizar-parcerias, due-diligence e o-socio-morreu, alem da pagina antiga oqueaempresapodeexigirdofuncionario",
+        "fim-da-escala-6x1-empresas informa 16 de dezembro de 2026 como inicio da nova jornada; publicacao do Senado menciona 15 de dezembro. Depende de conferencia do escritorio no texto da EC 141/2026",
+        "o filtro Direito Civil existe na pagina de publicacoes mas nenhum artigo publicado tem essa area",
+        "divergencia de data do artigo da escala 6x1 entre o registro de publicacoes e a pagina",
+        "a verificacao das paginas no ar nao pode ser feita nesta execucao porque o acesso a leitura de paginas da web ficou bloqueado; a conferencia foi feita no repositorio, em servidor local e pela busca",
+        "o segundo artigo do acervo previsto para a execucao nao entrou por causa do limite de quatro artigos; entra na proxima"
+      ]
+    }
+  ]
+}
