@@ -101,6 +101,16 @@
       "titulo": "A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor",
       "origem": "Artigos_Imobiliario_BGL_completo.docx",
       "observacao": "substituicao: a fila de civil (area prevista da dupla B pela manha) estava vazia; publicado o primeiro item da area com a maior fila"
+    },
+    {
+      "data": "2026-11-06",
+      "turno": "extra",
+      "dupla": "B",
+      "area": "civil",
+      "slug": "conta-bloqueada-ordem-judicial",
+      "titulo": "Minha conta foi bloqueada por ordem judicial: o que dá para fazer agora",
+      "origem": "Artigos_Civel_BGL.docx",
+      "observacao": "publicacao antecipada pedida pelo escritorio; nao altera a alternancia das duplas. Capa gerada por codigo: a foto enviada traz marca de terceiro e numero de cartao legivel"
     }
   ],
   "fila": {
@@ -217,12 +227,6 @@
     ],
     "empresarial": [],
     "civil": [
-      {
-        "titulo": "Minha conta foi bloqueada por ordem judicial: o que dá para fazer agora",
-        "arquivo": "Artigos_Civel_BGL.docx",
-        "slug": "conta-bloqueada-ordem-judicial",
-        "observacao": "o escritorio pediu que este fosse o proximo a ir ao ar; por isso esta no topo, fora da ordem do documento"
-      },
       {
         "titulo": "Recebi uma execução: quanto tempo tenho para agir e o que não fazer",
         "arquivo": "Artigos_Civel_BGL.docx",
