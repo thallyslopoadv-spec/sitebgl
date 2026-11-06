@@ -104,7 +104,7 @@
     }
   ],
   "fila": {
-    "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada publica o primeiro item da area da vez e o remove daqui ao acrescentar a entrada em publicacoes. Itens com o campo situacao indicando pendencia de revisao nao vao ao ar. Itens em fora_de_escopo nunca sao publicados.",
+    "observacao": "Artigos disponiveis e ainda nao publicados, por area. A tarefa agendada publica o primeiro item da area da vez e o remove daqui ao acrescentar a entrada em publicacoes. Itens com o campo situacao indicando pendencia de revisao nao vao ao ar. Itens em fora_de_escopo nunca sao publicados. O campo slug, quando presente, vem da ficha de SEO do documento e define o nome do arquivo da pagina e o da imagem de capa em assets/cover-SLUG.jpg.",
     "imobiliario": [
       {
         "titulo": "Comprei o imóvel, paguei tudo e o vendedor sumiu sem passar a escritura",
@@ -216,7 +216,69 @@
       }
     ],
     "empresarial": [],
-    "civil": [],
+    "civil": [
+      {
+        "titulo": "Minha conta foi bloqueada por ordem judicial: o que dá para fazer agora",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "conta-bloqueada-ordem-judicial",
+        "observacao": "o escritorio pediu que este fosse o proximo a ir ao ar; por isso esta no topo, fora da ordem do documento"
+      },
+      {
+        "titulo": "Recebi uma execução: quanto tempo tenho para agir e o que não fazer",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "recebi-uma-execucao"
+      },
+      {
+        "titulo": "Emprestei dinheiro e não recebi: como cobrar mesmo sem contrato assinado",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "cobrar-dinheiro-emprestado-sem-contrato"
+      },
+      {
+        "titulo": "Seu cliente não paga: quando notificar, negociar ou cobrar na Justiça",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "cliente-nao-paga-como-cobrar"
+      },
+      {
+        "titulo": "Sofri um prejuízo por culpa de outra pessoa: quando cabe indenização e o que provar",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "quando-cabe-indenizacao"
+      },
+      {
+        "titulo": "Recebi um pedido de indenização: como reagir sem piorar a situação",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "recebi-pedido-de-indenizacao"
+      },
+      {
+        "titulo": "A outra parte descumpriu o contrato: o que eu posso exigir",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "descumprimento-de-contrato"
+      },
+      {
+        "titulo": "Contrato de prestação de serviços: as cláusulas que evitam calote e briga",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "contrato-prestacao-de-servicos"
+      },
+      {
+        "titulo": "O fornecedor não entregou o que a empresa pagou: como recuperar o prejuízo",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "fornecedor-nao-entregou"
+      },
+      {
+        "titulo": "Sua empresa foi processada: os primeiros dias que definem a defesa",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "empresa-foi-processada"
+      },
+      {
+        "titulo": "Herança, imóvel em comum e sociedade de família: como sair de um patrimônio dividido",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "patrimonio-dividido-como-sair"
+      },
+      {
+        "titulo": "Vale a pena entrar na Justiça? Como avaliamos um caso antes de propor uma ação",
+        "arquivo": "Artigos_Civel_BGL.docx",
+        "slug": "vale-a-pena-entrar-na-justica"
+      }
+    ],
     "fora_de_escopo": [
       {
         "titulo": "Revisao de contrato bancario: o que pode ser questionado na divida da sua empresa",
