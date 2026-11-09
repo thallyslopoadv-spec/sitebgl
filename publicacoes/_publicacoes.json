@@ -79,7 +79,8 @@
       "area": "trabalhista",
       "slug": "fim-da-escala-6x1-empresas",
       "titulo": "Fim da escala 6x1: o que muda para quem emprega a partir de dezembro",
-      "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx"
+      "origem": "Fim da escala 6x1 o que muda para quem emprega a partir de dezembro (1).docx",
+      "observacao": "revisao em 09/11/2026 a pedido do escritorio: inicio da primeira etapa corrigido de 16 para 15 de dezembro de 2026 (60 dias da promulgacao de 16/10/2026, conforme Agencia Brasil, Agencia Senado, Terra e Portal Contabeis); data de publicacao da pagina, do indice e do sitemap alinhada ao registro (2026-11-05, confirmada pelo historico do repositorio); capa substituida por imagem propria gerada em scripts/gerar-capa-6x1.py, com remocao do credito da foto de Ricardo Stuckert; titulo da aba reduzido para 58 caracteres e perguntas do FAQPage igualadas as exibidas. Pendente de decisao do escritorio: a data da segunda etapa (16 de dezembro de 2027), sobre a qual as fontes divergem, e o texto oficial da EC 141 nao pode ser lido nesta sessao."
     },
     {
       "data": "2026-11-05",
