@@ -73,8 +73,14 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.bgladvogados.com.br/publicacoes/fim-da-escala-6x1-empresas.html</loc>
+    <loc>https://www.bgladvogados.com.br/publicacoes/escala-6x1-padarias-bares-supermercados.html</loc>
     <lastmod>2026-11-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.bgladvogados.com.br/publicacoes/fim-da-escala-6x1-empresas.html</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
