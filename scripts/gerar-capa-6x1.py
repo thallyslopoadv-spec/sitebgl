@@ -4,15 +4,17 @@
 Uso:
   python3 gerar-capa-6x1.py <saida.jpg>                      motivo geometrico, sem texto
   python3 gerar-capa-6x1.py <saida.jpg> --com-titulo         arte assinada FIM DA ESCALA 6X1
-  python3 gerar-capa-6x1.py <saida.jpg> --foto <foto> [...]  a arte sobre uma fotografia
+  python3 gerar-capa-6x1.py <saida.jpg> --foto <foto>        so a fotografia tratada
+  python3 gerar-capa-6x1.py <saida.jpg> --foto <foto> --com-titulo   foto + arte
 
 Capa 1200x675, a proporcao da og:image do site. O motivo e uma semana que
 passa de seis dias de trabalho com uma folga para cinco dias com duas
 folgas, que e o que a Emenda Constitucional 141/2026 determina.
 
-Com --foto, a fotografia entra como ambiente: puxada para o azul-marinho
-do site e escurecida, com um degrade a esquerda para a tipografia sentar
-em area limpa. A foto de origem nao fica no repositorio; a usada no
+Com --foto, a fotografia entra como ambiente, puxada para o azul-marinho
+do site. Somada a --com-titulo, ganha um degrade a esquerda para a
+tipografia sentar em area limpa. A foto de origem nao fica no
+repositorio; a usada no
 artigo do comercio e "bar sem licenca.jpg", da pasta Capas dos artigos no
 Drive. Antes de usar qualquer foto, conferir se nao ha marca d'agua de
 banco de imagem: uma prévia marcada nao pode ir ao ar.
@@ -67,25 +69,33 @@ def cobrir(im, w, h):
     return im.crop((l, t, l + w, t + h))
 
 
-def fundo_foto(caminho):
+def fundo_foto(caminho, com_arte):
+    """A foto puxada para o azul-marinho do site.
+
+    Com arte por cima, entra um degrade forte a esquerda para a
+    tipografia sentar em area limpa. Sem arte, a foto fica mais aberta:
+    so o tratamento de cor e um escurecimento no rodape, ja que o
+    cabecalho do artigo aplica o proprio veu sobre a imagem.
+    """
     foto = cobrir(Image.open(caminho).convert("RGB"), W, H)
-    foto = ImageEnhance.Color(foto).enhance(0.5)
-    foto = ImageEnhance.Brightness(foto).enhance(0.62)
-    foto = Image.blend(foto, Image.new("RGB", (W, H), NAVY_DEEP), 0.42)
+    foto = ImageEnhance.Color(foto).enhance(0.5 if com_arte else 0.62)
+    foto = ImageEnhance.Brightness(foto).enhance(0.62 if com_arte else 0.74)
+    foto = Image.blend(foto, Image.new("RGB", (W, H), NAVY_DEEP), 0.42 if com_arte else 0.32)
     img = foto.convert("RGBA")
 
-    scrim = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(scrim)
-    for x in range(W):
-        t = max(0.0, 1 - x / 820)
-        sd.line([(x, 0), (x, H)], fill=NAVY_DEEP + (int(252 * t ** 1.25),))
-    img = Image.alpha_composite(img, scrim)
+    if com_arte:
+        scrim = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        sd = ImageDraw.Draw(scrim)
+        for x in range(W):
+            t = max(0.0, 1 - x / 820)
+            sd.line([(x, 0), (x, H)], fill=NAVY_DEEP + (int(252 * t ** 1.25),))
+        img = Image.alpha_composite(img, scrim)
 
     base = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     bd = ImageDraw.Draw(base)
     for y in range(H):
         t = max(0.0, (y - H * 0.5) / (H * 0.5))
-        bd.line([(0, y), (W, y)], fill=NAVY_DEEP + (int(150 * t ** 1.8),))
+        bd.line([(0, y), (W, y)], fill=NAVY_DEEP + (int((150 if com_arte else 105) * t ** 1.8),))
     return Image.alpha_composite(img, base).convert("RGB")
 
 
@@ -145,14 +155,15 @@ def main():
             raise SystemExit("--foto exige o caminho da imagem")
         foto = args[i + 1]
 
-    img = fundo_foto(foto) if foto else fundo_geometrico()
-    d = ImageDraw.Draw(img.convert("RGBA"), "RGBA")
+    img = fundo_foto(foto, com_titulo) if foto else fundo_geometrico()
     img = img.convert("RGBA")
     d = ImageDraw.Draw(img, "RGBA")
     f_rotulo = ImageFont.truetype(INTER_SEMIBOLD, 19)
     M = 84
 
-    if foto:
+    if foto and not com_titulo:
+        pass  # so a fotografia tratada, sem tipografia
+    elif foto:
         titulo(d, M, CHAMADA[0], CHAMADA[1])
         fr = ImageFont.truetype(INTER_SEMIBOLD, 15)
         xs, cell, gap = 820, 36, 7
