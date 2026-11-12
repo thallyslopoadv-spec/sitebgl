@@ -111,6 +111,17 @@
       "titulo": "Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?",
       "origem": "Artigo Cecília 6x1.docx",
       "observacao": "artigo novo enviado ao Drive em 09/11/2026 e indicado pelo escritorio; nao constava da fila. Dupla A a tarde corresponde a trabalhista, entao a alternancia segue normal. Nao confundir com fim-da-escala-6x1-empresas, publicado em 05/11: sao textos distintos, um voltado a empregadores em geral e este ao comercio de alimentacao e varejo."
+    },
+    {
+      "data": "2026-11-11",
+      "turno": "tarde",
+      "dupla": "B",
+      "area": "civil",
+      "area_prevista": "empresarial",
+      "slug": "bens-penhorados-na-execucao",
+      "titulo": "Bens penhorados na execução: o que ainda pode ser discutido",
+      "origem": "Artigo_Bens_Penhorados_Execucao.docx",
+      "observacao": "substituicao: a fila de empresarial, area prevista da dupla B a tarde, esta vazia. Artigo novo enviado ao Drive e indicado pelo escritorio; nao constava da fila. Assinado pelo Dr. Thallys Lopo por indicacao expressa do documento, embora civil seja area da Dra. Cecilia na regra geral. Capa: oi.jpg, da pasta Capas dos artigos, sem marca d'agua e sem autoria nos metadados."
     }
   ],
   "fila": {
