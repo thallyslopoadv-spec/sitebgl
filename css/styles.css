@@ -1970,3 +1970,51 @@ html:not(.js) .pub-filter { display: none; }
   .pub-grid, .pub-guides, .tiles--two { grid-template-columns: minmax(0, 1fr); }
   .hero-fronts--404 { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ==========================================================================
+   Material rico (e-book) com captura de lead — js/ebook.js
+   ========================================================================== */
+.article-body .ebook p::first-letter { font-size: inherit; float: none; padding: 0; color: inherit; font-family: inherit; font-weight: inherit; }
+.ebook-teaser { font-size: 1rem !important; color: var(--ink-soft) !important; border-left: 3px solid var(--navy); padding-left: 1rem; }
+.ebook-teaser a { color: var(--navy); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.ebook-teaser::first-letter { font-size: inherit !important; float: none !important; padding: 0 !important; color: inherit !important; font-family: inherit !important; }
+
+.ebook {
+  margin: 3rem 0; background: var(--navy); color: var(--cream);
+  border-radius: 6px; box-shadow: var(--shadow-card); overflow: hidden;
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+.ebook__head { display: grid; grid-template-columns: 132px 1fr; gap: 1.6rem; align-items: center; padding: 2rem 2rem 0; }
+.ebook__capa { width: 132px; height: auto; border-radius: 3px; box-shadow: 0 12px 28px -10px rgba(0,0,0,.6); transform: rotate(-2deg); }
+.ebook__kicker { font-size: .75rem !important; letter-spacing: .16em; text-transform: uppercase; color: var(--silver-light) !important; margin: 0 0 .5rem !important; font-weight: 600; }
+.ebook h2 { color: var(--cream) !important; font-size: clamp(1.3rem, 2.6vw, 1.65rem) !important; margin: 0 0 .6rem !important; line-height: 1.25; }
+.ebook p { text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; }
+.ebook__desc { font-size: .98rem !important; line-height: 1.6 !important; color: var(--silver-light) !important; margin: 0 !important; }
+.ebook__form { padding: 1.6rem 2rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 1rem; }
+.ebook__campo { display: flex; flex-direction: column; gap: .3rem; }
+.ebook__campo--full { grid-column: 1 / -1; }
+.ebook__campo label { font-size: .82rem; font-weight: 600; color: var(--silver-light); }
+.ebook__campo input, .ebook__campo select {
+  font: inherit; font-size: 1rem; padding: .7rem .8rem; border-radius: var(--radius);
+  border: 1px solid var(--navy-line); background: var(--cream-bright); color: var(--ink); width: 100%;
+}
+.ebook__campo input:focus, .ebook__campo select:focus { outline: 2px solid var(--silver); outline-offset: 1px; }
+.ebook__campo [aria-invalid="true"] { border-color: #e08a8a; box-shadow: 0 0 0 2px rgba(224,138,138,.35); }
+.ebook__consent { grid-column: 1 / -1; font-size: .78rem !important; line-height: 1.5 !important; color: var(--silver-dark) !important; margin: 0 !important; }
+.ebook__acao { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-top: .3rem; }
+.ebook .btn--primary { background: var(--cream); color: var(--navy); border-color: var(--cream); }
+.ebook .btn--primary:hover { background: var(--cream-dim); }
+.ebook .btn--ghost { color: var(--cream); border-color: var(--navy-line); }
+.ebook__erro { grid-column: 1 / -1; font-size: .88rem; color: #f2b8b8; min-height: 0; margin: 0; }
+.ebook [hidden] { display: none !important; }
+.ebook__hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+.ebook__ok { padding: 1.6rem 2rem 2rem; }
+.ebook__ok p { font-size: 1rem !important; color: var(--silver-light) !important; margin: 0 0 1.2rem !important; }
+.ebook__ok strong { color: var(--cream); }
+@media (max-width: 600px) {
+  .ebook__head { display: block; padding: 1.5rem 1.25rem 0; }
+  .ebook__head::after { content: ""; display: block; clear: both; }
+  .ebook__capa { float: left; width: 76px; margin: .2rem 1rem .6rem 0; transform: none; }
+  .ebook__form, .ebook__ok { grid-template-columns: 1fr; padding: 1.3rem 1.25rem 1.5rem; }
+  .ebook .btn { width: 100%; justify-content: center; }
+}
