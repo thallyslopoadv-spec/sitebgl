@@ -484,8 +484,11 @@ var CONFIG = {
      Se esta pagina for publicada isolada (sem tag no site), coloque
      CARREGAR_TAGS_PROPRIAS em true e preencha os IDs abaixo. O codigo so
      carrega a tag se ela ainda NAO existir na pagina - nunca duplica.
+
+     Em uso: a pagina e publicada isolada em /calculadora.html, sem tag de
+     site em volta, por isso carrega as proprias.
      ======================================================================= */
-  CARREGAR_TAGS_PROPRIAS: false,
+  CARREGAR_TAGS_PROPRIAS: true,
 
   /* ID do Meta Pixel da BGL. >>> PREENCHER (ex.: '1234567890123456').
      Deixe vazio para nunca carregar o Pixel por conta propria.             */
@@ -1192,6 +1195,12 @@ function trackLeadQualified(classificacao, pontuacao, problema) {
 
 /* Disparada no clique do botao do WhatsApp. */
 function trackWhatsAppClick(classificacao) {
+  /* Mesmo evento do resto do site, para o relatorio de WhatsApp do GA4
+     somar as landing pages e as paginas institucionais. */
+  if (typeof window.bglWhatsAppClick === 'function') {
+    window.bglWhatsAppClick({ posicao: 'cta_ferramenta' });
+  }
+
   enviarEvento('bgl_avaliacao_whatsapp', {
     classificacao: classificacao,
     origem: origemResumida()
@@ -2476,5 +2485,7 @@ else init();
 
 })();
 </script>
+  <!-- GA4: evento whatsapp_click (logica unica em js/wa-tracking.js) -->
+  <script src="/js/wa-tracking.js" defer></script>
 </body>
 </html>

@@ -618,6 +618,12 @@ function trackLead() {
 }
 
 function trackWhatsAppClick() {
+  /* Mesmo evento do resto do site, para o relatorio de WhatsApp do GA4
+     somar as landing pages e as paginas institucionais. */
+  if (typeof window.bglWhatsAppClick === 'function') {
+    window.bglWhatsAppClick({ posicao: 'cta_ferramenta' });
+  }
+
   enviarEvento('bgl_divida_whatsapp', {
     classificacao: state.lead ? state.lead.classificacao : '',
     origem: origemResumida()
@@ -1209,5 +1215,7 @@ else init();
 
 })();
 </script>
+  <!-- GA4: evento whatsapp_click (logica unica em js/wa-tracking.js) -->
+  <script src="/js/wa-tracking.js" defer></script>
 </body>
 </html>
