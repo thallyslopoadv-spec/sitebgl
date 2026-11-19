@@ -51,6 +51,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -501,38 +503,30 @@
         </div>
         <div class="posts__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="../publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html" aria-label="Ler: O que a empresa pode (e o que não pode) exigir do funcionário"></a>
+            <a class="post-card__link" href="../publicacoes/escala-6x1-padarias-bares-supermercados.html" aria-label="Ler: Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?"></a>
+            <div class="post-card__cover"><img src="../assets/cover-escala-6x1-comercio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 09/11/2026</p>
+              <h3>Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom" data-delay="1">
+            <a class="post-card__link" href="../publicacoes/fim-da-escala-6x1-empresas.html" aria-label="Ler: Fim da escala 6x1: o que muda para quem emprega a partir de dezembro"></a>
+            <div class="post-card__cover"><img src="../assets/cover-escala-6x1.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 03/11/2026</p>
+              <h3>Fim da escala 6x1: o que muda para quem emprega a partir de dezembro</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom" data-delay="2">
+            <a class="post-card__link" href="../publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html" aria-label="Ler: O que a empresa pode (e o que não pode) exigir do funcionário: 3 situações que ainda geram dúvidas"></a>
             <div class="post-card__cover"><img src="../assets/cover-trabalhista.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Cecília B. Galvão · 10/08/2026</p>
+              <p class="post-card__meta">Dra. Cecília Galvão · 10/08/2026</p>
               <h3>O que a empresa pode (e o que não pode) exigir do funcionário: 3 situações que ainda geram dúvidas</h3>
-              <span class="post-card__more">Ler artigo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-          </article>
-
-          <article class="post-card reveal" data-anim="zoom" data-delay="1">
-            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
-            <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Thallys Lopo · 02/02/2026</p>
-              <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
-              <span class="post-card__more">Ler artigo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-          </article>
-
-          <article class="post-card reveal" data-anim="zoom" data-delay="2">
-            <a class="post-card__link" href="../publicacoes/decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
-            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Cecília B. Galvão · 14/10/2025</p>
-              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
-              <span class="post-card__more">Ler artigo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
         </div>

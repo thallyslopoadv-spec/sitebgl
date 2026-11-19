@@ -1074,6 +1074,8 @@ function carregarGtagSeNecessario() {
   window.dataLayer = window.dataLayer || [];
   window.gtag = function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
+  /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+  try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') window.gtag('set', { traffic_type: 'internal' }); } catch (e) {}
   if (CONFIG.GA4_MEASUREMENT_ID) window.gtag('config', CONFIG.GA4_MEASUREMENT_ID);
   if (CONFIG.GOOGLE_ADS_ID) window.gtag('config', CONFIG.GOOGLE_ADS_ID);
 }

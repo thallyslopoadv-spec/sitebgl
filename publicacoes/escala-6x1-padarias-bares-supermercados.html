@@ -21,6 +21,7 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="675">
   <meta property="article:published_time" content="2026-11-09">
+  <meta property="article:modified_time" content="2026-11-19">
   <meta property="article:author" content="Cecília Galvão">
   <meta property="article:section" content="Trabalhista Empresarial">
   <meta name="twitter:card" content="summary_large_image">
@@ -50,6 +51,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -61,19 +64,33 @@
     "description": "A escala 6x1 acaba em 16 de dezembro de 2026. Veja o que muda em padarias, bares e supermercados: folgas, custo da hora, convenção coletiva e o que revisar.",
     "image": "https://www.bgladvogados.com.br/assets/cover-escala-6x1-comercio.jpg",
     "datePublished": "2026-11-09",
-    "dateModified": "2026-11-09",
+    "dateModified": "2026-11-19",
     "inLanguage": "pt-BR",
     "articleSection": "Trabalhista Empresarial",
     "keywords": "fim da escala 6x1 padarias, escala 6x1 bares e restaurantes, escala 6x1 supermercados, EC 141/2026, advogado trabalhista empresarial Goiânia",
-    "author": { "@type": "Person", "name": "Cecília Galvão", "jobTitle": "Advogada", "identifier": "OAB/GO 72.929" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#cecilia-galvao",
+      "name": "Cecília Galvão",
+      "jobTitle": "Sócia-fundadora",
+      "identifier": "OAB/GO 72.929",
+      "url": "https://www.bgladvogados.com.br/advogados/cecilia-galvao/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" },
-      "areaServed": "Goiânia, Goiás, Brasil",
-      "url": "https://www.bgladvogados.com.br/"
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/escala-6x1-padarias-bares-supermercados.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/escala-6x1-padarias-bares-supermercados.html"
+    },
+    "abstract": "A partir de 16 de dezembro de 2026, empregados de padarias, bares, restaurantes e supermercados passam a ter dois dias de descanso remunerado por semana, e o limite semanal cai de 44 para 42 horas, passando a 40 horas em dezembro de 2027. Os estabelecimentos podem continuar abrindo aos domingos, desde que reorganizem jornadas e folgas, sem reduzir salários. Em dezembro de 2026 também perdem efeito as cláusulas coletivas incompatíveis com as novas regras."
   }
   </script>
 
@@ -185,7 +202,7 @@
         <p class="kicker">Trabalhista Empresarial</p>
         <h1>Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?</h1>
         <div class="article-meta">
-          <span>Dra. Cecília Galvão</span>
+          <a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2026-11-09">9 de novembro de 2026</time>
         </div>
@@ -194,6 +211,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>A partir de 16 de dezembro de 2026, empregados de padarias, bares, restaurantes e supermercados passam a ter dois dias de descanso remunerado por semana, e o limite semanal cai de 44 para 42 horas, passando a 40 horas em dezembro de 2027. Os estabelecimentos podem continuar abrindo aos domingos, desde que reorganizem jornadas e folgas, sem reduzir salários. Em dezembro de 2026 também perdem efeito as cláusulas coletivas incompatíveis com as novas regras.</p>
+        </aside>
+
         <p class="lead">Se você tem uma padaria, um bar, um restaurante ou um supermercado, provavelmente já se perguntou como vai manter o negócio funcionando quando a escala 6x1 deixar de existir.</p>
 
         <p>Afinal, o estabelecimento continua abrindo todos os dias. O movimento não diminui porque um funcionário está de folga. E a equipe precisa estar preparada para atender à demanda, inclusive nos fins de semana e feriados.</p>
@@ -290,6 +312,34 @@
         <p>Se o seu estabelecimento funciona todos os dias, este é o momento de revisar a organização da equipe e entender o que precisa ser ajustado antes de 16 de dezembro.</p>
         <p>Converse com nossa equipe de <a href="../trabalhista-empresarial/">Trabalhista Empresarial</a> e avalie o que precisa ser ajustado na sua operação.</p>
 
+        <section class="ebook" id="guia-6x1" data-ebook="fim-da-escala-6x1" data-titulo="Guia BGL · Fim da escala 6x1" data-pdf="../materiais/guia-bgl-fim-da-escala-6x1.pdf" aria-labelledby="guia-6x1-titulo">
+          <div class="ebook__head">
+            <img class="ebook__capa" src="../assets/guia-6x1-capa.jpg" alt="Capa do Guia BGL sobre o fim da escala 6x1" width="745" height="1053" loading="lazy">
+            <div>
+              <p class="ebook__kicker">Guia em PDF · 13 páginas</p>
+              <h2 id="guia-6x1-titulo">Fim da escala 6x1: o que a sua empresa precisa decidir antes de dezembro</h2>
+              <p class="ebook__desc">O calendário da transição, o efeito da emenda sobre a convenção coletiva, o novo custo da hora, a escala 12x36, quem fica fora da regra e um checklist de adequação com dez pontos.</p>
+            </div>
+          </div>
+          <form class="ebook__form" novalidate>
+            <div class="ebook__campo ebook__campo--full"><label for="eb-nome">Nome</label><input id="eb-nome" name="nome" type="text" autocomplete="name" required></div>
+            <div class="ebook__campo"><label for="eb-whats">WhatsApp com DDD</label><input id="eb-whats" name="whatsapp" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="(62) 90000-0000" required></div>
+            <div class="ebook__campo"><label for="eb-empregados">Empregados na empresa</label>
+              <select id="eb-empregados" name="empregados" required><option value="">Selecione</option><option>Até 10</option><option>11 a 50</option><option>51 a 200</option><option>Mais de 200</option></select></div>
+            <div class="ebook__hp" aria-hidden="true"><label for="eb-site">Site</label><input id="eb-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
+            <p class="ebook__erro" role="alert"></p>
+            <div class="ebook__acao"><button class="btn btn--primary" type="submit">Baixar o guia em PDF</button></div>
+            <p class="ebook__consent">Ao baixar, você autoriza a BGL Advogados a usar estes dados para enviar o guia e falar com você sobre a adequação à nova jornada (Lei nº 13.709/2018). A exclusão pode ser pedida a qualquer momento pelo contato@bgladvogados.com.br.</p>
+          </form>
+          <div class="ebook__ok" hidden>
+            <p><strong><span data-nome>O</span> download do guia começou.</strong> Se o arquivo não abriu, use o botão abaixo. Para avaliar a escala da sua empresa antes de 16 de dezembro, a Dra. Cecília Galvão atende pelo WhatsApp.</p>
+            <div class="ebook__acao">
+              <a class="btn btn--primary" data-baixar href="#" download>Baixar o guia novamente</a>
+              <a class="btn btn--ghost" data-whats href="#" target="_blank" rel="noopener">Falar com a Dra. Cecília</a>
+            </div>
+          </div>
+        </section>
+
         <h2>Perguntas frequentes sobre o fim da escala 6x1</h2>
         <div class="faq">
           <details>
@@ -320,12 +370,14 @@
 
         <p class="note">Fonte: Emenda Constitucional nº 141, de 16 de outubro de 2026, originada da PEC 221/2019. Sobre as ações no Supremo Tribunal Federal, ADI 8.041, da Confederação Nacional do Comércio, com audiência de conciliação designada para 10 de novembro de 2026.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../trabalhista-empresarial/">trabalhista empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/cecilia-galvao.jpg" alt="Retrato da Dra. Cecília Galvão" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dra. Cecília Galvão</div>
+            <div class="name"><a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a></div>
             <div class="role">Sócia-fundadora · OAB/GO 72.929</div>
-            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico.</p>
+            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico. <a class="author-box__perfil" href="../advogados/cecilia-galvao/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -337,7 +389,7 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="fim-da-escala-6x1-empresas.html" aria-label="Ler: Fim da escala 6x1, o que muda para quem emprega a partir de dezembro"></a>
+            <a class="post-card__link" href="../publicacoes/fim-da-escala-6x1-empresas.html" aria-label="Ler: Fim da escala 6x1: o que muda para quem emprega a partir de dezembro"></a>
             <div class="post-card__cover"><img src="../assets/cover-escala-6x1.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dra. Cecília Galvão · 03/11/2026</p>
@@ -346,7 +398,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="o-que-a-empresa-pode-exigir-do-funcionario.html" aria-label="Ler: O que a empresa pode e o que não pode exigir do funcionário"></a>
+            <a class="post-card__link" href="../publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html" aria-label="Ler: O que a empresa pode (e o que não pode) exigir do funcionário: 3 situações que ainda geram dúvidas"></a>
             <div class="post-card__cover"><img src="../assets/cover-trabalhista.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dra. Cecília Galvão · 10/08/2026</p>
@@ -355,7 +407,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="due-diligence.html" aria-label="Ler: Due Diligence"></a>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
             <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
@@ -407,6 +459,7 @@
   </a>
 
   <script src="../js/wa-tracking.js" defer></script>
+  <script src="../js/ebook.js" defer></script>
   <script src="../js/main.js" defer></script>
 </body>
 </html>

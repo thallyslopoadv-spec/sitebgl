@@ -42,6 +42,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -67,13 +69,29 @@
     "datePublished": "2025-11-26",
     "dateModified": "2025-11-26",
     "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Cecília Galvão", "identifier": "OAB/GO 72.929", "url": "https://www.bgladvogados.com.br/#equipe" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#cecilia-galvao",
+      "name": "Cecília Galvão",
+      "jobTitle": "Sócia-fundadora",
+      "identifier": "OAB/GO 72.929",
+      "url": "https://www.bgladvogados.com.br/advogados/cecilia-galvao/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" }
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/o-socio-morreu.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/o-socio-morreu.html"
+    },
+    "abstract": "Quando um sócio morre e a empresa não tem contrato social atualizado nem acordo de sócios, as decisões travam e surgem disputas com herdeiros, inventário e direitos sucessórios. Por isso, o contrato social deve definir com antecedência a transferência das quotas, quem pode assumir a administração e se a sociedade continua com os remanescentes ou liquida a parte do falecido. O acordo de sócios completa essa proteção com regras de sucessão e continuidade."
   }
   </script>
 
@@ -128,7 +146,7 @@
         <p class="kicker">Sucessão &amp; Estrutura</p>
         <h1>O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?</h1>
         <div class="article-meta">
-          <span>Dra. Cecília Galvão</span>
+          <a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2025-11-26">26 de novembro de 2025</time>
         </div>
@@ -137,6 +155,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>Quando um sócio morre e a empresa não tem contrato social atualizado nem acordo de sócios, as decisões travam e surgem disputas com herdeiros, inventário e direitos sucessórios. Por isso, o contrato social deve definir com antecedência a transferência das quotas, quem pode assumir a administração e se a sociedade continua com os remanescentes ou liquida a parte do falecido. O acordo de sócios completa essa proteção com regras de sucessão e continuidade.</p>
+        </aside>
+
         <p>Quando um dos sócios falece, a morte suspende decisões e abre espaço para conflitos que ninguém esperava — e que, muitas vezes, ninguém sabe administrar: a dor do luto, o desencontro de informações, as interferências externas.</p>
         <p>O falecimento de um sócio expõe o grande problema de muitas empresas: a falta de atualização do contrato social e a inexistência de um acordo de sócios que determine, sem margem para disputa, o que deve acontecer com a participação societária, a administração e a continuidade do negócio.</p>
         <blockquote aria-hidden="true"><p>Quando há um acordo bem-feito, a morte de um sócio, apesar de dolorosa, não é uma crise operacional.</p></blockquote>
@@ -155,12 +178,14 @@
         <p>Se existe algo inevitável na vida empresarial é que as pessoas mudam, se afastam, entram, saem — e, sim, um dia podem não estar mais aqui. A única forma de garantir que a empresa sobreviva a isso é tratar sucessão, regras internas e reestruturação societária como vitalidade do negócio, não como um papel desatualizado guardado na gaveta.</p>
         <p>Quem cuida da estrutura da sociedade hoje protege a empresa amanhã. Quem adia, deixa o patrimônio e o futuro empresarial nas mãos do improviso e de terceiros que não construíram, mas querem decidir.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-empresarial/">direito empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/cecilia-galvao.jpg" alt="Retrato da Dra. Cecília Galvão" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dra. Cecília Galvão</div>
+            <div class="name"><a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a></div>
             <div class="role">Sócia-fundadora · OAB/GO 72.929</div>
-            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico.</p>
+            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico. <a class="author-box__perfil" href="../advogados/cecilia-galvao/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -172,29 +197,29 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
-            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
+            <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
-              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
+              <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
+              <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
-            <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
-              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
+            <a class="post-card__link" href="../publicacoes/como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
             <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 28/10/2025</p>
               <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
+            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
+              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>

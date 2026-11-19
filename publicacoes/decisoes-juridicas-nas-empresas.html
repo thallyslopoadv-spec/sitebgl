@@ -42,6 +42,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -67,13 +69,29 @@
     "datePublished": "2025-10-14",
     "dateModified": "2025-10-14",
     "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Cecília Galvão", "identifier": "OAB/GO 72.929", "url": "https://www.bgladvogados.com.br/#equipe" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#cecilia-galvao",
+      "name": "Cecília Galvão",
+      "jobTitle": "Sócia-fundadora",
+      "identifier": "OAB/GO 72.929",
+      "url": "https://www.bgladvogados.com.br/advogados/cecilia-galvao/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" }
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/decisoes-juridicas-nas-empresas.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/decisoes-juridicas-nas-empresas.html"
+    },
+    "abstract": "As duas decisões jurídicas que sustentam uma empresa são proteger o diferencial do negócio e formalizar as relações com colaboradores, prestadores e parceiros. O diferencial pode ser protegido com acordos de confidencialidade e, em algumas empresas, com acordos de não concorrência. A formalização exige contratos claros que definam direitos, deveres e responsabilidades de cada parte, para evitar conflitos, passivos trabalhistas e prejuízos financeiros."
   }
   </script>
 
@@ -128,7 +146,7 @@
         <p class="kicker">Contratos &amp; Relações</p>
         <h1>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h1>
         <div class="article-meta">
-          <span>Dra. Cecília Galvão</span>
+          <a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2025-10-14">14 de outubro de 2025</time>
         </div>
@@ -137,6 +155,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>As duas decisões jurídicas que sustentam uma empresa são proteger o diferencial do negócio e formalizar as relações com colaboradores, prestadores e parceiros. O diferencial pode ser protegido com acordos de confidencialidade e, em algumas empresas, com acordos de não concorrência. A formalização exige contratos claros que definam direitos, deveres e responsabilidades de cada parte, para evitar conflitos, passivos trabalhistas e prejuízos financeiros.</p>
+        </aside>
+
         <p>Quem decide empreender aprende rápido que abrir uma empresa é só o primeiro passo. Depois vem o desafio de fazer tudo funcionar ao mesmo tempo: fechar vendas, cuidar do caixa, lidar com pessoas e resolver urgências. No meio dessa rotina acelerada, o que geralmente fica em segundo plano é justamente o que sustenta o crescimento, a base jurídica que mantém o negócio protegido e previsível.</p>
         <p>Muitos empresários só percebem isso quando o problema já bateu na porta. É o contrato que não foi revisado, o funcionário que abre uma reclamação, o sócio que muda de postura, o cliente que desaparece sem pagar. Situações que poderiam ter sido evitadas com uma estrutura mínima para dar segurança às decisões do dia a dia.</p>
         <blockquote aria-hidden="true"><p>Crescer sem base é arriscar o que ainda está sendo construído.</p></blockquote>
@@ -155,12 +178,14 @@
         <p>O que mantém um negócio saudável e em crescimento são as decisões jurídicas que protegem o que foi construído, garantem clareza nas relações e previnem riscos antes que eles apareçam. Crescer sem base é arriscar o que ainda está sendo construído. Crescer com respaldo jurídico é transformar oportunidades em resultados seguros e previsíveis.</p>
         <p>Na BGL, ajudamos empresários a enxergar e estruturar esses pontos críticos, para que cada decisão tomada hoje garanta segurança e estabilidade para o futuro do negócio.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-empresarial/">direito empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/cecilia-galvao.jpg" alt="Retrato da Dra. Cecília Galvão" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dra. Cecília Galvão</div>
+            <div class="name"><a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a></div>
             <div class="role">Sócia-fundadora · OAB/GO 72.929</div>
-            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico.</p>
+            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico. <a class="author-box__perfil" href="../advogados/cecilia-galvao/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -172,29 +197,29 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
-            <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
+            <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
-              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
+              <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
+              <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
-            <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dr. Thallys Lopo · 28/10/2025</p>
-              <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
+            <a class="post-card__link" href="../publicacoes/o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
             <div class="post-card__cover"><img src="../assets/cover-socio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dra. Cecília Galvão · 26/11/2025</p>
               <h3>O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
+            <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
+              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>

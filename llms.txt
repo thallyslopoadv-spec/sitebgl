@@ -1,0 +1,36 @@
+# BGL Advogados
+
+> Escritório de advocacia em Goiânia (GO), razão social Brito Galvão & Lopo Advogados, com atuação em Direito Civil, Direito Imobiliário, Trabalhista Empresarial (exclusivamente do lado do empregador) e Direito Empresarial (contratos e relações comerciais). O atendimento é conduzido diretamente pelos sócios Cecília Galvão (OAB/GO 72.929) e Thallys Lopo (OAB/GO 75.672).
+
+Endereço: Edifício Terra Office, Avenida C4, Quadra 49, Lote 1 a 14, Sala 1301-A, Jardim América, Goiânia/GO, CEP 74265-040. Telefone e WhatsApp: +55 62 99250-9988. E-mail: contato@bgladvogados.com.br. O conteúdo do site tem caráter informativo e não substitui a consulta jurídica.
+
+## Áreas de atuação
+
+- [Direito Civil](https://www.bgladvogados.com.br/direito-civel/): defesa em execução e embargos, desbloqueio de valores, cobrança, indenização e descumprimento de contratos.
+- [Direito Imobiliário](https://www.bgladvogados.com.br/direito-imobiliario/): contratos de compra e venda, atraso de obra, distrato, rescisão e restituição de valores pagos à construtora.
+- [Trabalhista Empresarial](https://www.bgladvogados.com.br/trabalhista-empresarial/): defesa de empresas em reclamações trabalhistas e auditoria trabalhista preventiva.
+- [Direito Empresarial](https://www.bgladvogados.com.br/direito-empresarial/): elaboração e revisão de contratos empresariais, parcerias, representação comercial, confidencialidade e não concorrência.
+
+## Sócios
+
+- [Cecília Galvão](https://www.bgladvogados.com.br/advogados/cecilia-galvao/): sócia-fundadora, OAB/GO 72.929. Direito Empresarial e Trabalhista Empresarial.
+- [Thallys Lopo](https://www.bgladvogados.com.br/advogados/thallys-lopo/): sócio-fundador, OAB/GO 75.672. Direito Civil e Imobiliário.
+
+## Publicações
+
+- [Bens penhorados na execução: o que ainda pode ser discutido](https://www.bgladvogados.com.br/publicacoes/bens-penhorados-na-execucao.html): Direito Civil, por Thallys Lopo. Depois de efetivada, a penhora ainda pode ser discutida em três frentes: o título que sustenta a execução, a penhorabilidade do bem específico e o excesso da constrição.
+- [Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?](https://www.bgladvogados.com.br/publicacoes/escala-6x1-padarias-bares-supermercados.html): Trabalhista Empresarial, por Cecília Galvão. A partir de 16 de dezembro de 2026, empregados de padarias, bares, restaurantes e supermercados passam a ter dois dias de descanso remunerado por semana, e o limite semanal cai de 44 para 42 horas, passando a 40 horas em dezembro de 2027.
+- [A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor](https://www.bgladvogados.com.br/publicacoes/construtora-rescindiu-contrato-saldo-devedor.html): Direito Imobiliário, por Thallys Lopo. Se o comprador pediu o saldo devedor e a construtora não informou, a falta de pagamento não pode ser atribuída a ele, e a rescisão passa a ser responsabilidade da construtora.
+- [Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?](https://www.bgladvogados.com.br/publicacoes/ja-assinei-o-distrato.html): Direito Imobiliário, por Thallys Lopo. Às vezes, sim: um distrato já assinado pode ser revisto, mesmo com cláusula de quitação, quando a construtora reteve parte desproporcional do valor pago, quando foi registrado como desistência embora a culpa fosse da construtora, quando previu condições de devolução que a lei não permite ou quando o comprador assinou sob pressão.
+- [Fim da escala 6x1: o que muda para quem emprega a partir de dezembro](https://www.bgladvogados.com.br/publicacoes/fim-da-escala-6x1-empresas.html): Trabalhista Empresarial, por Cecília Galvão. A partir de 16 de dezembro de 2026, nenhum empregado poderá exceder 42 horas semanais nem ter menos de dois dias de descanso remunerado por semana; em 16 de dezembro de 2027, o limite cai para 40 horas.
+- [O que a empresa pode (e o que não pode) exigir do funcionário: 3 situações que ainda geram dúvidas](https://www.bgladvogados.com.br/publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html): Trabalhista Empresarial, por Cecília Galvão. A empresa pode organizar a rotina, mas encontra limites em três situações: reuniões fora do expediente, trabalho em pé durante toda a jornada e mudança de horário não prevista no contrato.
+- [Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança](https://www.bgladvogados.com.br/publicacoes/due-diligence.html): Direito Empresarial, por Thallys Lopo. Em empresas de médio porte, a due diligence protege o crescimento ao analisar a situação jurídica, societária, trabalhista, fiscal, contratual e financeira do negócio para identificar riscos e passivos que possam comprometer a operação e o patrimônio dos sócios.
+- [O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?](https://www.bgladvogados.com.br/publicacoes/o-socio-morreu.html): Direito Empresarial, por Cecília Galvão. Quando um sócio morre e a empresa não tem contrato social atualizado nem acordo de sócios, as decisões travam e surgem disputas com herdeiros, inventário e direitos sucessórios.
+- [Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio](https://www.bgladvogados.com.br/publicacoes/como-formalizar-parcerias.html): Direito Empresarial, por Thallys Lopo. Para formalizar uma parceria sem perder o controle do negócio, o contrato deve definir quem faz o quê, critérios de qualidade, prazos, divisão de resultados, remuneração e até onde vai a obrigação de cada parceiro.
+- [Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial](https://www.bgladvogados.com.br/publicacoes/acordo-de-socios-empresas-familiares.html): Direito Empresarial, por Cecília Galvão. Nas empresas familiares, o acordo de sócios previne conflitos ao fixar regras para distribuição de lucros, entrada e saída de sócios, sucessão na gestão, resolução de impasses e políticas de investimento.
+- [2 Decisões Jurídicas que Mantêm uma Empresa Viva](https://www.bgladvogados.com.br/publicacoes/decisoes-juridicas-nas-empresas.html): Direito Empresarial, por Cecília Galvão. As duas decisões jurídicas que sustentam uma empresa são proteger o diferencial do negócio e formalizar as relações com colaboradores, prestadores e parceiros.
+
+## Outras páginas
+
+- [Página inicial](https://www.bgladvogados.com.br/)
+- [Todas as publicações](https://www.bgladvogados.com.br/publicacoes/)

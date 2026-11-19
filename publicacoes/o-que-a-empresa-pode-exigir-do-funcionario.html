@@ -50,6 +50,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -77,15 +79,29 @@
     "inLanguage": "pt-BR",
     "articleSection": "Direito do Trabalho",
     "keywords": "poder de direção do empregador, reunião fora do expediente, trabalhar em pé NR-17, mudança de horário de trabalho, jus variandi, rescisão indireta, passivo trabalhista",
-    "author": { "@type": "Person", "name": "Cecília Galvão", "jobTitle": "Advogada", "identifier": "OAB/GO 72.929" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#cecilia-galvao",
+      "name": "Cecília Galvão",
+      "jobTitle": "Sócia-fundadora",
+      "identifier": "OAB/GO 72.929",
+      "url": "https://www.bgladvogados.com.br/advogados/cecilia-galvao/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" },
-      "areaServed": "Goiânia, Goiás, Brasil",
-      "url": "https://www.bgladvogados.com.br/"
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html"
+    },
+    "abstract": "A empresa pode organizar a rotina, mas encontra limites em três situações: reuniões fora do expediente, trabalho em pé durante toda a jornada e mudança de horário não prevista no contrato. Reuniões de comparecimento esperado tendem a contar como jornada remunerada, e a NR-17 exige que o posto permita alternar entre sentado e em pé quando a atividade possibilitar. A mudança de horário só é válida se não prejudicar o empregado."
   }
   </script>
 
@@ -181,7 +197,7 @@
         <p class="kicker">Direito do Trabalho</p>
         <h1>O que a empresa pode (e o que não pode) exigir do funcionário: 3 situações que ainda geram dúvidas</h1>
         <div class="article-meta">
-          <span>Dra. Cecília Galvão</span>
+          <a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2026-08-10">10 de agosto de 2026</time>
         </div>
@@ -190,6 +206,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>A empresa pode organizar a rotina, mas encontra limites em três situações: reuniões fora do expediente, trabalho em pé durante toda a jornada e mudança de horário não prevista no contrato. Reuniões de comparecimento esperado tendem a contar como jornada remunerada, e a NR-17 exige que o posto permita alternar entre sentado e em pé quando a atividade possibilitar. A mudança de horário só é válida se não prejudicar o empregado.</p>
+        </aside>
+
         <p class="lead">Reuniões fora do expediente, permanência em pé durante toda a jornada e alteração do horário de trabalho são situações comuns nas empresas. Mas até onde vai o poder de direção do empregador? Neste artigo, explicamos o que diz a legislação trabalhista e quais cuidados devem ser observados por empresas e empregados.</p>
 
         <p>Toda empresa precisa de organização para funcionar. Definir horários, distribuir tarefas, estabelecer regras e acompanhar o desempenho da equipe fazem parte do poder de direção do empregador e são essenciais para a gestão do negócio. Da mesma forma, o empregado tem o dever de cumprir suas atividades conforme o contrato de trabalho e as orientações recebidas.</p>
@@ -245,12 +266,14 @@
           </details>
         </div>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../trabalhista-empresarial/">trabalhista empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/cecilia-galvao.jpg" alt="Retrato da Dra. Cecília Galvão" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dra. Cecília Galvão</div>
+            <div class="name"><a href="../advogados/cecilia-galvao/" rel="author">Dra. Cecília Galvão</a></div>
             <div class="role">Sócia-fundadora · OAB/GO 72.929</div>
-            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico.</p>
+            <p class="note">Atuação em Direito Empresarial e Trabalhista Empresarial, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO, pesquisadora do CNPq e Honra ao Mérito acadêmico. <a class="author-box__perfil" href="../advogados/cecilia-galvao/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -262,29 +285,29 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
+            <a class="post-card__link" href="../publicacoes/escala-6x1-padarias-bares-supermercados.html" aria-label="Ler: Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?"></a>
+            <div class="post-card__cover"><img src="../assets/cover-escala-6x1-comercio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 09/11/2026</p>
+              <h3>Fim da escala 6x1: o que muda para padarias, bares e supermercados a partir de 16 de dezembro?</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/fim-da-escala-6x1-empresas.html" aria-label="Ler: Fim da escala 6x1: o que muda para quem emprega a partir de dezembro"></a>
+            <div class="post-card__cover"><img src="../assets/cover-escala-6x1.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 03/11/2026</p>
+              <h3>Fim da escala 6x1: o que muda para quem emprega a partir de dezembro</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
             <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
               <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
-            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
-              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
-            <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dr. Thallys Lopo · 28/10/2025</p>
-              <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>

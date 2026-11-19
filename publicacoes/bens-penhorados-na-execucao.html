@@ -50,6 +50,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -65,15 +67,29 @@
     "inLanguage": "pt-BR",
     "articleSection": "Direito Civil",
     "keywords": "bens penhorados execução, defesa em execução, nulidade da execução, penhora de conta bancária, impenhorabilidade, excesso de penhora, advogado execução Goiânia",
-    "author": { "@type": "Person", "name": "Thallys Lopo", "jobTitle": "Advogado", "identifier": "OAB/GO 75.672" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#thallys-lopo",
+      "name": "Thallys Lopo",
+      "jobTitle": "Sócio-fundador",
+      "identifier": "OAB/GO 75.672",
+      "url": "https://www.bgladvogados.com.br/advogados/thallys-lopo/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" },
-      "areaServed": "Goiânia, Goiás, Brasil",
-      "url": "https://www.bgladvogados.com.br/"
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/bens-penhorados-na-execucao.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/bens-penhorados-na-execucao.html"
+    },
+    "abstract": "Depois de efetivada, a penhora ainda pode ser discutida em três frentes: o título que sustenta a execução, a penhorabilidade do bem específico e o excesso da constrição. O que encerra a discussão na prática não é a penhora, mas a transferência do dinheiro ou do bem ao credor. Entre esses dois momentos existe um intervalo definido em lei, e é nele que a verificação precisa acontecer."
   }
   </script>
 
@@ -161,7 +177,7 @@
         <p class="kicker">Direito Civil</p>
         <h1>Bens penhorados na execução: o que ainda pode ser discutido</h1>
         <div class="article-meta">
-          <span>Dr. Thallys Lopo</span>
+          <a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2026-11-11">11 de novembro de 2026</time>
         </div>
@@ -234,12 +250,14 @@
 
         <p class="note">Fonte: Código de Processo Civil (Lei 13.105/2015), artigos 798, 803, 833, 854 e 903, e Lei 8.009/1990.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-civel/">direito civil em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/thallys-lopo.jpg" alt="Retrato do Dr. Thallys Lopo" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dr. Thallys Lopo</div>
+            <div class="name"><a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a></div>
             <div class="role">Sócio-fundador · OAB/GO 75.672</div>
-            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO.</p>
+            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO. <a class="author-box__perfil" href="../advogados/thallys-lopo/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -251,7 +269,7 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="construtora-rescindiu-contrato-saldo-devedor.html" aria-label="Ler: A construtora rescindiu meu contrato sem informar o saldo devedor"></a>
+            <a class="post-card__link" href="../publicacoes/construtora-rescindiu-contrato-saldo-devedor.html" aria-label="Ler: A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor"></a>
             <div class="post-card__cover"><img src="../assets/cover-construtora-saldo-devedor.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 06/11/2026</p>
@@ -260,7 +278,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="ja-assinei-o-distrato.html" aria-label="Ler: Já assinei o distrato"></a>
+            <a class="post-card__link" href="../publicacoes/ja-assinei-o-distrato.html" aria-label="Ler: Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?"></a>
             <div class="post-card__cover"><img src="../assets/cover-distrato-assinado.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 05/11/2026</p>
@@ -269,7 +287,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="due-diligence.html" aria-label="Ler: Due Diligence"></a>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
             <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>

@@ -42,6 +42,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -67,13 +69,29 @@
     "datePublished": "2026-02-02",
     "dateModified": "2026-02-02",
     "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Thallys Lopo", "identifier": "OAB/GO 75.672", "url": "https://www.bgladvogados.com.br/#equipe" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#thallys-lopo",
+      "name": "Thallys Lopo",
+      "jobTitle": "Sócio-fundador",
+      "identifier": "OAB/GO 75.672",
+      "url": "https://www.bgladvogados.com.br/advogados/thallys-lopo/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" }
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/due-diligence.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/due-diligence.html"
+    },
+    "abstract": "Em empresas de médio porte, a due diligence protege o crescimento ao analisar a situação jurídica, societária, trabalhista, fiscal, contratual e financeira do negócio para identificar riscos e passivos que possam comprometer a operação e o patrimônio dos sócios. Ela não serve apenas para vender empresas e se torna indispensável na entrada ou saída de sócios, na busca por investidores e na expansão. Os riscos identificados podem ser corrigidos de forma preventiva."
   }
   </script>
 
@@ -128,7 +146,7 @@
         <p class="kicker">Due Diligence</p>
         <h1>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h1>
         <div class="article-meta">
-          <span>Dr. Thallys Lopo</span>
+          <a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2026-02-02">02 de fevereiro de 2026</time>
         </div>
@@ -137,6 +155,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>Em empresas de médio porte, a due diligence protege o crescimento ao analisar a situação jurídica, societária, trabalhista, fiscal, contratual e financeira do negócio para identificar riscos e passivos que possam comprometer a operação e o patrimônio dos sócios. Ela não serve apenas para vender empresas e se torna indispensável na entrada ou saída de sócios, na busca por investidores e na expansão. Os riscos identificados podem ser corrigidos de forma preventiva.</p>
+        </aside>
+
         <p>O crescimento de uma empresa costuma ser comemorado quando o faturamento aumenta, novos contratos surgem e a operação se torna mais robusta. No entanto, é justamente nesse momento que muitos empresários percebem que a estrutura jurídica do negócio não acompanhou a velocidade da expansão.</p>
         <p>É comum que empresas de médio porte cheguem a um ponto em que decisões estratégicas passam a depender de informações que não estão organizadas: contratos antigos que ninguém sabe exatamente onde estão, combinações societárias feitas “no aperto”, prestadores de serviço que atuam como empregados e questões regulatórias que ficaram para depois. Esses detalhes — muitas vezes invisíveis no dia a dia — representam riscos relevantes para o crescimento do negócio.</p>
         <blockquote aria-hidden="true"><p>Empresas que crescem sem realizar uma due diligence jurídica acumulam riscos silenciosos.</p></blockquote>
@@ -156,12 +179,14 @@
         <p>Para pequenas e médias empresas, a due diligence não deve ser encarada como custo, mas como investimento na longevidade do negócio. Ela permite identificar antecipadamente riscos que, se ignorados, podem comprometer a operação, gerar prejuízos financeiros relevantes e afetar diretamente o patrimônio dos sócios.</p>
         <p>Na BGL Advogados, auxiliamos empresários a mapear riscos, organizar suas estruturas e preparar suas empresas para decisões relevantes — sempre com foco em segurança jurídica, previsibilidade e crescimento sustentável.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-empresarial/">direito empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/thallys-lopo.jpg" alt="Retrato do Dr. Thallys Lopo" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dr. Thallys Lopo</div>
+            <div class="name"><a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a></div>
             <div class="role">Sócio-fundador · OAB/GO 75.672</div>
-            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO.</p>
+            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO. <a class="author-box__perfil" href="../advogados/thallys-lopo/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -173,29 +198,29 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
-            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <a class="post-card__link" href="../publicacoes/o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
+            <div class="post-card__cover"><img src="../assets/cover-socio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
-              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
+              <p class="post-card__meta">Dra. Cecília Galvão · 26/11/2025</p>
+              <h3>O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
-            <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
-              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
+            <a class="post-card__link" href="../publicacoes/como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
             <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 28/10/2025</p>
               <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
+            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
+              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>

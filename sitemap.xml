@@ -2,31 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.bgladvogados.com.br/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/trabalhista-empresarial/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/direito-imobiliario/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/direito-civel/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/direito-empresarial/</loc>
-    <lastmod>2026-11-01</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -38,68 +38,80 @@
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/decisoes-juridicas-nas-empresas.html</loc>
-    <lastmod>2025-10-14</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/acordo-de-socios-empresas-familiares.html</loc>
-    <lastmod>2025-10-23</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/como-formalizar-parcerias.html</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/o-socio-morreu.html</loc>
-    <lastmod>2025-11-26</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/due-diligence.html</loc>
-    <lastmod>2026-02-02</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/o-que-a-empresa-pode-exigir-do-funcionario.html</loc>
-    <lastmod>2026-08-10</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/bens-penhorados-na-execucao.html</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/escala-6x1-padarias-bares-supermercados.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/fim-da-escala-6x1-empresas.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/ja-assinei-o-distrato.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.bgladvogados.com.br/publicacoes/construtora-rescindiu-contrato-saldo-devedor.html</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.bgladvogados.com.br/advogados/cecilia-galvao/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.bgladvogados.com.br/advogados/thallys-lopo/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

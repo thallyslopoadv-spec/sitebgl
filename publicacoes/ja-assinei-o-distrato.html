@@ -50,6 +50,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -65,15 +67,29 @@
     "inLanguage": "pt-BR",
     "articleSection": "Direito Imobiliário",
     "keywords": "já assinei o distrato, revisão de distrato, retenção abusiva, devolução de valores pela construtora, advogado imobiliário Goiânia",
-    "author": { "@type": "Person", "name": "Thallys Lopo", "jobTitle": "Advogado", "identifier": "OAB/GO 75.672" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#thallys-lopo",
+      "name": "Thallys Lopo",
+      "jobTitle": "Sócio-fundador",
+      "identifier": "OAB/GO 75.672",
+      "url": "https://www.bgladvogados.com.br/advogados/thallys-lopo/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" },
-      "areaServed": "Goiânia, Goiás, Brasil",
-      "url": "https://www.bgladvogados.com.br/"
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/ja-assinei-o-distrato.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/ja-assinei-o-distrato.html"
+    },
+    "abstract": "Às vezes, sim: um distrato já assinado pode ser revisto, mesmo com cláusula de quitação, quando a construtora reteve parte desproporcional do valor pago, quando foi registrado como desistência embora a culpa fosse da construtora, quando previu condições de devolução que a lei não permite ou quando o comprador assinou sob pressão. Distratos que respeitaram a lei, em regra, devem ser mantidos. Os prazos para pedir a revisão variam conforme o motivo."
   }
   </script>
 
@@ -161,7 +177,7 @@
         <p class="kicker">Direito Imobiliário</p>
         <h1>Já assinei o distrato. Ainda dá para recuperar o que a construtora reteve?</h1>
         <div class="article-meta">
-          <span>Dr. Thallys Lopo</span>
+          <a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2026-11-05">5 de novembro de 2026</time>
         </div>
@@ -206,12 +222,14 @@
           </details>
         </div>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-imobiliario/">direito imobiliário em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/thallys-lopo.jpg" alt="Retrato do Dr. Thallys Lopo" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dr. Thallys Lopo</div>
+            <div class="name"><a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a></div>
             <div class="role">Sócio-fundador · OAB/GO 75.672</div>
-            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC Goiás.</p>
+            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC Goiás. <a class="author-box__perfil" href="../advogados/thallys-lopo/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -223,7 +241,7 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="construtora-rescindiu-contrato-saldo-devedor.html" aria-label="Ler: A construtora rescindiu meu contrato sem informar o saldo devedor"></a>
+            <a class="post-card__link" href="../publicacoes/construtora-rescindiu-contrato-saldo-devedor.html" aria-label="Ler: A construtora rescindiu meu contrato por falta de pagamento, mas nunca me informou o saldo devedor"></a>
             <div class="post-card__cover"><img src="../assets/cover-construtora-saldo-devedor.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 06/11/2026</p>
@@ -232,7 +250,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="due-diligence.html" aria-label="Ler: Due Diligence"></a>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
             <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
@@ -241,7 +259,7 @@
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="o-socio-morreu.html" aria-label="Ler: O Sócio Morreu"></a>
+            <a class="post-card__link" href="../publicacoes/o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
             <div class="post-card__cover"><img src="../assets/cover-socio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dra. Cecília Galvão · 26/11/2025</p>

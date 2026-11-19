@@ -42,6 +42,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -67,13 +69,29 @@
     "datePublished": "2025-10-28",
     "dateModified": "2025-10-28",
     "inLanguage": "pt-BR",
-    "author": { "@type": "Person", "name": "Thallys Lopo", "identifier": "OAB/GO 75.672", "url": "https://www.bgladvogados.com.br/#equipe" },
+    "author": {
+      "@type": "Person",
+      "@id": "https://www.bgladvogados.com.br/#thallys-lopo",
+      "name": "Thallys Lopo",
+      "jobTitle": "Sócio-fundador",
+      "identifier": "OAB/GO 75.672",
+      "url": "https://www.bgladvogados.com.br/advogados/thallys-lopo/"
+    },
     "publisher": {
       "@type": "LegalService",
+      "@id": "https://www.bgladvogados.com.br/#legalservice",
       "name": "BGL Advogados",
-      "logo": { "@type": "ImageObject", "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png" }
+      "url": "https://www.bgladvogados.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.bgladvogados.com.br/assets/logo-bgl.png"
+      }
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.bgladvogados.com.br/publicacoes/como-formalizar-parcerias.html" }
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.bgladvogados.com.br/publicacoes/como-formalizar-parcerias.html"
+    },
+    "abstract": "Para formalizar uma parceria sem perder o controle do negócio, o contrato deve definir quem faz o quê, critérios de qualidade, prazos, divisão de resultados, remuneração e até onde vai a obrigação de cada parceiro. Também deve proteger informações e know-how com cláusulas de confidencialidade e de não concorrência. E deve prever a forma de decisão, a saída de um parceiro e mecanismos de resolução de impasses, como mediação ou arbitragem."
   }
   </script>
 
@@ -128,7 +146,7 @@
         <p class="kicker">Contratos de Parceria</p>
         <h1>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h1>
         <div class="article-meta">
-          <span>Dr. Thallys Lopo</span>
+          <a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a>
           <span class="dot" aria-hidden="true"></span>
           <time datetime="2025-10-28">28 de outubro de 2025</time>
         </div>
@@ -137,6 +155,11 @@
 
     <article class="article-body">
       <div class="container--narrow">
+        <aside class="article-summary" aria-label="Em resumo">
+          <p class="article-summary__label">Em resumo</p>
+          <p>Para formalizar uma parceria sem perder o controle do negócio, o contrato deve definir quem faz o quê, critérios de qualidade, prazos, divisão de resultados, remuneração e até onde vai a obrigação de cada parceiro. Também deve proteger informações e know-how com cláusulas de confidencialidade e de não concorrência. E deve prever a forma de decisão, a saída de um parceiro e mecanismos de resolução de impasses, como mediação ou arbitragem.</p>
+        </aside>
+
         <p>No mundo dos negócios, ninguém cresce sozinho. Parcerias são essenciais — seja com fornecedores, prestadores de serviço ou outros profissionais. Imagine fechar uma parceria para fornecer um serviço essencial ao seu negócio e, de repente, atrasos e falhas começam a comprometer suas operações. O que parecia uma oportunidade segura se transforma em retrabalho, desgaste e prejuízo financeiro. Essa é a realidade de muitos empresários que ainda não formalizaram suas parcerias de forma estruturada.</p>
         <h2>Defina expectativas e responsabilidades</h2>
         <blockquote aria-hidden="true"><p>No mundo dos negócios, ninguém cresce sozinho.</p></blockquote>
@@ -155,12 +178,14 @@
 
         <p>Quando o contrato já foi descumprido, a análise passa a ser outra. Nesses casos, veja a nossa <a href="../direito-civel/">atuação em Direito Civil</a>.</p>
 
+        <p class="article-area">Saiba como a BGL atua em <a href="../direito-empresarial/">direito empresarial em Goiânia</a>.</p>
+
         <div class="author-box">
           <img src="../assets/thallys-lopo.jpg" alt="Retrato do Dr. Thallys Lopo" width="84" height="84" loading="lazy">
           <div>
-            <div class="name">Dr. Thallys Lopo</div>
+            <div class="name"><a href="../advogados/thallys-lopo/" rel="author">Dr. Thallys Lopo</a></div>
             <div class="role">Sócio-fundador · OAB/GO 75.672</div>
-            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO.</p>
+            <p class="note">Atuação em Direito Civil e Imobiliário, nos âmbitos consultivo e contencioso. Bacharel em Direito pela PUC/GO. <a class="author-box__perfil" href="../advogados/thallys-lopo/">Ver perfil completo</a></p>
           </div>
         </div>
       </div>
@@ -172,29 +197,29 @@
         <h2>Leia também</h2>
         <div class="related__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
-            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <a class="post-card__link" href="../publicacoes/due-diligence.html" aria-label="Ler: Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança"></a>
+            <div class="post-card__cover"><img src="../assets/cover-duediligence.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
-              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
+              <p class="post-card__meta">Dr. Thallys Lopo · 02/02/2026</p>
+              <h3>Due Diligence: a Análise que Protege Empresas de Médio Porte para Crescer com Segurança</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
-            <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
-            <div class="post-card__body">
-              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
-              <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
-              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            </div>
-          </article>
-          <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
+            <a class="post-card__link" href="../publicacoes/o-socio-morreu.html" aria-label="Ler: O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?"></a>
             <div class="post-card__cover"><img src="../assets/cover-socio.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
               <p class="post-card__meta">Dra. Cecília Galvão · 26/11/2025</p>
               <h3>O Sócio Morreu. O que Acontece quando Ninguém Preparou a Empresa para Isso?</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom">
+            <a class="post-card__link" href="../publicacoes/decisoes-juridicas-nas-empresas.html" aria-label="Ler: 2 Decisões Jurídicas que Mantêm uma Empresa Viva"></a>
+            <div class="post-card__cover"><img src="../assets/cover-decisoes.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dra. Cecília Galvão · 14/10/2025</p>
+              <h3>2 Decisões Jurídicas que Mantêm uma Empresa Viva</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>

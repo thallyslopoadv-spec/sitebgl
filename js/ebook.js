@@ -42,7 +42,7 @@
     return o;
   }
 
-  /* Mesma referencia de visita do main.js: cruza a planilha com a conversa. */
+  /* Mesma referencia de visita do js/wa-tracking.js: cruza a planilha com a conversa. */
   function referencia() {
     try {
       var r = window.sessionStorage.getItem("bgl_ref_visita");

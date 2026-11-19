@@ -1,5 +1,6 @@
 {
   "descricao": "Registro das publicacoes do blog da BGL. A tarefa agendada le este arquivo para saber qual dupla de areas foi publicada por ultimo, qual area vem a seguir e quais artigos da pasta do Drive ja foram publicados. Toda publicacao nova deve acrescentar uma entrada ao final de publicacoes.",
+  "padrao_artigo": "publicacoes/_padrao-artigo.md: padrao obrigatorio de cada artigo novo (autoria ligada ao perfil, resumo, link para a area, relacionados, sitemap, llms.txt e aviso ao IndexNow). Ler antes de publicar.",
   "duplas": {
     "A": {
       "manha": "imobiliario",

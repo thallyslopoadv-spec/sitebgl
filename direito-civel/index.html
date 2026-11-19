@@ -51,6 +51,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+    /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+    try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
     gtag('config', 'G-92B1N6DHGM');
   </script>
 
@@ -493,19 +495,28 @@
         </div>
         <div class="posts__grid">
           <article class="post-card reveal" data-anim="zoom">
-            <a class="post-card__link" href="../publicacoes/como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
-            <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <a class="post-card__link" href="../publicacoes/bens-penhorados-na-execucao.html" aria-label="Ler: Bens penhorados na execução: o que ainda pode ser discutido"></a>
+            <div class="post-card__cover"><img src="../assets/cover-bens-penhorados-na-execucao.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Thallys Lopo · 28/10/2025</p>
-              <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
+              <p class="post-card__meta">Dr. Thallys Lopo · 11/11/2026</p>
+              <h3>Bens penhorados na execução: o que ainda pode ser discutido</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>
           </article>
           <article class="post-card reveal" data-anim="zoom" data-delay="1">
+            <a class="post-card__link" href="../publicacoes/como-formalizar-parcerias.html" aria-label="Ler: Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio"></a>
+            <div class="post-card__cover"><img src="../assets/cover-parcerias.jpg" alt="" width="1200" height="675" loading="lazy"></div>
+            <div class="post-card__body">
+              <p class="post-card__meta">Dr. Thallys Lopo · 28/10/2025</p>
+              <h3>Como Formalizar Parcerias sem Abrir Mão do Controle do Seu Negócio</h3>
+              <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </div>
+          </article>
+          <article class="post-card reveal" data-anim="zoom" data-delay="2">
             <a class="post-card__link" href="../publicacoes/acordo-de-socios-empresas-familiares.html" aria-label="Ler: Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial"></a>
             <div class="post-card__cover"><img src="../assets/cover-acordo.jpg" alt="" width="1200" height="675" loading="lazy"></div>
             <div class="post-card__body">
-              <p class="post-card__meta">Cecília B. Galvão · 23/10/2025</p>
+              <p class="post-card__meta">Dra. Cecília Galvão · 23/10/2025</p>
               <h3>Acordo de Sócios nas Empresas Familiares como Prevenção de Conflitos e Proteção Patrimonial</h3>
               <span class="post-card__more">Ler artigo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             </div>

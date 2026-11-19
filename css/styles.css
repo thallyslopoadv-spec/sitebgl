@@ -2018,3 +2018,48 @@ html:not(.js) .pub-filter { display: none; }
   .ebook__form, .ebook__ok { grid-template-columns: 1fr; padding: 1.3rem 1.25rem 1.5rem; }
   .ebook .btn { width: 100%; justify-content: center; }
 }
+
+/* ==========================================================================
+   Visibilidade orgânica (nov/2026): resumo do artigo, autoria e perfis
+   ========================================================================== */
+
+/* "Em resumo": resposta direta no topo do artigo (trecho citável) */
+.article-summary {
+  background: var(--cream); border: 1px solid var(--cream-dim);
+  border-left: 3px solid var(--navy);
+  border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 0 0 2.4rem;
+}
+.article-body .article-summary p { font-size: 1.02rem; line-height: 1.65; color: var(--ink); margin: 0; text-align: left; hyphens: manual; }
+.article-body .article-summary p.article-summary__label {
+  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--silver-dark); margin-bottom: .45rem;
+}
+.article-body .article-summary p::first-letter { font-size: inherit; float: none; padding: 0; color: inherit; font-family: inherit; font-weight: inherit; }
+
+/* assinatura e box do autor levam ao perfil */
+.article-meta a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(201, 207, 217, .45); }
+.article-meta a:hover { color: #fff; border-bottom-color: currentColor; }
+.author-box .name a { color: inherit; text-decoration: none; }
+.author-box .name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.article-body .author-box .note a.author-box__perfil { font-weight: 600; color: var(--navy); }
+
+/* link para a página da área, ao fim do texto */
+.article-body p.article-area { font-size: 1rem; color: var(--ink-soft); border-top: 1px solid var(--cream-dim); padding-top: 1.2rem; margin-top: 2.4rem; text-align: left; }
+
+/* perfil profissional dos sócios */
+.profile { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(1.8rem, 4vw, 3.2rem); align-items: start; }
+.profile__photo { background: var(--navy); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
+.profile__photo img { display: block; width: 100%; height: auto; object-fit: cover; object-position: center top; }
+.profile__body .eyebrow { color: var(--silver-dark); display: inline-block; margin-bottom: .8rem; }
+.profile__subtitle { font-size: 1.3rem; color: var(--navy); margin: 1.8rem 0 .8rem; }
+.profile__areas a { color: inherit; text-decoration: none; }
+.profile__areas a:hover { text-decoration: underline; }
+.profile__links { display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; margin-top: .4rem; }
+.pillar-prose .profile__links a { border-bottom: 0; text-decoration: none; }
+@media (max-width: 760px) {
+  .profile { grid-template-columns: minmax(0, 1fr); }
+  .profile__photo { max-width: 300px; }
+}
+
+/* link "Ver perfil" nos cards de sócios da home */
+.partner__perfil { display: inline-block; font-size: .88rem; font-weight: 600; color: var(--navy); margin-right: 1rem; }

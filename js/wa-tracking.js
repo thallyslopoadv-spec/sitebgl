@@ -50,6 +50,34 @@
     return t.slice(0, 100);
   }
 
+  /* Referência da visita: o mesmo código que o formulário do Guia grava na
+     planilha (js/ebook.js). Vai na mensagem do WhatsApp para o escritório
+     saber que a conversa veio do site e de qual página. Não identifica a
+     pessoa: é um código aleatório por aba, que some ao fechá-la. */
+  function referencia() {
+    try {
+      var r = window.sessionStorage.getItem("bgl_ref_visita");
+      if (r) return r;
+      r = "BGL-" + Date.now().toString(36).slice(-4).toUpperCase() + Math.floor(Math.random() * 36).toString(36).toUpperCase();
+      window.sessionStorage.setItem("bgl_ref_visita", r);
+      return r;
+    } catch (e) { return "BGL-" + Date.now().toString(36).slice(-5).toUpperCase(); }
+  }
+  window.bglReferencia = referencia;
+
+  /* Links sem mensagem própria ganham uma mensagem pré-preenchida com a
+     página de origem e a referência. Links que já trazem ?text= (home,
+     páginas de área, landing pages, Guia) ficam como estão. */
+  function preencherMensagem(link, url) {
+    if (url.searchParams.has("text")) return;
+    var pagina = (document.title || "").split(" | ")[0].split(" — ")[0].trim().slice(0, 90);
+    var msg = "Olá! Vim pelo site da BGL" + (pagina ? " (página: " + pagina + ")" : "") + ". Ref.: " + referencia();
+    /* encodeURIComponent (espaço como %20): o "+" de URLSearchParams nem
+       sempre é lido como espaço pelo WhatsApp. */
+    var base = url.href.split("#")[0];
+    link.href = base + (url.search ? "&" : "?") + "text=" + encodeURIComponent(msg);
+  }
+
   /* Um único evento por abertura do WhatsApp, venha ela do clique no link
      ou da chamada que as landing pages fazem no fim do funil. Nas LPs o
      botão é um <a> do WhatsApp E chama a função: sem esta janela, o mesmo
@@ -73,6 +101,7 @@
       page_title: document.title
     };
     if (info.texto) params.link_text = info.texto;
+    params.ref_visita = referencia();
     window.gtag("event", "whatsapp_click", params);
   }
 
@@ -94,6 +123,7 @@
     if (link === ultimoClique.el && agora - ultimoClique.t < 350) return;
     ultimoClique = { el: link, t: agora };
 
+    preencherMensagem(link, url);
     registrarWhatsApp({ posicao: posicaoDoLink(link), texto: textoSeguro(link) });
 
     /* Conversão do Google Ads: ativar quando o rótulo for confirmado para o
