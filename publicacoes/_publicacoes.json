@@ -132,7 +132,7 @@
       "slug": "notificacao-justica-do-trabalho-empresa",
       "titulo": "Chegou notificação da Justiça do Trabalho: o que a empresa faz nos primeiros dias",
       "origem": "Artigo_Notificacao_Justica_Trabalho (1).docx",
-      "observacao": "Artigo novo enviado ao Drive em 19/11/2026 e indicado pelo escritorio durante a execucao; nao constava da fila, entao nada foi removido dela. Dupla A a tarde corresponde a trabalhista, que era a area prevista: nao houve substituicao e a alternancia segue normal. A fila de trabalhista continua apenas com o item pendente de revisao do escritorio. Capa gerada por codigo (scripts/gerar-capa.py trabalhista, semente 1119): nao ha imagem correspondente na pasta Capas dos artigos."
+      "observacao": "Artigo novo enviado ao Drive em 19/11/2026 e indicado pelo escritorio durante a execucao; nao constava da fila, entao nada foi removido dela. Dupla A a tarde corresponde a trabalhista, que era a area prevista: nao houve substituicao e a alternancia segue normal. A fila de trabalhista continua apenas com o item pendente de revisao do escritorio. Capa: 'artigo agora.jpg', enviada pelo escritorio a pasta Capas dos artigos em 19/11/2026 e indicada durante a execucao; recortada de 6000x4000 para 1200x675. Sem indicacao de banco de imagem no nome e sem autoria nos metadados, entao nao foi incluida linha de credito. Substituiu a capa que havia sido gerada por codigo."
     }
   ],
   "fila": {
