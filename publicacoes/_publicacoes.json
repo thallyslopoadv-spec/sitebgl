@@ -123,6 +123,16 @@
       "titulo": "Bens penhorados na execução: o que ainda pode ser discutido",
       "origem": "Artigo_Bens_Penhorados_Execucao.docx",
       "observacao": "substituicao: a fila de empresarial, area prevista da dupla B a tarde, esta vazia. Artigo novo enviado ao Drive e indicado pelo escritorio; nao constava da fila. Assinado pelo Dr. Thallys Lopo por indicacao expressa do documento, embora civil seja area da Dra. Cecilia na regra geral. Capa: oi.jpg, da pasta Capas dos artigos, sem marca d'agua e sem autoria nos metadados."
+    },
+    {
+      "data": "2026-11-19",
+      "turno": "tarde",
+      "dupla": "A",
+      "area": "trabalhista",
+      "slug": "notificacao-justica-do-trabalho-empresa",
+      "titulo": "Chegou notificação da Justiça do Trabalho: o que a empresa faz nos primeiros dias",
+      "origem": "Artigo_Notificacao_Justica_Trabalho (1).docx",
+      "observacao": "Artigo novo enviado ao Drive em 19/11/2026 e indicado pelo escritorio durante a execucao; nao constava da fila, entao nada foi removido dela. Dupla A a tarde corresponde a trabalhista, que era a area prevista: nao houve substituicao e a alternancia segue normal. A fila de trabalhista continua apenas com o item pendente de revisao do escritorio. Capa: 'artigo agora.jpg', enviada pelo escritorio a pasta Capas dos artigos em 19/11/2026 e indicada durante a execucao; recortada de 6000x4000 para 1200x675. Sem indicacao de banco de imagem no nome e sem autoria nos metadados, entao nao foi incluida linha de credito. Substituiu a capa que havia sido gerada por codigo."
     }
   ],
   "fila": {
