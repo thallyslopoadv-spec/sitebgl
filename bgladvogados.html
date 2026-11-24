@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGL Advogados | Links</title>
+<meta name="description" content="Links da BGL Advogados, escritório de advocacia em Goiânia: atendimento no WhatsApp, endereço do escritório, artigos publicados e site oficial.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://www.bgladvogados.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="BGL Advogados">
+<meta property="og:title" content="BGL Advogados | Advocacia em Goiânia">
+<meta property="og:description" content="Atendimento no WhatsApp, endereço do escritório, artigos publicados e site oficial.">
+<meta property="og:url" content="https://www.bgladvogados.com.br/bgladvogados">
+<meta property="og:image" content="https://www.bgladvogados.com.br/assets/office-hero.jpg">
+<meta property="og:image:alt" content="Sala de reunião do escritório da BGL Advogados em Goiânia">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BGL Advogados | Advocacia em Goiânia">
+<meta name="twitter:description" content="Atendimento no WhatsApp, endereço do escritório, artigos publicados e site oficial.">
+<meta name="twitter:image" content="https://www.bgladvogados.com.br/assets/office-hero.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#070c17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #070c17;
+    --paper: #f3eee3;
+    --muted: rgba(243,238,227,0.62);
+    --champagne: #a9c6d8;
+    --glass-fill: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+    --glass-border: rgba(255,255,255,0.14);
+    --glass-shadow: 0 14px 40px rgba(0,0,0,0.4);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ background: var(--bg); }
+
+  body{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    min-height: 100vh;
+  }
+
+  .mesh{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .blob{ position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.55; }
+  .blob.b1{ width: 340px; height: 340px; top: -80px; left: -60px;
+    background: radial-gradient(circle, rgba(169,198,216,0.55), transparent 70%); }
+  .blob.b2{ width: 380px; height: 380px; top: 260px; right: -120px;
+    background: radial-gradient(circle, rgba(46,110,125,0.5), transparent 70%); }
+  .blob.b3{ width: 320px; height: 320px; bottom: 220px; left: -100px;
+    background: radial-gradient(circle, rgba(107,74,118,0.45), transparent 70%); }
+  .blob.b4{ width: 300px; height: 300px; bottom: -140px; right: -60px;
+    background: radial-gradient(circle, rgba(58,90,140,0.4), transparent 70%); }
+
+  .page{
+    position: relative;
+    z-index: 1;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 26px 20px 34px;
+  }
+
+  /* HERO */
+  .hero-card{
+    position: relative;
+    margin: -26px -20px 0;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--glass-fill);
+  }
+
+  .photo-area{
+    position: relative;
+    height: 62vh;
+    min-height: 440px;
+    max-height: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(150deg, rgba(169,198,216,0.10), rgba(46,110,125,0.10));
+  }
+
+  .photo-icon{ width: 72px; height: 72px; opacity: 0.26; }
+
+  .hero-photo{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    display: block;
+  }
+
+  .photo-note{
+    position: absolute;
+    top: 16px; left: 0; right: 0;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(243,238,227,0.32);
+  }
+
+  .hero-caption{
+    padding: 24px 22px 26px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    background: linear-gradient(180deg, rgba(7,12,23,0.10), rgba(7,12,23,0.6));
+    text-align: center;
+  }
+
+  .hero-tag{
+    display: inline-flex;
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(169,198,216,0.4);
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--champagne);
+    margin-bottom: 12px;
+  }
+
+  .hero-name{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 32px;
+    color: var(--paper);
+    line-height: 1.1;
+  }
+
+  /* BIO */
+  .bio{
+    padding: 24px 10px 4px;
+    text-align: center;
+  }
+
+  .bio p{
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .bio p.line-2{
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 4px;
+  }
+
+  /* CHIPS DE ATUAÇÃO */
+  .chips{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 18px 10px 0;
+  }
+
+  .chip{
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(243,238,227,0.72);
+    padding: 6px 13px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .ornament{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 24px 0;
+  }
+
+  .ornament .line{ width: 28px; height: 1px; background: rgba(169,198,216,0.35); }
+  .ornament .dot{ width: 4px; height: 4px; border-radius: 50%; background: var(--champagne); opacity: 0.7; }
+
+  /* LINKS */
+  .links{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .link-card{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .link-card:hover{ border-color: rgba(169,198,216,0.5); transform: translateY(-1px); }
+
+  .link-text{ display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+
+  .link-eyebrow{
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--champagne);
+  }
+
+  .link-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 17px;
+    color: var(--paper);
+  }
+
+  .link-sub{
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .link-thumb{
+    width: 74px;
+    height: 74px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: linear-gradient(150deg, rgba(169,198,216,0.14), rgba(46,110,125,0.14));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .link-thumb svg{ width: 30px; height: 30px; opacity: 0.4; }
+
+  .link-thumb-img.logo{ object-fit: contain; padding: 12px; }
+
+  .link-thumb-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* FOOTER */
+  footer{ margin-top: 30px; text-align: center; }
+
+  .signature{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 13px;
+    color: rgba(243,238,227,0.5);
+    margin-bottom: 6px;
+  }
+
+  .copyright{
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: rgba(243,238,227,0.24);
+  }
+
+</style>
+
+<!-- Google Analytics 4 (propriedade BGL Advogados, ID do fluxo 15415223181) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-92B1N6DHGM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
+  try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
+  gtag('config', 'G-92B1N6DHGM');
+</script>
+</head>
+<body>
+
+<div class="mesh">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<div class="page">
+
+  <div class="hero-card">
+    <div class="photo-area">
+      <img src="assets/office-hero.jpg" alt="Sala de reunião do escritório da BGL Advogados em Goiânia" class="hero-photo" width="1200" height="1800" fetchpriority="high">
+    </div>
+    <div class="hero-caption">
+      <div class="hero-tag">Escritório de Advocacia</div>
+      <h1 class="hero-name" style="margin:0;font-weight:inherit">BGL Advogados</h1>
+    </div>
+  </div>
+
+  <div class="bio">
+    <p>Brito Galvão &amp; Lopo Advogados</p>
+    <p class="line-2">Advocacia em Goiânia/GO</p>
+  </div>
+
+  <div class="ornament"><span class="line"></span><span class="dot"></span><span class="line"></span></div>
+
+  <div class="links">
+
+    <a class="link-card" href="https://wa.me/5562992509988" target="_blank" rel="noopener">
+      <div class="link-text">
+        <span class="link-eyebrow">Fale Conosco</span>
+        <span class="link-title">Atendimento no WhatsApp</span>
+      </div>
+      <div class="link-thumb"><img src="assets/gallery-reuniao.jpg" alt="Sala de reunião da BGL Advogados" class="link-thumb-img" loading="lazy"></div>
+    </a>
+
+    <a class="link-card" href="https://www.google.com/maps/search/?api=1&amp;query=-16.695603,-49.291391" target="_blank" rel="noopener">
+      <div class="link-text">
+        <span class="link-eyebrow">Onde Estamos</span>
+        <span class="link-title">Endereço do Escritório</span>
+      </div>
+      <div class="link-thumb"><img src="assets/gallery-espera.jpg" alt="Espaço de espera do escritório da BGL Advogados" class="link-thumb-img" loading="lazy"></div>
+    </a>
+
+    <a class="link-card" href="https://www.bgladvogados.com.br/publicacoes/" target="_blank" rel="noopener">
+      <div class="link-text">
+        <span class="link-eyebrow">Conteúdo</span>
+        <span class="link-title">Artigos Publicados</span>
+      </div>
+      <div class="link-thumb"><img src="assets/gallery-titulos.jpg" alt="Parede com diplomas dos sócios da BGL Advogados" class="link-thumb-img" loading="lazy"></div>
+    </a>
+
+    <a class="link-card" href="https://www.bgladvogados.com.br/" target="_blank" rel="noopener">
+      <div class="link-text">
+        <span class="link-eyebrow">Conheça</span>
+        <span class="link-title">Site do Escritório</span>
+      </div>
+      <div class="link-thumb"><img src="assets/logo-mark.png" alt="BGL Advogados" class="link-thumb-img logo" loading="lazy"></div>
+    </a>
+
+  </div>
+
+  <footer>
+    <div class="signature">Brito Galvão &amp; Lopo Advogados</div>
+    <div class="copyright">© 2026 BGL Advogados. Todos os direitos reservados.</div>
+  </footer>
+
+</div>
+
+
+<!-- GA4: evento whatsapp_click (lógica única em js/wa-tracking.js) -->
+<script src="js/wa-tracking.js" defer></script>
+</body>
+</html>
