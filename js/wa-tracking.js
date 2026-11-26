@@ -35,6 +35,7 @@
     if (el.closest(".cta-band")) return "cta_final";
     if (el.closest(".section-actions")) return "cta_secao";
     if (el.closest("#contato")) return "contato";
+    if (el.closest(".article-wa")) return "meio_artigo";
     if (el.closest(".article-body")) return "artigo";
     if (el.closest("footer")) return "footer";
     return "conteudo";

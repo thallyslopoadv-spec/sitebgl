@@ -2063,3 +2063,14 @@ html:not(.js) .pub-filter { display: none; }
 
 /* link "Ver perfil" nos cards de sócios da home */
 .partner__perfil { display: inline-block; font-size: .88rem; font-weight: 600; color: var(--navy); margin-right: 1rem; }
+
+/* CTA de WhatsApp no meio do artigo: no celular o botão do topo fica
+   dentro do menu recolhido e o único CTA visível era o do fim da página. */
+.article-wa {
+  margin: 2.6em 0; padding: 1.4rem 1.5rem;
+  border-left: 3px solid var(--navy); background: rgba(10, 25, 47, .045);
+  border-radius: 4px;
+}
+.article-body .article-wa p { text-align: left; hyphens: manual; margin: 0 0 1rem; font-size: 1.05rem; line-height: 1.6; }
+.article-body .article-wa p::first-letter { font-size: inherit; float: none; padding: 0; color: inherit; font-family: inherit; }
+.article-wa .btn { width: fit-content; }
