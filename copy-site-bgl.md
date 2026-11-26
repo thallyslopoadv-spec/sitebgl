@@ -179,7 +179,7 @@ Advogado com atuação nas áreas empresarial, trabalhista e contratual, com foc
 
 **CTA:** Consultar avaliações no Google
 
-**Rodapé da seção:** BGL Advogados · OAB/GO 9.952 · Goiânia/GO
+**Rodapé da seção:** BGL Advogados - Escritório inscrito na OAB/GO n. 9.952 · Goiânia/GO
 
 ---
 
@@ -189,6 +189,6 @@ Advogado com atuação nas áreas empresarial, trabalhista e contratual, com foc
 
 **Navegação:** Início · Áreas de Atuação · Equipe · Publicações · Contato
 
-**Copyright:** © 2025 BGL Advogados · OAB/GO 9.952. Todos os direitos reservados.
+**Copyright:** © 2025 BGL Advogados - Escritório inscrito na OAB/GO n. 9.952. Todos os direitos reservados.
 
 **Aviso OAB:** Este site tem caráter meramente informativo e não constitui publicidade, propaganda ou captação de clientela vedada pelo Código de Ética da OAB. As informações aqui contidas não substituem a consulta jurídica.
