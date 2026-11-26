@@ -294,6 +294,8 @@
   gtag('js', new Date());
   /* Tráfego interno: abrir o site uma vez com ?interno=1 marca este navegador (?interno=0 desmarca). */
   try { var bglQ = location.search.match(/[?&]interno=([01])/); if (bglQ) localStorage.setItem('bgl_interno', bglQ[1]); if (localStorage.getItem('bgl_interno') === '1') gtag('set', { traffic_type: 'internal' }); } catch (e) {}
+  /* Fora do domínio oficial (localhost, testes) nada é enviado ao GA4. */
+  if (!/(^|\.)bgladvogados\.com\.br$/.test(location.hostname)) window['ga-disable-G-92B1N6DHGM'] = true;
   gtag('config', 'G-92B1N6DHGM');
 </script>
 </head>
